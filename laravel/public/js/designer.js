@@ -2,15 +2,31 @@ var canvas;
 var currentTool = 'text';
 var zoom = 1;
 var isGuideVisible = true;
-var copiedObjects = [];
+var copiedObjectJson = null;
+
+// Undo/Redo history
+var historyStack = [];
+var historyIndex = -1;
+var isRestoring = false;
 
 document.addEventListener('DOMContentLoaded', function() {
     canvas = new fabric.Canvas('designCanvas', {
         width: 600,
         height: 360,
         backgroundColor: '#ffffff',
-        preserveObjectStacking: true,
-        stateful: true
+        preserveObjectStacking: true
+    });
+
+    canvas.on('object:modified', function() {
+        if (!isRestoring) saveState();
+    });
+
+    canvas.on('object:added', function(e) {
+        if (!isRestoring && !e.e) saveState();
+    });
+
+    canvas.on('object:removed', function() {
+        if (!isRestoring) saveState();
     });
 
     canvas.on('object:selected', function(e) {
@@ -26,10 +42,6 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCoords(e.target);
     });
 
-    canvas.on('after:render', function() {
-        canvas.renderAll();
-    });
-
     initToolbar();
     initTools();
     initPanels();
@@ -37,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initEventListeners();
 
     addDefaultContent();
+    saveState();
 });
 
 function addDefaultContent() {
@@ -62,142 +75,149 @@ function addDefaultContent() {
     canvas.add(companyText);
 }
 
-function initToolbar() {
-    document.getElementById('btnUndo').addEventListener('click', function() {
-        if (canvas.getActiveObject()) {
-            canvas.getActiveObject().undo();
-        } else {
-            canvas.undo();
-        }
-        canvas.renderAll();
-    });
+// ====== Undo / Redo ======
+function saveState() {
+    var json = JSON.stringify(canvas.toJSON(['id']));
+    if (historyIndex < historyStack.length - 1) {
+        historyStack = historyStack.slice(0, historyIndex + 1);
+    }
+    historyStack.push(json);
+    if (historyStack.length > 100) historyStack.shift();
+    historyIndex = historyStack.length - 1;
+    document.getElementById('designStatus').textContent = '未保存';
+}
 
-    document.getElementById('btnRedo').addEventListener('click', function() {
-        if (canvas.getActiveObject()) {
-            canvas.getActiveObject().redo();
-        } else {
-            canvas.redo();
-        }
-        canvas.renderAll();
-    });
+function undo() {
+    if (historyIndex > 0) {
+        historyIndex--;
+        isRestoring = true;
+        canvas.loadFromJSON(JSON.parse(historyStack[historyIndex]), function() {
+            canvas.renderAll();
+            isRestoring = false;
+            updateCoords(canvas.getActiveObject());
+        });
+        document.getElementById('designStatus').textContent = '未保存';
+    }
+}
+
+function redo() {
+    if (historyIndex < historyStack.length - 1) {
+        historyIndex++;
+        isRestoring = true;
+        canvas.loadFromJSON(JSON.parse(historyStack[historyIndex]), function() {
+            canvas.renderAll();
+            isRestoring = false;
+            updateCoords(canvas.getActiveObject());
+        });
+        document.getElementById('designStatus').textContent = '未保存';
+    }
+}
+
+// ====== Toolbar ======
+function initToolbar() {
+    document.getElementById('btnUndo').addEventListener('click', undo);
+    document.getElementById('btnRedo').addEventListener('click', redo);
 
     document.getElementById('btnCopy').addEventListener('click', function() {
-        var activeObject = canvas.getActiveObject();
-        if (activeObject) {
-            copiedObjects = [JSON.stringify(activeObject.toJSON())];
-        } else if (canvas.getActiveObjects().length > 0) {
-            copiedObjects = canvas.getActiveObjects().map(function(obj) {
-                return JSON.stringify(obj.toJSON());
+        var obj = canvas.getActiveObject();
+        if (obj) {
+            obj.clone(function(cloned) {
+                copiedObjectJson = cloned.toJSON();
             });
         }
     });
 
     document.getElementById('btnCut').addEventListener('click', function() {
-        var activeObject = canvas.getActiveObject();
-        if (activeObject) {
-            copiedObjects = [JSON.stringify(activeObject.toJSON())];
-            canvas.remove(activeObject);
-            document.getElementById('designStatus').textContent = '未保存';
+        var obj = canvas.getActiveObject();
+        if (obj) {
+            obj.clone(function(cloned) {
+                copiedObjectJson = cloned.toJSON();
+            });
+            canvas.remove(obj);
         }
     });
 
     document.getElementById('btnPaste').addEventListener('click', function() {
-        if (copiedObjects.length > 0) {
-            copiedObjects.forEach(function(objJson) {
-                fabric.loadFromJSON(objJson, function(o) {
-                    o.set({
-                        left: o.left + 20,
-                        top: o.top + 20
-                    });
-                    canvas.add(o);
-                    canvas.renderAll();
-                });
+        if (copiedObjectJson) {
+            fabric.util.enlivenObjects([copiedObjectJson], function(objects) {
+                var obj = objects[0];
+                obj.set({ left: (obj.left || 50) + 30, top: (obj.top || 50) + 30 });
+                canvas.add(obj);
+                canvas.setActiveObject(obj);
+                canvas.renderAll();
             });
-            document.getElementById('designStatus').textContent = '未保存';
         }
     });
 
     document.getElementById('btnDelete').addEventListener('click', function() {
-        var activeObject = canvas.getActiveObject();
-        if (activeObject) {
-            canvas.remove(activeObject);
+        var obj = canvas.getActiveObject();
+        if (obj) {
+            canvas.remove(obj);
+            canvas.discardActiveObject().renderAll();
             document.getElementById('designStatus').textContent = '未保存';
         }
     });
 
     document.getElementById('btnBringToFront').addEventListener('click', function() {
-        var activeObject = canvas.getActiveObject();
-        if (activeObject) {
-            activeObject.bringToFront();
+        var obj = canvas.getActiveObject();
+        if (obj) {
+            obj.bringToFront();
             canvas.renderAll();
         }
     });
 
     document.getElementById('btnSendToBack').addEventListener('click', function() {
-        var activeObject = canvas.getActiveObject();
-        if (activeObject) {
-            activeObject.sendToBack();
+        var obj = canvas.getActiveObject();
+        if (obj) {
+            obj.sendToBack();
             canvas.renderAll();
         }
     });
 
     document.getElementById('btnGroup').addEventListener('click', function() {
-        var activeObjects = canvas.getActiveObjects();
-        if (activeObjects.length > 1) {
-            var group = new fabric.Group(activeObjects);
+        var objs = canvas.getActiveObjects();
+        if (objs.length > 1) {
+            var group = new fabric.Group(objs, { id: 'group' });
+            canvas.discardActiveObject();
+            objs.forEach(function(o) { canvas.remove(o); });
             canvas.add(group);
             canvas.setActiveObject(group);
             canvas.renderAll();
-            document.getElementById('designStatus').textContent = '未保存';
         }
     });
 
     document.getElementById('btnUngroup').addEventListener('click', function() {
-        var activeObject = canvas.getActiveObject();
-        if (activeObject && activeObject.type === 'group') {
-            activeObject.destroy();
+        var obj = canvas.getActiveObject();
+        if (obj && obj.type === 'group') {
+            var items = obj._objects;
+            obj.destroy();
+            items.forEach(function(item) { canvas.add(item); });
             canvas.renderAll();
-            document.getElementById('designStatus').textContent = '未保存';
         }
     });
 
     document.getElementById('btnFlipH').addEventListener('click', function() {
-        var activeObject = canvas.getActiveObject();
-        if (activeObject) {
-            activeObject.set('flipX', !activeObject.flipX);
-            canvas.renderAll();
-            document.getElementById('designStatus').textContent = '未保存';
-        }
+        var obj = canvas.getActiveObject();
+        if (obj) { obj.set('flipX', !obj.flipX); canvas.renderAll(); }
     });
 
     document.getElementById('btnFlipV').addEventListener('click', function() {
-        var activeObject = canvas.getActiveObject();
-        if (activeObject) {
-            activeObject.set('flipY', !activeObject.flipY);
-            canvas.renderAll();
-            document.getElementById('designStatus').textContent = '未保存';
-        }
+        var obj = canvas.getActiveObject();
+        if (obj) { obj.set('flipY', !obj.flipY); canvas.renderAll(); }
     });
 
     document.getElementById('btnRotateL').addEventListener('click', function() {
-        var activeObject = canvas.getActiveObject();
-        if (activeObject) {
-            activeObject.set('angle', activeObject.angle - 15);
-            canvas.renderAll();
-            document.getElementById('designStatus').textContent = '未保存';
-        }
+        var obj = canvas.getActiveObject();
+        if (obj) { obj.set('angle', (obj.angle || 0) - 15); canvas.renderAll(); }
     });
 
     document.getElementById('btnRotateR').addEventListener('click', function() {
-        var activeObject = canvas.getActiveObject();
-        if (activeObject) {
-            activeObject.set('angle', activeObject.angle + 15);
-            canvas.renderAll();
-            document.getElementById('designStatus').textContent = '未保存';
-        }
+        var obj = canvas.getActiveObject();
+        if (obj) { obj.set('angle', (obj.angle || 0) + 15); canvas.renderAll(); }
     });
 }
 
+// ====== Tools ======
 function initTools() {
     var toolButtons = document.querySelectorAll('.tool-btn');
     toolButtons.forEach(function(btn) {
@@ -210,126 +230,112 @@ function initTools() {
     });
 }
 
+// ====== Panels ======
 function initPanels() {
+    // Font size slider
     document.getElementById('fontSize').addEventListener('input', function() {
         document.getElementById('fontSizeValue').textContent = this.value;
         updateSelectedText();
     });
-
     document.getElementById('fontFamily').addEventListener('change', updateSelectedText);
     document.getElementById('textColor').addEventListener('change', updateSelectedText);
 
+    // Color presets
     document.querySelectorAll('.color-btn').forEach(function(btn) {
         btn.addEventListener('click', function() {
             var color = this.dataset.color;
-            var activeInput = document.querySelector('.color-picker input[type="color"]:focus') ||
-                            document.getElementById('textColor');
-            activeInput.value = color;
+            var textColor = document.getElementById('textColor');
+            textColor.value = color;
             updateSelectedText();
+
+            var bgColor = document.getElementById('bgColor');
+            if (bgColor) bgColor.value = color;
         });
     });
 
+    // Text alignment
     document.querySelectorAll('.align-btn').forEach(function(btn) {
         btn.addEventListener('click', function() {
             document.querySelectorAll('.align-btn').forEach(function(b) { b.classList.remove('active'); });
             this.classList.add('active');
-            var align = this.dataset.align;
-            var activeObject = canvas.getActiveObject();
-            if (activeObject && activeObject.type === 'textbox') {
-                activeObject.set('textAlign', align);
+            var obj = canvas.getActiveObject();
+            if (obj && (obj.type === 'textbox' || obj.type === 'i-text')) {
+                obj.set('textAlign', this.dataset.align);
                 canvas.renderAll();
-                document.getElementById('designStatus').textContent = '未保存';
             }
         });
     });
 
+    // Shapes
     document.querySelectorAll('.shape-btn').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            var shapeType = this.dataset.shape;
-            addShape(shapeType);
-        });
+        btn.addEventListener('click', function() { addShape(this.dataset.shape); });
     });
-
     document.getElementById('shapeFill').addEventListener('change', updateSelectedShape);
     document.getElementById('shapeStroke').addEventListener('change', updateSelectedShape);
     document.getElementById('shapeStrokeWidth').addEventListener('input', updateSelectedShape);
 
+    // Image upload
     document.getElementById('imageUpload').addEventListener('change', function(e) {
-        var file = e.target.files[0];
-        if (file) {
-            uploadImage(file);
-        }
+        if (e.target.files[0]) uploadImage(e.target.files[0]);
     });
-
     document.getElementById('imageOpacity').addEventListener('input', function() {
-        var activeObject = canvas.getActiveObject();
-        if (activeObject && activeObject.type === 'image') {
-            activeObject.set('opacity', this.value / 100);
+        var obj = canvas.getActiveObject();
+        if (obj && obj.type === 'image') {
+            obj.set('opacity', this.value / 100);
             canvas.renderAll();
-            document.getElementById('designStatus').textContent = '未保存';
         }
     });
 
+    // Background
     document.getElementById('bgColor').addEventListener('change', function() {
-        canvas.setBackgroundColor(this.value, function() {
-            canvas.renderAll();
-            document.getElementById('designStatus').textContent = '未保存';
-        });
+        canvas.setBackgroundColor(this.value, function() { canvas.renderAll(); });
     });
-
     document.getElementById('bgImageUpload').addEventListener('change', function(e) {
-        var file = e.target.files[0];
-        if (file) {
-            setBackgroundImage(file);
-        }
+        if (e.target.files[0]) setBackgroundImage(e.target.files[0]);
     });
 
+    // Templates
     document.querySelectorAll('.template-item').forEach(function(item) {
         item.addEventListener('click', function() {
-            var width = parseFloat(this.dataset.width);
-            var height = parseFloat(this.dataset.height);
-            var bg = this.dataset.bg;
-            loadTemplate(width, height, bg);
+            loadTemplate(
+                parseFloat(this.dataset.width),
+                parseFloat(this.dataset.height),
+                this.dataset.bg
+            );
         });
     });
 }
 
+// ====== Canvas Controls ======
 function initCanvasControls() {
     document.getElementById('zoomIn').addEventListener('click', function() {
-        zoom += 0.1;
+        zoom = Math.min(3, zoom + 0.1);
         updateZoom();
     });
-
     document.getElementById('zoomOut').addEventListener('click', function() {
-        zoom = Math.max(0.5, zoom - 0.1);
+        zoom = Math.max(0.3, zoom - 0.1);
         updateZoom();
     });
-
     document.getElementById('zoomReset').addEventListener('click', function() {
         zoom = 1;
         updateZoom();
     });
-
     document.getElementById('toggleGuide').addEventListener('click', function() {
         isGuideVisible = !isGuideVisible;
         document.getElementById('cuttingGuide').style.display = isGuideVisible ? 'block' : 'none';
     });
 }
 
+// ====== Event Listeners ======
 function initEventListeners() {
     canvas.on('mouse:move', function(e) {
         if (e.pointer) {
-            var pointer = canvas.getPointer(e.e);
-            document.getElementById('coordDisplay').textContent = 
-                'X: ' + Math.round(pointer.x) + ', Y: ' + Math.round(pointer.y);
+            document.getElementById('coordDisplay').textContent =
+                'X: ' + Math.round(e.pointer.x) + ', Y: ' + Math.round(e.pointer.y);
         }
     });
 
-    canvas.on('object:added', function() {
-        document.getElementById('designStatus').textContent = '未保存';
-    });
-
-    canvas.on('object:removed', function() {
+    canvas.on('object:modified', function() {
         document.getElementById('designStatus').textContent = '未保存';
     });
 
@@ -338,152 +344,134 @@ function initEventListeners() {
     document.getElementById('btnOrder').addEventListener('click', orderDesign);
 }
 
+// ====== Zoom ======
 function updateZoom() {
     canvas.setZoom(zoom);
     document.getElementById('zoomLevel').textContent = Math.round(zoom * 100) + '%';
 }
 
+// ====== Panel Show ======
 function showPanel(panelId) {
-    document.querySelectorAll('.panel-section').forEach(function(panel) {
-        panel.style.display = 'none';
-    });
-    document.getElementById(panelId).style.display = 'block';
+    document.querySelectorAll('.panel-section').forEach(function(p) { p.style.display = 'none'; });
+    var el = document.getElementById(panelId);
+    if (el) el.style.display = 'block';
 }
 
+// ====== Shapes ======
 function addShape(type) {
-    var centerX = canvas.width / 2;
-    var centerY = canvas.height / 2;
+    var cx = canvas.width / 2, cy = canvas.height / 2;
+    var fill = document.getElementById('shapeFill').value;
+    var stroke = document.getElementById('shapeStroke').value;
+    var sw = parseInt(document.getElementById('shapeStrokeWidth').value) || 1;
     var shape;
 
     switch(type) {
         case 'rect':
-            shape = new fabric.Rect({
-                left: centerX - 50,
-                top: centerY - 30,
-                width: 100,
-                height: 60,
-                fill: document.getElementById('shapeFill').value,
-                stroke: document.getElementById('shapeStroke').value,
-                strokeWidth: parseInt(document.getElementById('shapeStrokeWidth').value)
-            });
+            shape = new fabric.Rect({ left: cx - 50, top: cy - 30, width: 100, height: 60, fill: fill, stroke: stroke, strokeWidth: sw });
             break;
         case 'circle':
-            shape = new fabric.Circle({
-                left: centerX - 40,
-                top: centerY - 40,
-                radius: 40,
-                fill: document.getElementById('shapeFill').value,
-                stroke: document.getElementById('shapeStroke').value,
-                strokeWidth: parseInt(document.getElementById('shapeStrokeWidth').value)
-            });
+            shape = new fabric.Circle({ left: cx - 40, top: cy - 40, radius: 40, fill: fill, stroke: stroke, strokeWidth: sw });
             break;
         case 'triangle':
-            shape = new fabric.Triangle({
-                left: centerX - 50,
-                top: centerY - 40,
-                width: 100,
-                height: 80,
-                fill: document.getElementById('shapeFill').value,
-                stroke: document.getElementById('shapeStroke').value,
-                strokeWidth: parseInt(document.getElementById('shapeStrokeWidth').value)
-            });
+            shape = new fabric.Triangle({ left: cx - 50, top: cy - 40, width: 100, height: 80, fill: fill, stroke: stroke, strokeWidth: sw });
             break;
         case 'line':
-            shape = new fabric.Line([centerX - 50, centerY, centerX + 50, centerY], {
-                stroke: document.getElementById('shapeStroke').value,
-                strokeWidth: parseInt(document.getElementById('shapeStrokeWidth').value)
-            });
+            shape = new fabric.Line([cx - 50, cy, cx + 50, cy], { stroke: stroke, strokeWidth: sw });
             break;
     }
 
     if (shape) {
         canvas.add(shape);
         canvas.setActiveObject(shape);
-        document.getElementById('designStatus').textContent = '未保存';
+        canvas.renderAll();
     }
 }
 
+// ====== Image ======
 function uploadImage(file) {
     var reader = new FileReader();
     reader.onload = function(e) {
         fabric.Image.fromURL(e.target.result, function(img) {
-            img.scaleToWidth(200);
+            if (img.width > 200) img.scaleToWidth(200);
+            if (img.height > 200) img.scaleToHeight(200);
             img.set({
-                left: (canvas.width - img.width) / 2,
-                top: (canvas.height - img.height) / 2
+                left: (canvas.width - img.getScaledWidth()) / 2,
+                top: (canvas.height - img.getScaledHeight()) / 2
             });
             canvas.add(img);
             canvas.setActiveObject(img);
-            document.getElementById('designStatus').textContent = '未保存';
+            canvas.renderAll();
         });
     };
     reader.readAsDataURL(file);
 }
 
+// ====== Background ======
 function setBackgroundImage(file) {
     var reader = new FileReader();
     reader.onload = function(e) {
         fabric.Image.fromURL(e.target.result, function(img) {
-            canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
+            canvas.setBackgroundImage(img, function() {
+                canvas.renderAll();
+            }, {
                 scaleX: canvas.width / img.width,
                 scaleY: canvas.height / img.height
             });
-            document.getElementById('designStatus').textContent = '未保存';
         });
     };
     reader.readAsDataURL(file);
 }
 
+// ====== Template ======
 function loadTemplate(width, height, bgColor) {
     canvas.clear();
-    canvas.setBackgroundColor(bgColor, function() {
-        canvas.renderAll();
-    });
-    
+    canvas.setBackgroundColor(bgColor || '#ffffff', function() { canvas.renderAll(); });
+
     var mmToPx = 6.67;
-    var newWidth = width * mmToPx;
-    var newHeight = height * mmToPx;
-    
+    var newWidth = Math.round(width * mmToPx);
+    var newHeight = Math.round(height * mmToPx);
     canvas.setWidth(newWidth);
     canvas.setHeight(newHeight);
-    
+
     document.getElementById('canvasSize').textContent = width + 'mm x ' + height + 'mm';
-    document.getElementById('designStatus').textContent = '未保存';
-    
+
     zoom = 1;
     updateZoom();
+    document.getElementById('designStatus').textContent = '未保存';
+    historyStack = [];
+    historyIndex = -1;
+    addDefaultContent();
+    canvas.renderAll();
 }
 
+// ====== Update Selected Object ======
 function updateSelectedText() {
-    var activeObject = canvas.getActiveObject();
-    if (activeObject && (activeObject.type === 'textbox' || activeObject.type === 'text')) {
-        activeObject.set({
-            fontSize: parseInt(document.getElementById('fontSize').value),
-            fontFamily: document.getElementById('fontFamily').value,
-            fill: document.getElementById('textColor').value
+    var obj = canvas.getActiveObject();
+    if (obj && (obj.type === 'textbox' || obj.type === 'i-text' || obj.type === 'text')) {
+        obj.set({
+            fontSize: parseInt(document.getElementById('fontSize').value) || 24,
+            fontFamily: document.getElementById('fontFamily').value || 'Microsoft YaHei',
+            fill: document.getElementById('textColor').value || '#333333'
         });
         canvas.renderAll();
-        document.getElementById('designStatus').textContent = '未保存';
     }
 }
 
 function updateSelectedShape() {
-    var activeObject = canvas.getActiveObject();
-    if (activeObject && activeObject.type !== 'text' && activeObject.type !== 'textbox' && activeObject.type !== 'image') {
-        activeObject.set({
+    var obj = canvas.getActiveObject();
+    if (obj && !['text', 'textbox', 'i-text', 'image'].includes(obj.type)) {
+        obj.set({
             fill: document.getElementById('shapeFill').value,
             stroke: document.getElementById('shapeStroke').value,
-            strokeWidth: parseInt(document.getElementById('shapeStrokeWidth').value)
+            strokeWidth: parseInt(document.getElementById('shapeStrokeWidth').value) || 1
         });
         canvas.renderAll();
-        document.getElementById('designStatus').textContent = '未保存';
     }
 }
 
 function updateRightPanel(object) {
     if (!object) return;
-
-    if (object.type === 'textbox' || object.type === 'text') {
+    if (['textbox', 'i-text', 'text'].includes(object.type)) {
         showPanel('textPanel');
         document.getElementById('fontSize').value = object.fontSize || 24;
         document.getElementById('fontSizeValue').textContent = object.fontSize || 24;
@@ -491,129 +479,123 @@ function updateRightPanel(object) {
         document.getElementById('textColor').value = object.fill || '#333333';
     } else if (object.type === 'image') {
         showPanel('imagePanel');
-        document.getElementById('imageOpacity').value = Math.round(object.opacity * 100);
+        document.getElementById('imageOpacity').value = Math.round((object.opacity || 1) * 100);
+    } else {
+        showPanel('shapePanel');
     }
 }
 
 function updateCoords(object) {
     if (object) {
-        document.getElementById('coordDisplay').textContent = 
-            'X: ' + Math.round(object.left) + ', Y: ' + Math.round(object.top) +
-            ' | W: ' + Math.round(object.width * object.scaleX) + ', H: ' + Math.round(object.height * object.scaleY);
+        document.getElementById('coordDisplay').textContent =
+            'X: ' + Math.round(object.left || 0) + ', Y: ' + Math.round(object.top || 0) +
+            ' | W: ' + Math.round((object.width || 0) * (object.scaleX || 1)) +
+            ', H: ' + Math.round((object.height || 0) * (object.scaleY || 1));
     }
 }
 
+// ====== Preview ======
 function previewDesign() {
-    var dataURL = canvas.toDataURL({
-        format: 'png',
-        quality: 1
-    });
-    
-    var previewWindow = window.open('', '_blank');
-    previewWindow.document.write('<html><head><title>设计预览</title></head>');
-    previewWindow.document.write('<body style="margin:0;display:flex;justify-content:center;align-items:center;background:#f5f5f5;height:100vh;">');
-    previewWindow.document.write('<img src="' + dataURL + '" style="max-width:90%;max-height:90%;box-shadow:0 4px 20px rgba(0,0,0,0.2);">');
-    previewWindow.document.write('</body></html>');
-    previewWindow.document.close();
+    var dataURL = canvas.toDataURL({ format: 'png', quality: 1 });
+    var w = window.open('', '_blank');
+    if (!w) { alert('请允许弹出窗口以预览设计'); return; }
+    w.document.write('<html><head><title>设计预览 - GoPrint</title>');
+    w.document.write('<style>body{margin:0;display:flex;justify-content:center;align-items:center;background:#f5f5f5;min-height:100vh;font-family:sans-serif;}</style></head>');
+    w.document.write('<body><img src="' + dataURL + '" style="max-width:95%;max-height:95%;box-shadow:0 4px 20px rgba(0,0,0,0.2);border-radius:4px;"></body></html>');
+    w.document.close();
 }
 
+// ====== Save ======
 function saveDesign() {
     var data = canvas.toJSON();
-    var dataStr = JSON.stringify(data, null, 2);
-    
-    var blob = new Blob([dataStr], { type: 'application/json' });
+    var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
     a.href = url;
-    a.download = 'design_' + Date.now() + '.json';
+    a.download = 'goprint_design_' + Date.now() + '.json';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    
     document.getElementById('designStatus').textContent = '已保存';
-    setTimeout(function() {
-        document.getElementById('designStatus').textContent = '未保存';
-    }, 2000);
+    setTimeout(function() { document.getElementById('designStatus').textContent = '未保存'; }, 2000);
 }
 
+// ====== Order ======
 function orderDesign() {
     var designData = canvas.toJSON();
     var productId = document.getElementById('productId').value;
-    
+    var csrfToken = document.querySelector('meta[name="csrf-token"]');
+    if (!csrfToken) { alert('CSRF token missing, please refresh the page'); return; }
+
     var formData = new FormData();
     formData.append('design_data', JSON.stringify(designData));
     formData.append('product_id', productId);
-    
+
     fetch('/designer/export', {
         method: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
-        },
+        headers: { 'X-CSRF-TOKEN': csrfToken.content },
         body: formData
     })
-    .then(response => response.json())
-    .then(data => {
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
         if (data.success) {
             alert('设计已保存，正在跳转到下单页面...');
             window.location.href = '/order/create';
+        } else {
+            alert('保存失败：' + (data.message || '未知错误'));
         }
     })
-    .catch(error => {
-        console.error('保存失败:', error);
-        alert('保存失败，请重试');
+    .catch(function(err) {
+        console.error('Save error:', err);
+        alert('保存失败，请检查网络连接后重试');
     });
 }
 
+// ====== Keyboard Shortcuts ======
 document.addEventListener('keydown', function(e) {
-    if (e.key === 'Delete' || e.key === 'Backspace') {
-        var activeObject = canvas.getActiveObject();
-        if (activeObject) {
-            canvas.remove(activeObject);
-            document.getElementById('designStatus').textContent = '未保存';
+    // Delete
+    if ((e.key === 'Delete' || e.key === 'Backspace') && !e.target.closest('input, select, textarea')) {
+        var obj = canvas.getActiveObject();
+        if (obj) {
+            canvas.remove(obj);
+            canvas.discardActiveObject().renderAll();
+            e.preventDefault();
         }
     }
-    
-    if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
+
+    // Ctrl+Z undo
+    if ((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey) {
         e.preventDefault();
-        if (canvas.getActiveObject()) {
-            canvas.getActiveObject().undo();
-        } else {
-            canvas.undo();
+        undo();
+    }
+
+    // Ctrl+Y or Ctrl+Shift+Z redo
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'y' || (e.key === 'z' && e.shiftKey))) {
+        e.preventDefault();
+        redo();
+    }
+
+    // Ctrl+C copy
+    if ((e.ctrlKey || e.metaKey) && e.key === 'c' && !e.target.closest('input, textarea')) {
+        e.preventDefault();
+        var obj = canvas.getActiveObject();
+        if (obj) {
+            obj.clone(function(cloned) { copiedObjectJson = cloned.toJSON(); });
         }
     }
-    
-    if ((e.ctrlKey || e.metaKey) && e.key === 'y') {
+
+    // Ctrl+V paste
+    if ((e.ctrlKey || e.metaKey) && e.key === 'v' && !e.target.closest('input, textarea')) {
         e.preventDefault();
-        if (canvas.getActiveObject()) {
-            canvas.getActiveObject().redo();
-        } else {
-            canvas.redo();
-        }
-    }
-    
-    if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
-        e.preventDefault();
-        var activeObject = canvas.getActiveObject();
-        if (activeObject) {
-            copiedObjects = [JSON.stringify(activeObject.toJSON())];
-        }
-    }
-    
-    if ((e.ctrlKey || e.metaKey) && e.key === 'v') {
-        e.preventDefault();
-        if (copiedObjects.length > 0) {
-            copiedObjects.forEach(function(objJson) {
-                fabric.loadFromJSON(objJson, function(o) {
-                    o.set({
-                        left: o.left + 20,
-                        top: o.top + 20
-                    });
-                    canvas.add(o);
-                    canvas.renderAll();
-                });
+        if (copiedObjectJson) {
+            fabric.util.enlivenObjects([copiedObjectJson], function(objects) {
+                var obj = objects[0];
+                obj.set({ left: (obj.left || 50) + 30, top: (obj.top || 50) + 30 });
+                canvas.add(obj);
+                canvas.setActiveObject(obj);
+                canvas.renderAll();
             });
-            document.getElementById('designStatus').textContent = '未保存';
         }
     }
 });
