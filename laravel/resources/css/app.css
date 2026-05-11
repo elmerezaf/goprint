@@ -1,0 +1,7 @@
+/* 只使用 Tailwind utilities，不使用 base 和 components 以避免覆盖 Bootstrap */
+@tailwind utilities;
+
+/* 还原 Bootstrap 的 .collapse 行為（Tailwind 的 collapse utility 會覆蓋） */
+.collapse:not(.show) {
+    display: none;
+}

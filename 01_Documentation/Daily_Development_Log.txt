@@ -1,0 +1,457 @@
+Project Name: Go Print Hong Kong Local Printing E-commerce Platform
+Developer: Elmer So
+Current Date: 2026-05-09
+
+----------------------------------------
+Phase 1: Local Server Environment Setup
+----------------------------------------
+Tasks Completed
+Manually downloaded and installed XAMPP v8.1.25 local web server environment
+Attempted to start Apache core web service
+Encountered Apache unexpected shutdown error
+Diagnosed root cause: Windows system occupied default port 80 / SSL port 443
+Manually edited Apache core configuration file httpd.conf
+Changed default HTTP listening port from 80 to 8888
+Manually edited Apache SSL configuration file httpd-ssl.conf
+Changed default HTTPS listening port from 443 to 8443
+Updated VirtualHost and ServerName related parameters
+Restarted XAMPP with administrator privileges to fix permission restrictions
+Successfully stabilized Apache and MySQL background services
+Completed full local development environment deployment
+
+Technical Competencies Demonstrated
+- Local web server environment deployment
+- Apache service error troubleshooting
+- Manual server configuration file editing
+- System port conflict detection and resolution
+- SSL virtual host parameter adjustment
+- Windows system permission configuration
+- Basic web server operation and maintenance
+
+----------------------------------------
+Phase 2: MySQL Database Configuration & Table Creation
+----------------------------------------
+Tasks Completed
+Created exclusive goprint_db database through phpMyAdmin
+Encountered database connection refused error during access
+Diagnosed abnormal response of MySQL background service
+Manually stopped and restarted MySQL module to restore connection
+Successfully accessed phpMyAdmin with stable database connection
+Written custom SQL statements to create product, customer and order data tables
+Executed all database scripts without running errors
+Checked table structure and confirmed normal database operation
+
+Technical Competencies Demonstrated
+- MySQL service monitoring and recovery
+- Database connection failure troubleshooting
+- Custom SQL statement writing
+- Relational database structural design
+- E-commerce business data modelling
+
+----------------------------------------
+Phase 3: Git Version Control Initialization
+----------------------------------------
+Tasks Completed
+Installed and configured Git locally
+Initialized local repository for the project folder
+Set global developer name and mailbox information
+Added all project files to version control
+Completed initial unified submission of project resources
+Checked operation records through log commands
+
+Technical Competencies Demonstrated
+- Git environment installation and setup
+- Local repository initialization
+- Project file version management
+- Standard code submission specification
+
+----------------------------------------
+Phase 4: Manual WordPress CMS Installation
+----------------------------------------
+Tasks Completed
+Adjusted local directory structure to solve path nesting conflicts
+Installed WordPress manually with official source code
+Connected the CMS system to the built goprint_db database
+Completed backend administrator account registration
+Finished basic site initialization settings
+Successfully logged into WordPress management dashboard
+
+Technical Competencies Demonstrated
+- Local website file arrangement
+- Directory structure planning
+- WordPress database connection configuration
+- Manual CMS deployment and setup
+
+----------------------------------------
+Phase 5: Custom WordPress Child Theme Development
+----------------------------------------
+Tasks Completed
+1. Created independent child theme folder under the WordPress theme directory
+2. Written standard style.css configuration file with brand style settings
+3. Edited functions.php to register parent theme style loading rules
+4. Added custom theme thumbnail to complete commercial layout
+5. Activated custom child theme in the WordPress backend
+6. Submitted theme development files to local Git repository
+
+Technical Competencies Demonstrated
+- WordPress child theme independent development
+- CSS style writing and brand customization
+- Theme function hook configuration
+- Front-end style resource loading
+- Theme deployment and online activation
+- Iterative version control management
+
+----------------------------------------
+Phase 6: Custom Static Homepage Development
+----------------------------------------
+Tasks Completed
+1. Created front-page.php custom template file
+2. Designed homepage layout including banner display and service modules
+3. Built independent static home page through WordPress backend
+4. Modified reading settings to set custom page as the front page
+5. Verified template rendering effect and overall style display
+6. Saved modified files and completed version submission
+
+Technical Competencies Demonstrated
+- WordPress custom template development
+- HTML and CSS layout design
+- Static page configuration and setting
+- Theme file standard naming
+- Front-end layout customization
+
+----------------------------------------
+Phase 7: Navigation Menu & Service Page Production
+----------------------------------------
+Tasks Completed
+1. Registered global navigation menu through WordPress native interface
+2. Added menu calling code in custom homepage template
+3. Created independent service content page in the backend
+4. Developed exclusive page template with grid layout structure
+5. Tested front-end access and page display effect
+6. Cleaned default redundant pages to optimize project structure
+
+Technical Competencies Demonstrated
+- WordPress menu function development
+- Grid layout design and writing
+- Independent page template customization
+- Back-end content management
+- Child theme in-depth modification
+
+----------------------------------------
+Phase 8: Contact Page & HTML Form Development
+----------------------------------------
+Tasks Completed
+1. Developed dedicated contact page template
+2. Built native form including name, email, phone and message fields
+3. Added basic PHP judgment to realize prompt feedback
+4. Created contact page and completed menu association
+5. Tested form display and local submission function
+6. Recorded modification content and submitted to version library
+
+Technical Competencies Demonstrated
+- Custom PHP template programming
+- Native interactive form construction
+- Basic data input judgment
+- Front-end user interaction design
+- Website navigation management
+
+----------------------------------------
+Phase 9: Form Security & Mail Function Integration
+----------------------------------------
+Tasks Completed
+1. Added server-side data filtering rules for forms
+2. Optimized input content filtering to prevent malicious code injection
+3. Improved error reminder and submission feedback logic
+4. Integrated native mail interface to realize message forwarding
+5. Configured receiving address for site message feedback
+6. Verified secure submission and normal message sending
+
+Technical Competencies Demonstrated
+- Form data security processing
+- Website basic security optimization
+- PHP data filtering logic writing
+- Native mail function calling
+- Interactive experience optimization
+
+----------------------------------------
+Phase 10: Global Style & Responsive Layout Optimization
+----------------------------------------
+Tasks Completed
+1. Used media query to adapt mobile and tablet devices
+2. Unified overall website color matching, font and spacing specifications
+3. Added button hover interaction effect to enhance interface texture
+4. Optimized container layout to realize multi-terminal adaptive display
+5. Inspected homepage, service page and contact page in full screen
+6. Completed overall style finishing and final optimization
+
+Technical Competencies Demonstrated
+- Responsive web layout design
+- CSS advanced attribute application
+- Global UI style unification
+- Multi-terminal compatibility adaptation
+- Commercial website visual optimization
+
+----------------------------------------
+Phase 11: Local SSL / HTTPS Service Deployment
+----------------------------------------
+Tasks Completed
+1. Generated local self-signed certificate and key files through OpenSSL
+2. Unified certificate storage path in custom Apache directory
+3. Enabled mod_ssl and mod_rewrite core service modules
+4. Modified httpd-ssl.conf to use independent 8443 port
+5. Configured SSL virtual host and bound local project directory
+6. Adjusted directory permission rules to support rewrite rules
+7. Modified WordPress core configuration to force HTTPS access
+8. Updated .htaccess rewrite rules to solve cycle redirection
+9. Repeatedly restarted services to verify configuration effectiveness
+10. Fixed certificate prompt and port conflict problems
+11. Completed full-site stable access under HTTPS protocol
+
+Technical Competencies Demonstrated
+- Apache SSL module configuration
+- Local certificate manual generation
+- HTTPS protocol deployment
+- WordPress core file modification
+- Redirection error troubleshooting
+- Server and CMS collaborative debugging
+
+----------------------------------------
+Phase 12: Enterprise Database Structural Design
+Date: 2026-04-29
+----------------------------------------
+Tasks Completed
+1. Wrote complete SQL scripts to create the goprint_db database with utf8mb4 encoding
+2. Designed and implemented 7 core business tables for the printing platform
+3. Configured primary keys, foreign keys, and cascade rules to enforce data integrity
+4. Added English comments to all SQL code and included Traditional Chinese field descriptions for Hong Kong users
+5. Inserted test business data to verify database read/write functionality
+6. Captured and saved SQL execution, table structure, and test data screenshots
+7. Created a complete Entity-Relationship (ER) diagram to visualize table relationships and business logic
+8. Wrote detailed database design documentation and exported it to Markdown and PDF formats
+
+Technical Competencies Demonstrated
+- Manual handwritten SQL scripting
+- Relational database schema design
+- Foreign key and constraint configuration
+- Multi-language content adaptation (English + Traditional Chinese)
+- Database testing and data validation
+- Back-end foundational architecture development
+- ER diagram design and relational data modelling
+- Technical documentation writing and format conversion
+
+Key Assets Updated
+- SQL schema files stored in 02_Code/01_Database/
+- Database operation screenshots saved in 03_Screenshots/07_Database/
+- ER diagram source file and exported PNG/PDF documents saved in 03_Screenshots/07_Database/
+
+----------------------------------------
+Phase 13: MVC Architecture & Dynamic Product Module Development
+Date: 2026-04-30
+----------------------------------------
+Tasks Completed
+1. Established standard MVC directory structure in the original project path
+2. Developed Model layer for database connection and product data query
+3. Created View layer with dynamic data rendering for Hong Kong printing products
+4. Implemented Controller layer to manage data and display logic
+5. Used PHP built-in server to run the MVC project independently, avoiding WordPress route conflicts
+6. Tested successfully and displayed 3 dynamic product data from the database
+7. Captured standard screenshots including server startup, code structure and running page
+8. Committed all MVC code to local Git repository
+
+Technical Competencies Demonstrated
+- MVC architectural design and implementation
+- Object-oriented PHP programming
+- Database and web application integration
+- Dynamic webpage data rendering
+- Compatibility testing with existing WordPress system
+- Independent PHP server configuration and deployment
+
+Key Assets Updated
+- MVC source code stored in 02_Code/02_MVC/
+- MVC development screenshots saved in 03_Screenshots/08_MVC/
+- All files synchronized with original project structure
+
+----------------------------------------
+Phase 14: Laravel 10 Enterprise-level Product System & WordPress Integration
+Date: 2026-04-30
+----------------------------------------
+Tasks Completed
+1. Installed Laravel 10 via Composer and initialized enterprise-level project structure
+2. Created Laravel Product Model for database ORM mapping
+3. Developed professional Product Controller following Laravel MVC architecture
+4. Configured enterprise-level routes for product listing and product detail pages
+5. Created responsive Blade view pages using Bootstrap 5 for e-commerce display
+6. Implemented dynamic data binding between Laravel and MySQL product table
+7. Started independent Laravel development server for framework testing
+8. Integrated Laravel product system with WordPress official website via navigation links
+9. Tested full functionality including listing page, detail page, and cross-system navigation
+10. Captured standard screenshots for project documentation
+11. Synchronized all Laravel source code to the main project folder
+12. Committed all Phase14 work to local Git repository
+
+Technical Competencies Demonstrated
+- Laravel framework installation and configuration
+- Composer dependency management
+- MVC architecture in professional PHP framework
+- Eloquent ORM and database modeling
+- Route management and URL design
+- Responsive UI with Bootstrap 5
+- Cross-system integration (CMS + Framework)
+- Independent server deployment for Laravel
+
+Key Assets Updated
+- Laravel project stored in 02_Code/laravel/
+- Laravel development screenshots saved in 03_Screenshots/09_Laravel/
+- Daily development log updated
+- All files synchronized with official project structure
+
+----------------------------------------
+Phase 15: User Authentication & Cart System Development
+Date: 2026-05-01
+----------------------------------------
+Tasks Completed
+1. Integrated Laravel Breeze authentication package for user registration and login
+2. Created user authentication system with email/password verification
+3. Developed shopping cart functionality with session-based storage
+4. Implemented cart item add, update, remove and clear operations
+5. Added cart count badge display in navigation bar
+6. Created user dashboard page showing order history overview
+7. Implemented secure password hashing and session management
+8. Tested complete authentication flow and cart operations
+
+Technical Competencies Demonstrated
+- Laravel authentication system integration
+- Session-based shopping cart implementation
+- User registration and login workflow
+- Password security and encryption
+- Session management and data persistence
+- User dashboard development
+
+Key Assets Updated
+- Authentication views and controllers in Laravel
+- Cart controller and views
+- Dashboard view for authenticated users
+- Updated navigation with cart functionality
+
+----------------------------------------
+Phase 16: Order Management & Payment Integration
+Date: 2026-05-02
+----------------------------------------
+Tasks Completed
+1. Developed complete order creation and management system
+2. Created address management for user shipping addresses
+3. Implemented order confirmation page with order summary
+4. Integrated payment gateway for online transactions
+5. Added order status tracking (pending, processing, shipping, completed)
+6. Created admin panel for order management
+7. Implemented email notification for order confirmation
+8. Added order history viewing for registered users
+
+Technical Competencies Demonstrated
+- Order management system design
+- Address book functionality
+- Payment integration
+- Order status workflow
+- Admin panel development
+- Email notification system
+
+Key Assets Updated
+- Order controller and views
+- Address management module
+- Payment controller
+- Admin order management views
+- Email notification templates
+
+----------------------------------------
+Phase 17: Admin Panel & Product Management
+Date: 2026-05-03
+----------------------------------------
+Tasks Completed
+1. Created comprehensive admin dashboard with statistics overview
+2. Developed product CRUD management interface
+3. Implemented product category management system
+4. Added product image upload functionality
+5. Created order management with status updates
+6. Developed data reporting and analytics page
+7. Implemented admin role-based access control
+8. Added pagination and search functionality
+
+Technical Competencies Demonstrated
+- Admin panel development
+- CRUD operations implementation
+- File upload handling
+- Role-based authentication
+- Data analytics dashboard
+- Search and pagination
+
+Key Assets Updated
+- Admin controller and views
+- Product management interface
+- Category management module
+- Reports and analytics views
+- Middleware for admin authentication
+
+----------------------------------------
+Phase 18: Multi-language Support Implementation
+Date: 2026-05-09
+----------------------------------------
+Tasks Completed
+1. Configured Laravel localization settings for multi-language support
+2. Created language translation files for three locales:
+   - English (en)
+   - Traditional Chinese (zh-HK)
+   - Simplified Chinese (zh-CN)
+3. Added comprehensive translation keys covering all system messages
+4. Implemented language switcher dropdown in navigation bar
+5. Created language switching route and session-based locale storage
+6. Updated all view files to use translation helper functions
+7. Modified app.blade.php layout to support dynamic language switching
+8. Tested language switching functionality across all pages
+
+Technical Competencies Demonstrated
+- Laravel localization configuration
+- Multi-language translation file management
+- Session-based language preference storage
+- Dynamic language switching implementation
+- Translation helper function usage
+- View template internationalization
+
+Key Assets Updated
+- Language translation files in resources/lang/
+- Updated layout view with language switcher
+- Language switching route in web.php
+- All Blade views updated with translation functions
+- Configuration settings in config/app.php
+
+----------------------------------------
+Phase 19: Database Backup & Recovery System
+Date: 2026-05-09
+----------------------------------------
+Tasks Completed
+1. Analyzed MySQL data persistence issues on Windows XAMPP
+2. Created automated database backup batch script for daily use
+3. Fixed script encoding issues causing crash on execution
+4. Implemented timestamped backup file naming (goprint_db_backup_YYYYMMDD_HHmmss.sql)
+5. Added error handling and success/failure messaging
+6. Created database recovery scripts for products, orders, users and images
+7. Restored lost database data including:
+   - 5 products with images
+   - 2 categories
+   - 3 orders
+   - 2 users (admin and test accounts)
+   - 2 addresses
+8. Configured backup storage directory at database_backups/
+
+Technical Competencies Demonstrated
+- Batch script development for Windows
+- MySQL database backup automation
+- Data recovery and restoration
+- Error handling and user feedback
+- Timestamp file naming conventions
+- Database troubleshooting
+
+Key Assets Updated
+- GoPrint數據庫備份.bat backup script on Desktop
+- Database recovery PHP scripts
+- Backup files stored in database_backups/
+- Technical troubleshooting record updated

@@ -1,0 +1,88 @@
+# Technical Fault & Troubleshooting Record
+
+---
+
+## Fault 1: Apache Service Startup Failure
+Issue Date: 2026-04-28
+Environment: Windows 11 + XAMPP 8.1.25
+
+### Fault Phenomenon
+Apache service cannot start normally, system error log:
+"Apache shutdown unexpectedly. This may be due to blocked port, missing dependencies, improper privileges."
+
+### Root Cause Analysis
+1. System background process occupied Apache default port 80
+2. Default SSL port 443 also had port occupation conflict
+3. Normal user startup had insufficient system permission to bind network port
+
+### Step-by-Step Resolution
+1. Opened XAMPP Apache core configuration file httpd.conf
+2. Changed Listen port and ServerName to use new unused port 8888
+3. Opened Apache SSL configuration file httpd-ssl.conf
+4. Updated SSL Listen port, VirtualHost and ServerName to port 8443
+5. Fully exited XAMPP control panel
+6. Re-launched XAMPP with administrator access rights
+7. Restart Apache and MySQL modules
+
+### Final Outcome
+All errors completely resolved. Apache and MySQL services run stably and normally.
+
+---
+
+## Fault 2: MySQL Data Persistence Issue
+Issue Date: 2026-05-08
+Environment: Windows 11 + XAMPP 8.1.25 + Laravel 10
+
+### Fault Phenomenon
+- Product images disappeared from database
+- User accounts and orders were lost
+- Database tables showed empty or missing data
+- Login credentials stopped working
+
+### Root Cause Analysis
+1. MySQL service restart during daily shutdown routine
+2. Windows system may have corrupted InnoDB tables during improper shutdown
+3. Lack of automated backup system leading to data loss
+
+### Step-by-Step Resolution
+1. Created database recovery scripts to restore lost data
+2. Restored product table with 5 products and images
+3. Restored category table with 2 categories
+4. Restored user accounts (admin and test users)
+5. Restored order records and addresses
+6. Created automated backup script for daily use
+7. Fixed backup script encoding issues causing crash
+8. Implemented timestamped backup file naming
+
+### Final Outcome
+- All lost data successfully recovered
+- Automated backup system implemented
+- Backup script working correctly with error handling
+- Users can now backup database with one click
+
+---
+
+## Fault 3: Multi-language Translation Not Working
+Issue Date: 2026-05-09
+Environment: Windows 11 + XAMPP 8.1.25 + Laravel 10
+
+### Fault Phenomenon
+- Translation files existed but views displayed hardcoded text
+- Language switcher dropdown not visible in navigation
+- Route name mismatch caused language switching to fail
+
+### Root Cause Analysis
+1. View files used hardcoded text instead of translation helper functions
+2. Language switcher not added to navigation bar
+3. Route name mismatch: view used different route name than configured
+
+### Step-by-Step Resolution
+1. Updated app.blade.php to add language switcher dropdown
+2. Updated all view files to use translation helper functions
+3. Fixed route name for language switching
+4. Ensured session-based locale storage was properly implemented
+
+### Final Outcome
+- Multi-language support fully functional
+- Users can switch between English, Traditional Chinese, and Simplified Chinese
+- All page content dynamically translates based on selected language

@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+      - ./storage:/var/www/html/storage
+    depends_on:
+      - db
+    environment:
+      - APP_ENV=production
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=goprint
+      - DB_USERNAME=admin
+      - DB_PASSWORD=secret
+    networks:
+      - goprint-network
+
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=goprint
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=secret
+    networks:
+      - goprint-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_HOST=db
+      - PMA_PORT=3306
+      - PMA_USER=admin
+      - PMA_PASSWORD=secret
+    depends_on:
+      - db
+    networks:
+      - goprint-network
+
+volumes:
+  db_data:
+
+networks:
+  goprint-network:
+    driver: bridge
