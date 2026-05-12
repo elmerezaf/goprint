@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoPrint Watermark Remover</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; background: #f5f5f5; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .progress { width: 100%; height: 20px; background: #ddd; margin: 20px 0; }
+        .progress-bar { height: 100%; background: #4CAF50; width: 0%; transition: width 0.3s; }
+        .status { margin: 10px 0; padding: 10px; border-radius: 4px; }
+        .success { background: #dff0d8; color: #3c763d; }
+        .error { background: #f2dede; color: #a94442; }
+        .info { background: #d9edf7; color: #31708f; }
+        button { padding: 12px 24px; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        button:hover { background: #45a049; }
+        .preview { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-top: 20px; }
+        .preview img { width: 100%; height: 150px; object-fit: cover; border-radius: 4px; }
+        .completed { border: 2px solid #4CAF50; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>GoPrint Image Watermark Remover</h1>
+        <p>Click the button below to remove watermarks from all product images</p>
+    </div>
+
+    <div class="status info" id="status">Ready to process...</div>
+    <div class="progress">
+        <div class="progress-bar" id="progress"></div>
+    </div>
+    <button onclick="startProcessing()">Start Processing</button>
+    
+    <div class="preview" id="preview"></div>
+
+    <script>
+        const IMAGES = [
+            'products/gop1 (1).png', 'products/gop1 (2).png', 'products/gop1 (3).png',
+            'products/gop1 (4).png', 'products/gop1 (5).png', 'products/gop1 (6).png',
+            'products/gop1 (7).png', 'products/gop1 (8).png', 'products/gop1 (9).png',
+            'products/gop1 (10).png', 'products/gop1 (11).png', 'products/gop1 (12).png',
+            'products/gop1 (13).png', 'products/gop1 (14).png', 'products/gop1 (15).png',
+            'products/gop1 (16).png', 'products/gop1 (17).png', 'products/gop1 (18).png',
+            'products/gop1 (19).png', 'products/gop1 (20).png', 'products/gop1 (21).png',
+            'products/hero-banner-business-cards.jpg', 'products/hero-banner-fast-delivery.jpg',
+            'products/hero-banner-flyers.jpg', 'products/hero-banner-quality.jpg',
+            'products/service-affordable.jpg', 'products/service-design.jpg',
+            'products/service-eco.jpg', 'products/service-fast-delivery.jpg',
+            'products/service-quality.jpg', 'products/service-support.jpg'
+        ];
+
+        async function startProcessing() {
+            const status = document.getElementById('status');
+            const progress = document.getElementById('progress');
+            const preview = document.getElementById('preview');
+            
+            status.className = 'status info';
+            status.textContent = 'Processing images...';
+            
+            let success = 0;
+            let failed = 0;
+            
+            for (let i = 0; i < IMAGES.length; i++) {
+                const imgPath = IMAGES[i];
+                const progressPercent = ((i + 1) / IMAGES.length) * 100;
+                progress.style.width = progressPercent + '%';
+                
+                try {
+                    await processImage(imgPath);
+                    success++;
+                    status.textContent = `Processed ${i + 1}/${IMAGES.length} - ${imgPath}`;
+                    
+                    const img = document.createElement('img');
+                    img.src = imgPath + '?t=' + Date.now();
+                    img.className = 'completed';
+                    preview.appendChild(img);
+                    
+                } catch (error) {
+                    failed++;
+                    console.error('Error processing', imgPath, error);
+                }
+            }
+            
+            status.className = success === IMAGES.length ? 'status success' : 'status error';
+            status.textContent = `Completed! Success: ${success}, Failed: ${failed}`;
+        }
+
+        async function processImage(imgPath) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.crossOrigin = 'anonymous';
+                
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+                    
+                    // Watermark region (bottom-right 15%)
+                    const wmX = Math.floor(img.width * 0.85);
+                    const wmY = Math.floor(img.height * 0.85);
+                    const wmWidth = img.width - wmX;
+                    const wmHeight = img.height - wmY;
+                    
+                    // Sample colors from left of watermark
+                    let totalR = 0, totalG = 0, totalB = 0, count = 0;
+                    const sampleWidth = Math.min(80, wmX);
+                    
+                    for (let x = Math.max(0, wmX - sampleWidth); x < wmX; x++) {
+                        for (let y = wmY; y < Math.min(img.height, wmY + wmHeight); y++) {
+                            const pixel = ctx.getImageData(x, y, 1, 1).data;
+                            totalR += pixel[0];
+                            totalG += pixel[1];
+                            totalB += pixel[2];
+                            count++;
+                        }
+                    }
+                    
+                    if (count > 0) {
+                        const avgR = Math.floor(totalR / count);
+                        const avgG = Math.floor(totalG / count);
+                        const avgB = Math.floor(totalB / count);
+                        
+                        // Fill watermark area
+                        ctx.fillStyle = `rgb(${avgR}, ${avgG}, ${avgB})`;
+                        ctx.fillRect(wmX, wmY, wmWidth, wmHeight);
+                    }
+                    
+                    // Convert to blob and upload
+                    canvas.toBlob(async (blob) => {
+                        try {
+                            const formData = new FormData();
+                            formData.append('image', blob, imgPath.split('/').pop());
+                            
+                            const response = await fetch('/watermark/upload', {
+                                method: 'POST',
+                                body: formData
+                            });
+                            
+                            if (!response.ok) throw new Error('Upload failed');
+                            resolve();
+                        } catch (error) {
+                            reject(error);
+                        }
+                    }, imgPath.endsWith('.png') ? 'image/png' : 'image/jpeg', 0.9);
+                };
+                
+                img.onerror = reject;
+                img.src = imgPath;
+            });
+        }
+    </script>
+</body>
+</html>

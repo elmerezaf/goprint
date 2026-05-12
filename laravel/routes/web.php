@@ -131,5 +131,16 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/reports', [AdminController::class, 'reports'])->name('admin.reports');
 });
 
+// 水印移除路由
+Route::post('/watermark/upload', function () {
+    if (request()->hasFile('image')) {
+        $image = request()->file('image');
+        $path = public_path('products/' . $image->getClientOriginalName());
+        $image->move(public_path('products'), $image->getClientOriginalName());
+        return response()->json(['success' => true]);
+    }
+    return response()->json(['success' => false], 400);
+});
+
 // Breeze 認證路由
 require __DIR__.'/auth.php';

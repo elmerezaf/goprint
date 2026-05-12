@@ -175,14 +175,18 @@
         }
 
         .product-image {
-            height: 180px;
+            width: 100%;
+            padding-top: 100%;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: relative;
+            overflow: hidden;
         }
 
         .product-image i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             font-size: 48px;
             color: white;
             opacity: 0.9;
@@ -305,18 +309,47 @@
 
         .popular-image {
             width: 100%;
-            height: 100px;
+            padding-top: 100%;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 8px;
             margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: relative;
+            overflow: hidden;
         }
 
         .popular-image i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             font-size: 28px;
             color: white;
+        }
+
+        .popular-card-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Product Detail Image Container */
+        .product-detail-image-container {
+            width: 100%;
+            padding-top: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-detail-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .popular-name {
@@ -422,28 +455,6 @@
             overflow: hidden;
         }
 
-        .hero-carousel .carousel-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        .hero-carousel .carousel-item.slide-1::before {
-            background: linear-gradient(135deg, rgba(0,102,204,0.92) 0%, rgba(0,68,153,0.88) 100%);
-        }
-
-        .hero-carousel .carousel-item.slide-2::before {
-            background: linear-gradient(135deg, rgba(255,102,0,0.9) 0%, rgba(204,81,0,0.85) 100%);
-        }
-
-        .hero-carousel .carousel-item.slide-3::before {
-            background: linear-gradient(135deg, rgba(26,26,46,0.92) 0%, rgba(0,102,204,0.85) 100%);
-        }
-
         .hero-carousel .carousel-item img {
             width: 100%;
             height: 100%;
@@ -460,21 +471,31 @@
             right: 10%;
             max-width: 650px;
             z-index: 2;
+            padding: 30px 35px;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
         }
 
         .hero-carousel .carousel-caption h1 {
-            font-size: 3rem;
+            font-size: 2.6rem;
             font-weight: 800;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
             animation: carouselFadeInUp 0.8s ease;
         }
 
         .hero-carousel .carousel-caption p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 30px;
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin-bottom: 25px;
+            color: white;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
             animation: carouselFadeInUp 0.8s ease 0.2s both;
-            line-height: 1.8;
+            line-height: 1.7;
         }
 
         .hero-carousel .carousel-caption .btn {
@@ -742,18 +763,30 @@
         }
 
         .product-center-card .card-img-wrap {
-            height: 180px;
+            width: 100%;
+            padding-top: 100%;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
             position: relative;
+            overflow: hidden;
         }
 
         .product-center-card .card-img-wrap i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             font-size: 48px;
             color: white;
             opacity: 0.9;
+        }
+
+        .product-card-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .product-center-card .card-badge {

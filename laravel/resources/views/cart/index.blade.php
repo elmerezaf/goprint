@@ -3,7 +3,7 @@
 @section('title', __('messages.shopping_cart'))
 
 @section('content')
-<div class="container py-4">
+<div id="cart-root" class="container py-4" data-cart-items='@json($products)'>
     <h1 class="fw-bold mb-4">{{ __('messages.shopping_cart') }}</h1>
 
     @if(session('success'))
@@ -54,21 +54,24 @@
                                     <td class="fw-bold">{{ $item['product']->pro_name }}</td>
                                     <td>${{ number_format($item['price'], 2) }}</td>
                                     <td style="width: 180px;">
-                                        <form action="{{ route('cart.update') }}" method="POST" class="d-flex align-items-center gap-2">
-                                            @csrf
-                                            <input type="hidden" name="product_id" value="{{ $item['product']->pro_id }}">
-                                            <input type="number" name="quantity" value="{{ $item['quantity'] }}"
-                                                   class="form-control text-center" style="width: 70px;" min="1" max="999">
-                                            <button type="submit" class="btn btn-sm btn-primary">{{ __('messages.update') }}</button>
-                                        </form>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <button class="btn btn-sm btn-outline-secondary" data-action="minus" data-id="{{ $item['product']->pro_id }}">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                            <input type="number" value="{{ $item['quantity'] }}" 
+                                                   class="form-control text-center" 
+                                                   data-id="{{ $item['product']->pro_id }}"
+                                                   style="width: 70px;" min="1" max="999">
+                                            <button class="btn btn-sm btn-outline-secondary" data-action="plus" data-id="{{ $item['product']->pro_id }}">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
                                     </td>
                                     <td class="fw-bold text-primary">${{ number_format($item['total'], 2) }}</td>
                                     <td>
-                                        <form action="{{ route('cart.remove') }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="product_id" value="{{ $item['product']->pro_id }}">
-                                            <button type="submit" class="btn btn-sm btn-outline-danger">{{ __('messages.remove') }}</button>
-                                        </form>
+                                        <button class="btn btn-sm btn-outline-danger" data-action="remove" data-id="{{ $item['product']->pro_id }}">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -81,7 +84,7 @@
                         <h4 class="fw-bold">{{ __('messages.total') }}: <span class="text-primary">${{ number_format($total, 2) }}</span></h4>
                     </div>
                     <div class="d-flex gap-2 mt-2 mt-sm-0">
-                        <a href="{{ route('cart.clear') }}" class="btn btn-outline-secondary">{{ __('messages.clear_cart') }}</a>
+                        <button class="btn btn-outline-secondary" id="clear-cart">{{ __('messages.clear_cart') }}</button>
                         <a href="{{ route('products.index') }}" class="btn btn-outline-primary">{{ __('messages.continue_shopping') }}</a>
                         <a href="{{ route('order.create') }}" class="btn btn-warning text-white">{{ __('messages.checkout') }}</a>
                     </div>
@@ -99,4 +102,16 @@
         </div>
     @endif
 </div>
+@endsection
+
+@section('scripts')
+<script type="module">
+    import { Cart } from '/resources/js/cart/Cart.jsx';
+    import { createRoot } from 'react-dom/client';
+    
+    const container = document.getElementById('cart-root');
+    const initialItems = JSON.parse(container.dataset.cartItems);
+    
+    createRoot(container).render(<Cart initialItems={initialItems} />);
+</script>
 @endsection

@@ -13,8 +13,8 @@
 
     <div class="row align-items-center">
         <div class="col-md-6 mb-4">
-            <div class="border p-4 rounded bg-light">
-                <img src="{{ $product->pro_image ? asset('storage/products/' . $product->pro_image) : 'https://via.placeholder.com/600x400?text=Product+Image' }}" class="img-fluid rounded" alt="{{ $product->pro_name }}">
+            <div class="border rounded bg-light product-detail-image-container">
+                <img src="{{ $product->pro_image ? asset('storage/products/' . $product->pro_image) : 'https://via.placeholder.com/600x400?text=Product+Image' }}" class="product-detail-image" alt="{{ $product->pro_name }}">
             </div>
         </div>
         <div class="col-md-6">

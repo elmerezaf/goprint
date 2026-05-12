@@ -40,8 +40,12 @@
                         @foreach($products as $product)
                         <div class="col-md-4 col-sm-6">
                             <div class="product-center-card">
-                                <div class="card-img-wrap" style="background: linear-gradient(135deg, {{ '#' . substr(md5($product->pro_name), 0, 6) }}, {{ '#' . substr(md5($product->pro_id), 0, 6) }});">
-                                    <i class="fas fa-print"></i>
+                                <div class="card-img-wrap">
+                                    @if($product->pro_image)
+                                        <img src="{{ asset('storage/products/' . $product->pro_image) }}" alt="{{ $product->pro_name }}" class="product-card-image">
+                                    @else
+                                        <i class="fas fa-print"></i>
+                                    @endif
                                     @if($loop->first)
                                         <span class="card-badge hot">{{ __('messages.hot') }}</span>
                                     @elseif($loop->last)

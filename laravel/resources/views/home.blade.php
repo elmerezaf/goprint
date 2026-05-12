@@ -12,6 +12,7 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active slide-1">
+                <img src="{{ asset('storage/products/hero-banner-business-cards.jpg') }}" alt="Business Cards" class="d-block w-100">
                 <div class="carousel-caption">
                     <h1>{{ __('messages.carousel_slide_1_title') }}</h1>
                     <p>{{ __('messages.carousel_slide_1_subtitle') }}</p>
@@ -19,6 +20,7 @@
                 </div>
             </div>
             <div class="carousel-item slide-2">
+                <img src="{{ asset('storage/products/hero-banner-flyers.jpg') }}" alt="Flyers" class="d-block w-100">
                 <div class="carousel-caption">
                     <h1>{{ __('messages.carousel_slide_2_title') }}</h1>
                     <p>{{ __('messages.carousel_slide_2_subtitle') }}</p>
@@ -26,6 +28,7 @@
                 </div>
             </div>
             <div class="carousel-item slide-3">
+                <img src="{{ asset('storage/products/hero-banner-quality.jpg') }}" alt="Quality" class="d-block w-100">
                 <div class="carousel-caption">
                     <h1>{{ __('messages.carousel_slide_3_title') }}</h1>
                     <p>{{ __('messages.carousel_slide_3_subtitle') }}</p>
@@ -175,8 +178,14 @@
                     @foreach($products as $product)
                     <div class="col-md-4 col-sm-6">
                         <div class="product-center-card">
-                            <div class="card-img-wrap" style="background: linear-gradient(135deg, {{ '#' . substr(md5($product->pro_name), 0, 6) }}, {{ '#' . substr(md5($product->pro_id), 0, 6) }});">
-                                <i class="fas fa-print"></i>
+                            <div class="card-img-wrap">
+                                @if($product->pro_image)
+                                    <img src="{{ asset('storage/products/' . $product->pro_image) }}" alt="{{ $product->pro_name }}" class="product-card-image">
+                                @else
+                                    <div style="background: linear-gradient(135deg, {{ '#' . substr(md5($product->pro_name), 0, 6) }}, {{ '#' . substr(md5($product->pro_id), 0, 6) }}); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                                        <i class="fas fa-print"></i>
+                                    </div>
+                                @endif
                                 @if($loop->first)
                                     <span class="card-badge hot">{{ __('messages.hot') }}</span>
                                 @elseif($loop->last)
@@ -218,8 +227,12 @@
             @foreach($products->take(4) as $product)
             <div class="col-md-3">
                 <div class="product-card">
-                    <div class="product-image" style="background: linear-gradient(135deg, {{ '#' . substr(md5($product->pro_name . 'a'), 0, 6) }}, {{ '#' . substr(md5($product->pro_name . 'b'), 0, 6) }});">
-                        <i class="fas fa-print"></i>
+                    <div class="product-image">
+                        @if($product->pro_image)
+                            <img src="{{ asset('storage/products/' . $product->pro_image) }}" alt="{{ $product->pro_name }}" class="product-card-image">
+                        @else
+                            <i class="fas fa-print"></i>
+                        @endif
                     </div>
                     <div class="product-content">
                         <h3 class="product-title">{{ $product->pro_name }}</h3>
@@ -268,39 +281,39 @@
             <h2 class="section-title">{{ __('messages.popular_products') }}</h2>
         </div>
         <div class="popular-grid">
-            <a href="{{ route('products.index') }}?category=business-cards" class="popular-item">
-                <div class="popular-image" style="background: linear-gradient(135deg, #667eea, #764ba2);">
-                    <i class="fas fa-id-card"></i>
+            <a href="{{ route('products.index') }}?category=1" class="popular-item">
+                <div class="popular-image">
+                    <img src="{{ asset('storage/products/business-card_1.png') }}" alt="Business Cards" class="popular-card-image">
                 </div>
                 <span class="popular-name">{{ __('messages.business_cards') }}</span>
             </a>
-            <a href="{{ route('products.index') }}?category=flyers" class="popular-item">
-                <div class="popular-image" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
-                    <i class="fas fa-file-alt"></i>
+            <a href="{{ route('products.index') }}?category=3" class="popular-item">
+                <div class="popular-image">
+                    <img src="{{ asset('storage/products/flyer_1.png') }}" alt="Flyers" class="popular-card-image">
                 </div>
                 <span class="popular-name">{{ __('messages.brochures') }}</span>
             </a>
-            <a href="{{ route('products.index') }}?category=booklets" class="popular-item">
-                <div class="popular-image" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
-                    <i class="fas fa-book"></i>
+            <a href="{{ route('products.index') }}?category=4" class="popular-item">
+                <div class="popular-image">
+                    <img src="{{ asset('storage/products/brochure_1.png') }}" alt="Booklets" class="popular-card-image">
                 </div>
                 <span class="popular-name">{{ __('messages.booklets') }}</span>
             </a>
-            <a href="{{ route('products.index') }}?category=stamps" class="popular-item">
-                <div class="popular-image" style="background: linear-gradient(135deg, #43e97b, #38f9d7);">
-                    <i class="fas fa-stamp"></i>
+            <a href="{{ route('products.index') }}?category=6" class="popular-item">
+                <div class="popular-image">
+                    <img src="{{ asset('storage/products/poster_1.png') }}" alt="Posters" class="popular-card-image">
                 </div>
-                <span class="popular-name">{{ __('messages.stamps') }}</span>
+                <span class="popular-name">{{ __('messages.posters') }}</span>
             </a>
-            <a href="{{ route('products.index') }}?category=envelopes" class="popular-item">
-                <div class="popular-image" style="background: linear-gradient(135deg, #fa709a, #fee140);">
-                    <i class="fas fa-envelope"></i>
+            <a href="{{ route('products.index') }}?category=7" class="popular-item">
+                <div class="popular-image">
+                    <img src="{{ asset('storage/products/service-design.jpg') }}" alt="Envelopes" class="popular-card-image">
                 </div>
                 <span class="popular-name">{{ __('messages.envelopes_letterhead') }}</span>
             </a>
-            <a href="{{ route('products.index') }}?category=folders" class="popular-item">
-                <div class="popular-image" style="background: linear-gradient(135deg, #a18cd1, #fbc2eb);">
-                    <i class="fas fa-folder"></i>
+            <a href="{{ route('products.index') }}?category=2" class="popular-item">
+                <div class="popular-image">
+                    <img src="{{ asset('storage/products/banner_1.png') }}" alt="Folders" class="popular-card-image">
                 </div>
                 <span class="popular-name">{{ __('messages.folders') }}</span>
             </a>
