@@ -27,7 +27,13 @@ class ProductController extends Controller
             }
         }
 
-        $products = $query->get();
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where('pro_name', 'like', "%$search%")
+                  ->orWhere('pro_desc', 'like', "%$search%");
+        }
+
+        $products = $query->paginate(12);
         $categories = Category::all();
         return view('products.index', compact('products', 'categories'));
     }

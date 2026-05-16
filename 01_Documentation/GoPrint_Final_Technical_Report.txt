@@ -1,352 +1,278 @@
-# GoPrint Hong Kong Printing E-commerce Platform
-## Final Technical Report
+===========================================
+GoPrint Technical Report
+===========================================
 
----
+Project Name: GoPrint Printing Service E-commerce Website
+Developer: Elmer So
+Completion Date: May 2026
 
-## 1. Project Overview
+===========================================
+1. Project Overview
+===========================================
 
-### 1.1 Project Background
-GoPrint is a comprehensive e-commerce platform developed for Gift and Premium Enterprise Limited, a professional printing service company based in Hong Kong. The platform integrates WordPress CMS with Laravel framework to provide a robust online printing service solution.
+GoPrint is a printing service e-commerce website developed for Gift and Premium Enterprise Limited.
+The website provides comprehensive features including product browsing, online ordering, payment integration, and order management.
 
-### 1.2 Objectives
-- Establish a professional online presence for printing services
-- Provide customers with easy product browsing and ordering experience
-- Implement multi-language support for diverse customer base
-- Build secure and scalable backend management system
-- Ensure data integrity with automated backup system
+===========================================
+2. Technical Architecture
+===========================================
 
-### 1.3 Project Timeline
-- Development Period: April 2026 - May 2026
-- Total Phases: 19
+2.1 Technology Stack
+-------------------
 
----
+Frontend:
+- React 18.x (Interactive Designer Module)
+- Zustand (State Management)
+- HTML5 / CSS3 / JavaScript (ES6+)
+- Bootstrap 5.x
+- Laravel Blade Template Engine
 
-## 2. System Architecture
-
-### 2.1 Technology Stack
-
-| Category | Technology | Version |
-|----------|------------|---------|
-| Frontend | HTML5 | - |
-| Frontend | CSS3 | - |
-| Frontend | JavaScript | ES6+ |
-| Frontend | Bootstrap | 5.3.0 |
-| Backend | PHP | 8.1+ |
-| Backend | WordPress | 6.x |
-| Backend | Laravel | 10.x |
-| Database | MySQL | 8.x |
-| Server | Apache | 2.4 |
-| Version Control | Git | - |
-| Localization | Laravel i18n | - |
-
-### 2.2 Architecture Diagram
-```
-┌─────────────────────────────────────────────────────────────┐
-│                      Client Browser                         │
-└──────────────────────────┬──────────────────────────────────┘
-                           │
-┌──────────────────────────▼──────────────────────────────────┐
-│                     Apache Server                           │
-│  ┌──────────────────┐      ┌─────────────────────────────┐  │
-│  │   WordPress CMS  │      │      Laravel Framework      │  │
-│  │  (Public Pages)  │      │  (Product/Order System)     │  │
-│  └────────┬─────────┘      └───────────┬─────────────────┘  │
-│           │                            │                     │
-│           └──────────────┬─────────────┘                     │
-└──────────────────────────▼──────────────────────────────────┘
-                           │
-┌──────────────────────────▼──────────────────────────────────┐
-│                  MySQL Database (goprint_db)                │
-│  ┌─────────┐ ┌──────────┐ ┌─────────┐ ┌─────────┐ ┌───────┐│
-│  │ product │ │category  │ │  users  │ │ orders  │ │address││
-│  └─────────┘ └──────────┘ └─────────┘ └─────────┘ └───────┘│
-└─────────────────────────────────────────────────────────────┘
-```
-
-### 2.3 Key Components
-
-#### 2.3.1 WordPress CMS
-- Main website pages (Home, Services, Contact)
-- Content management system
-- Custom child theme development
-
-#### 2.3.2 Laravel Application
-- Product catalog system
-- User authentication
-- Shopping cart
-- Order management
-- Payment integration
-- Admin panel
-- Multi-language support
-
----
-
-## 3. Database Design
-
-### 3.1 Database Schema
-
-**Product Table**
-| Field | Type | Description |
-|-------|------|-------------|
-| pro_id | INT | Primary Key, Auto Increment |
-| pro_name | VARCHAR(255) | Product Name |
-| pro_desc | TEXT | Product Description |
-| pro_price | DECIMAL | Product Price |
-| pro_image | VARCHAR(255) | Image Path |
-| cat_id | INT | Foreign Key to Category |
-| create_time | TIMESTAMP | Creation Time |
-
-**Category Table**
-| Field | Type | Description |
-|-------|------|-------------|
-| cat_id | INT | Primary Key, Auto Increment |
-| cat_name | VARCHAR(100) | Category Name |
-| cat_desc | TEXT | Category Description |
-
-**Users Table**
-| Field | Type | Description |
-|-------|------|-------------|
-| id | BIGINT | Primary Key, Auto Increment |
-| name | VARCHAR(255) | User Name |
-| email | VARCHAR(255) | Email Address |
-| password | VARCHAR(255) | Hashed Password |
-| role | VARCHAR(20) | User Role (admin/user) |
-| created_at | TIMESTAMP | Creation Time |
-
-**Orders Table**
-| Field | Type | Description |
-|-------|------|-------------|
-| id | BIGINT | Primary Key, Auto Increment |
-| user_id | BIGINT | Foreign Key to Users |
-| status | VARCHAR(20) | Order Status |
-| total_amount | DECIMAL | Total Amount |
-| created_at | TIMESTAMP | Creation Time |
-
-**Addresses Table**
-| Field | Type | Description |
-|-------|------|-------------|
-| id | BIGINT | Primary Key, Auto Increment |
-| user_id | BIGINT | Foreign Key to Users |
-| phone | VARCHAR(20) | Phone Number |
-| city | VARCHAR(100) | City |
-| district | VARCHAR(100) | District |
-| address_detail | TEXT | Address Detail |
-| is_default | BOOLEAN | Default Address Flag |
-
-### 3.2 Entity Relationship Diagram
-```
-users 1 ─── * orders
-users 1 ─── * addresses
-category 1 ─── * product
-orders 1 ─── * order_items
-```
-
----
-
-## 4. Key Features Implementation
-
-### 4.1 Multi-language Support (i18n)
-
-**Implementation Details:**
-- Three language locales: English (en), Traditional Chinese (zh-HK), Simplified Chinese (zh-CN)
-- Session-based language storage
-- Translation files located in `resources/lang/{locale}/messages.php`
-- Language switcher dropdown in navigation bar
-- Route: `/locale/{locale}` with name `setlocale`
-
-**Translation File Structure:**
-```
-resources/
-└── lang/
-    ├── en/
-    │   └── messages.php
-    ├── zh-HK/
-    │   └── messages.php
-    └── zh-CN/
-        └── messages.php
-```
-
-### 4.2 User Authentication
-
-**Features:**
-- User registration with email verification
-- Secure login/logout
-- Password reset functionality
-- Role-based access control (admin/user)
-- Password hashing using bcrypt
-
-### 4.3 Shopping Cart System
-
-**Implementation:**
-- Session-based cart storage
-- Add/remove/update cart items
-- Cart item quantity management
-- Real-time cart count display
-- Cart persistence across sessions
-
-### 4.4 Order Management
-
-**Order Status Flow:**
-```
-Pending → Processing → Shipping → Completed
-       ↘ Cancelled
-```
-
-**Features:**
-- Order creation from cart
-- Order confirmation with summary
-- Order history viewing
-- Admin order management
-- Email notifications
-
-### 4.5 Admin Panel
-
-**Admin Features:**
-- Dashboard with statistics overview
-- Product CRUD operations
-- Category management
-- Order management with status updates
-- Data analytics and reports
-- Image upload functionality
-
-### 4.6 Database Backup System
-
-**Automated Backup:**
-- Batch script for one-click backup
-- Timestamped backup files (goprint_db_backup_YYYYMMDD_HHmmss.sql)
-- Error handling with user feedback
-- Backup storage directory: `database_backups/`
-
----
-
-## 5. Security Measures
-
-### 5.1 Authentication Security
-- Password hashing with bcrypt
-- CSRF protection on forms
-- Session timeout handling
-- Secure cookie configuration
-
-### 5.2 Data Security
-- Input validation and sanitization
-- SQL injection prevention (Eloquent ORM)
-- XSS protection
-- HTTPS protocol implementation
-
-### 5.3 Access Control
-- Role-based authentication middleware
-- Admin-only routes protection
-- Password reset token validation
-
----
-
-## 6. Deployment Configuration
-
-### 6.1 Server Environment
-- XAMPP 8.1.25 on Windows 11
-- Apache HTTP Server (Port 8888)
-- MySQL Database (Port 3306)
+Backend:
 - PHP 8.1+
+- Laravel 10.x
+- Laravel Breeze (Authentication)
+- Laravel Sanctum (API Authentication)
 
-### 6.2 Laravel Configuration
-- Application Key: Auto-generated
-- Environment: Development
-- Debug Mode: Enabled
-- Database Connection: MySQL
+Database:
+- MySQL 8.x
 
-### 6.3 SSL Configuration
-- Self-signed SSL certificate
-- HTTPS port: 8443
-- Force HTTPS in WordPress
+Server:
+- Apache 2.4 (Development)
+- Docker (Deployment)
 
----
+Payment Integration:
+- Stripe API
 
-## 7. Project Structure
+Version Control:
+- Git
 
-```
-goprint/
-├── 01_Documentation/
+2.2 Project Structure
+-------------------
+GoPrint_Project/
+├── 01_Documentation/          # Documentation
 │   ├── Daily_Development_Log.txt
-│   ├── Technical_Troubleshooting_Record.txt
 │   └── GoPrint_Final_Technical_Report.txt
-├── 02_Code/
-│   ├── 01_Database/
-│   ├── 02_MVC/
-│   ├── wordpress/
-│   ├── goprint-child/
-│   └── laravel/
-│       ├── app/
-│       ├── config/
-│       ├── resources/
-│       │   ├── lang/
-│       │   └── views/
-│       ├── routes/
-│       └── database_backups/
-└── 03_Screenshots/
-```
+├── 02_Code/                   # Source Code
+│   ├── wordpress/             # WordPress Main Site
+│   └── laravel/               # Laravel Backend System
+│       ├── app/               # Core Application Code
+│       ├── config/            # Configuration Files
+│       ├── database/          # Database Migrations
+│       ├── public/            # Static Assets
+│       ├── resources/         # Views and Language Files
+│       ├── routes/            # Route Definitions
+│       └── tests/             # Test Files
+└── 03_Screenshots/           # Screenshots
 
----
+2.3 Architecture Design
+-------------------
+Adopts classic MVC architecture:
+- Model Layer: Handles database operations
+- View Layer: Blade template rendering
+- Controller Layer: Business logic processing
 
-## 8. Testing and Validation
+Security Measures:
+- CSRF Protection
+- Form Validation
+- Password Encryption (bcrypt)
+- Role-Based Access Control (RBAC)
 
-### 8.1 Functional Testing
-- User registration and login
-- Product browsing and search
-- Shopping cart operations
-- Order creation and management
-- Language switching functionality
-- Admin panel operations
+===========================================
+3. Functional Modules
+===========================================
 
-### 8.2 Security Testing
-- SQL injection attempts
-- XSS vulnerability testing
-- CSRF protection verification
-- Password strength validation
+3.1 User Module
+-------------------
+- User Registration/Login
+- Profile Management
+- Address Book Management
+- Order History Inquiry
 
-### 8.3 Performance Testing
-- Page load time optimization
-- Database query efficiency
-- Responsive design testing
+3.2 Product Module
+-------------------
+- Product List Display
+- Product Detail Page
+- Category Management
+- Product Image Upload
 
----
+3.3 Shopping Cart Module
+-------------------
+- Add Products to Cart
+- Update Cart Quantity
+- Empty Cart
+- Cart Persistence
 
-## 9. Maintenance and Support
+3.4 Order Module
+-------------------
+- Create Order
+- Order Status Management
+- Order Detail View
+- Stripe Payment Integration
 
-### 9.1 Backup Procedures
-- Daily database backup using batch script
-- Backup files stored in `database_backups/`
-- Manual backup available via phpMyAdmin
+3.5 Admin Panel
+-------------------
+- Product Management (CRUD)
+- Category Management (CRUD)
+- Order Management (View/Status Update)
+- Data Statistics Reports
 
-### 9.2 Troubleshooting Resources
-- Technical troubleshooting record maintained
-- Error logs monitoring
-- Development documentation available
+3.6 Multi-Language Support
+-------------------
+- Traditional Chinese (zh-HK)
+- Simplified Chinese (zh-CN)
+- English (en)
+- Session-level Language Switching
 
-### 9.3 Future Enhancements
-- Docker containerization
-- Payment gateway integration
-- Advanced reporting features
-- Mobile app development
-- Social media integration
+3.7 Online Designer Module
+-------------------
+- React-based interactive canvas editor
+- Fabric.js integration for vector graphics
+- Text editing with font/style options
+- Shape tools (rectangle, circle, line)
+- Image upload and manipulation
+- Zustand state management for canvas state
 
----
+3.8 Next.js SSR Integration
+-------------------
+- Server-side rendering for homepage
+- Improved page load performance
+- Enhanced SEO capabilities
+- API proxy configuration
+- TypeScript support
 
-## 10. Conclusion
+3.9 SEO Optimization
+-------------------
+- Automated sitemap generation
+- Robots.txt configuration
+- Open Graph meta tags
+- JSON-LD structured data
+- Breadcrumb navigation markup
 
-The GoPrint e-commerce platform successfully integrates WordPress CMS with Laravel framework to provide a comprehensive online printing service solution. Key achievements include:
+===========================================
+4. Deployment Instructions
+===========================================
 
-✅ Multi-language support for English, Traditional Chinese, and Simplified Chinese
-✅ Secure user authentication system
-✅ Complete shopping cart and order management
-✅ Comprehensive admin panel with analytics
-✅ Automated database backup system
-✅ Responsive design for mobile devices
-✅ HTTPS secure connection
+4.1 Docker One-Click Deployment
+-------------------
+Requirements:
+- Docker 20.10+
+- Docker Compose 2.0+
 
-The project demonstrates professional development practices, comprehensive documentation, and robust technical implementation suitable for enterprise-level e-commerce operations.
+Deployment Steps:
+1. Enter project directory
+2. Run deployment script:
+   - Linux/Mac: ./deploy.sh
+   - Windows: deploy.bat
 
----
+4.2 Manual Deployment
+-------------------
+1. Configure web server (Apache/Nginx)
+2. Set up PHP 8.1+ environment
+3. Create MySQL database
+4. Copy .env.example to .env and configure
+5. Run database migration: php artisan migrate
+6. Create storage link: php artisan storage:link
+7. Generate application key: php artisan key:generate
 
-**Document Version:** 1.0  
-**Last Updated:** May 2026  
-**Prepared By:** Elmer So
+4.3 Environment Variables
+-------------------
+Key Configuration:
+- APP_KEY: Application encryption key
+- DB_HOST/DATABASE/USERNAME/PASSWORD: Database configuration
+- STRIPE_KEY/STRIPE_SECRET: Payment keys
+
+===========================================
+5. API Endpoints
+===========================================
+
+5.1 Authentication Endpoints
+-------------------
+POST /api/login - User Login
+POST /api/logout - User Logout
+POST /api/register - User Registration
+
+5.2 Product Endpoints
+-------------------
+GET /api/products - Get product list
+GET /api/products/{id} - Get product detail
+GET /api/categories - Get category list
+
+5.3 Order Endpoints
+-------------------
+GET /api/orders - Get user orders
+GET /api/orders/{id} - Get order detail
+POST /api/orders - Create order
+
+Authentication: Bearer Token (Laravel Sanctum)
+
+===========================================
+6. Test Coverage
+===========================================
+
+Total Test Cases: 39
+
+Test Types:
+- Product Functionality Tests (10)
+- Category Management Tests (7)
+- Order Management Tests (8)
+- Shopping Cart Tests (7)
+- Admin Panel Tests (7)
+
+Run Command: php artisan test
+
+===========================================
+7. Development Progress
+===========================================
+
+Phase 1-11: WordPress setup, theme development, SSL configuration
+Phase 12: Database design and ER diagram
+Phase 13-16: Laravel MVC architecture, order form, validation logic
+Phase 17-18: User authentication, admin panel, RBAC
+Phase 19-21: Shopping cart, Stripe payment, user features
+Phase 22: RESTful API development, Sanctum authentication
+Phase 23: Product image upload, category management, reports
+Phase 24: Multi-language support (i18n), Docker deployment, documentation
+Phase 25: Database recovery, UX enhancement, complete translation
+Phase 26-27: Frontend UI enhancement, homepage redesign
+Phase 28: Online Designer module (React + Fabric.js)
+Phase 29: Shopping Cart React refactoring with Zustand
+Phase 30: Next.js SSR integration
+Phase 31: SEO optimization (sitemap, robots.txt, structured data)
+Phase 32: Product image fixing and CSS optimization (square containers, banner styling)
+
+===========================================
+8. Summary
+===========================================
+
+This project fully implements the core functionality of a printing service e-commerce website:
+- User Management System
+- Product Display and Management
+- Shopping Cart and Order System
+- Online Payment Integration
+- Admin Panel
+- Multi-Language Support (English, Traditional Chinese, Simplified Chinese)
+- Online Designer Module (React + Fabric.js)
+- Next.js SSR for improved performance and SEO
+- Docker One-Click Deployment
+
+Technical Highlights:
+- Built with Laravel framework, clean code structure
+- Comprehensive security measures (CSRF protection, password encryption, RBAC)
+- Complete API documentation with Sanctum authentication
+- Full test coverage (39 test cases)
+- Multi-language support with session-level switching
+- React-based interactive components (Designer, Cart)
+- Server-side rendering for better SEO
+- Docker containerized deployment
+
+===========================================
+Version History
+===========================================
+v1.0 - Basic functionality completed
+v1.1 - Added shopping cart and payment
+v1.2 - Added API and tests
+v1.3 - Added product management and reports
+v1.4 - Added multi-language and Docker deployment
+v1.5 - Online Designer module and UI enhancement
+v1.6 - Next.js SSR integration and SEO optimization
+v1.7 - Product image fixing and CSS optimization (square containers, banner styling)

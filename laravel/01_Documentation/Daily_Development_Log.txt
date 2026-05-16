@@ -736,3 +736,61 @@ Key Assets Updated
 Quick Fix: Adjusted API route authentication - made product listing endpoints publicly accessible for easier testing and integration
 
 Status: ✅ Phase 22 completed and verified
+
+----------------------------------------
+Phase 35: Homepage Design Optimization
+----------------------------------------
+Date: 2026-05-14
+Tasks Completed
+1. Updated carousel images from hero-banner-*.jpg to banner1.jpg/banner2.jpg/banner3.jpg
+2. Removed all carousel text content (titles, descriptions, buttons)
+3. Updated color theme from blue to orange/yellow (--primary: #f59e0b, --accent: #f97316)
+4. Changed color scheme to black/white/orange combination
+5. Set default language to Traditional Chinese
+6. Removed Simplified Chinese language option
+7. Added WhatsApp floating button with number +852 60987508
+8. Improved navbar styling: dark background, increased spacing
+9. Added product search functionality to ProductController
+10. Added search translation strings for zh-HK and en
+
+Files Modified
+- home.blade.php
+- app.blade.php
+- ProductController.php
+- resources/lang/zh-HK/messages.php
+- resources/lang/en/messages.php
+
+Note: CSS changes were later reverted due to user feedback
+
+Status: ✅ Phase 35 completed
+
+----------------------------------------
+Phase 36: Mobile Responsive Optimization
+----------------------------------------
+Date: 2026-05-14
+Tasks Completed
+1. Optimized product center layout: 2 columns on mobile
+2. Added top promotion banner (orange background)
+3. Added top bar with WhatsApp, search icon, and login/register links
+4. Changed navbar background to orange (#f38a3b)
+5. Fixed carousel image display (object-fit: contain)
+6. Made login/register visible on all screen sizes
+7. Removed quick-links section from homepage
+8. Redesigned design-tools-grid: 5 columns on all screen sizes
+9. Optimized mobile design tool cards: smaller icons and text
+10. Added login/register buttons to navbar (desktop)
+11. Added login/register links to mobile menu
+
+Files Modified
+- home.blade.php
+- app.blade.php
+- ProductController.php
+
+Technical Competencies Demonstrated ✅
+- Bootstrap 5 responsive design
+- Flexbox and CSS Grid layouts
+- Mobile-first design approach
+- CSS media queries optimization
+- Laravel search functionality
+
+Status: ✅ Phase 36 completed

@@ -5,3 +5,220 @@
 .collapse:not(.show) {
     display: none;
 }
+
+/* ====== 黑/白/黄橙色主题 ====== */
+:root {
+    --primary-color: #f59e0b;      /* 琥珀色 - 主要按钮、链接 */
+    --primary-dark: #d97706;       /* 深琥珀色 - 悬停效果 */
+    --secondary-color: #fbbf24;    /* 亮黄色 - 次要元素 */
+    --accent-color: #f97316;       /* 橙色 - 强调色 */
+    --dark-color: #1f2937;         /* 深灰色 - 文字 */
+    --light-dark: #374151;         /* 中灰色 - 次要文字 */
+    --light-bg: #fef3c7;           /* 浅黄色背景 */
+    --white: #ffffff;              /* 白色 */
+    --success-color: #10b981;      /* 绿色 - 成功 */
+}
+
+/* 全局样式覆盖 */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: var(--dark-color);
+    background-color: #f8fafc;
+}
+
+/* 链接颜色 */
+a {
+    color: var(--primary-color);
+}
+
+a:hover {
+    color: var(--primary-dark);
+}
+
+/* 按钮样式覆盖 */
+.btn-primary {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: var(--dark-color) !important;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark) !important;
+    border-color: var(--primary-dark) !important;
+}
+
+.btn-warning {
+    background-color: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+    color: white !important;
+}
+
+.btn-warning:hover {
+    background-color: #ea580c !important;
+    border-color: #ea580c !important;
+}
+
+.btn-outline-primary {
+    border-color: var(--primary-color) !important;
+    color: var(--primary-color) !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color) !important;
+    color: var(--dark-color) !important;
+}
+
+/* 导航栏样式 */
+.navbar {
+    background-color: var(--white) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.navbar-brand {
+    color: var(--dark-color) !important;
+    font-weight: 700;
+}
+
+.navbar-nav .nav-link {
+    color: var(--dark-color) !important;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--primary-color) !important;
+}
+
+/* 产品卡片样式 */
+.product-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(245, 158, 11, 0.15);
+    border-color: var(--primary-color);
+}
+
+/* 购物车数量徽章 */
+.cart-badge {
+    min-width: 20px;
+    text-align: center;
+    background-color: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+}
+
+/* 平滑滚动 */
+html {
+    scroll-behavior: smooth;
+}
+
+/* 卡片图片容器 */
+.card-img-wrap {
+    position: relative;
+    padding-top: 100%;
+    background: #f8fafc;
+}
+
+.card-img-wrap img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 按钮悬停效果 */
+.btn {
+    transition: all 0.3s;
+    border-radius: 8px;
+}
+
+/* 分类图标 */
+.category-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+}
+
+/* 徽章样式 */
+.card-badge {
+    background-color: var(--accent-color) !important;
+}
+
+.card-badge.new-badge {
+    background-color: var(--success-color) !important;
+}
+
+/* 页脚样式 */
+footer {
+    background-color: var(--dark-color);
+    color: white;
+}
+
+/* 表单样式 */
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(245, 158, 11, 0.25);
+}
+
+/* 表格样式 */
+.table th {
+    color: var(--light-dark);
+    font-weight: 600;
+}
+
+/* 警告框样式 */
+.alert-success {
+    background-color: rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.3);
+    color: #065f46;
+}
+
+.alert-danger {
+    background-color: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #991b1b;
+}
+
+/* 导航链接激活状态 */
+.navbar-nav .nav-link.active {
+    color: var(--primary-color) !important;
+    font-weight: 600;
+}
+
+/* 下拉菜单 */
+.dropdown-menu {
+    border-color: #e5e7eb;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.dropdown-item:hover {
+    background-color: var(--light-bg);
+    color: var(--primary-color);
+}
+
+/* 分页样式 */
+.page-link {
+    color: var(--primary-color);
+}
+
+.page-link:hover {
+    color: var(--primary-dark);
+    background-color: var(--light-bg);
+}
+
+.page-item.active .page-link {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--dark-color);
+}

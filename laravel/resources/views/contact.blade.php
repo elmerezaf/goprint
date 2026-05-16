@@ -51,14 +51,15 @@
                                     <i class="fas fa-subway fa-lg"></i>
                                 </div>
                                 <h5 class="fw-bold">Transport</h5>
-                                <p class="mb-0 text-muted">{{ __('messages.local_production') }} — 炮台山站A出口</p>
+                                <p class="mb-0 text-muted">炮台山站A出口（步行5分鐘）</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Address & Map -->
+        <!-- Address & Map -->
         <div class="col-lg-5">
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-body p-4">
@@ -66,16 +67,18 @@
                         <i class="fas fa-map-marker-alt me-2"></i>{{ __('messages.address') }}
                     </h3>
                     <div class="bg-light rounded-3 p-4 mb-4">
-                        <p class="mb-2 fs-6">{{ __('messages.address') }}:</p>
+                        <p class="mb-2 fs-6">{{ __('messages.office_address') }}:</p>
                         <p class="fw-bold">香港北角屈臣道4-6號<br>海景大廈B座605室</p>
                         <hr>
                         <p class="mb-1"><i class="fas fa-subway text-primary me-2"></i>炮台山站A出口（步行5分鐘）</p>
+                        <p class="mb-1 mt-2"><i class="fas fa-clock text-primary me-2"></i>{{ __('messages.office_hours_label') }}</p>
+                        <p class="small text-muted ms-4">{{ __('messages.office_hours') }}</p>
                     </div>
                     <div class="bg-light rounded-3 p-4 text-center">
                         <i class="fas fa-map-marked-alt fa-3x text-primary mb-3"></i>
-                        <p class="text-muted mb-0"><i class="fas fa-info-circle me-1"></i>歡迎預約參觀或直接蒞臨查詢</p>
+                        <p class="text-muted mb-0"><i class="fas fa-info-circle me-1"></i>{{ __('messages.visit_by_appointment') }}</p>
                         <a href="https://maps.google.com/?q=香港北角屈臣道4-6號海景大廈B座605室" target="_blank" class="btn btn-primary mt-3">
-                            <i class="fab fa-google me-2"></i>{{ __('messages.view_details') }}
+                            <i class="fab fa-google me-2"></i>{{ __('messages.open_in_map') }}
                         </a>
                     </div>
                 </div>

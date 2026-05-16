@@ -1,6 +1,6 @@
-Project Name: Go Print Hong Kong Local Printing E-commerce Platform
+Project Name: GoPrint Hong Kong Local Printing E-commerce Platform
 Developer: Elmer So
-Current Date: 2026-05-09
+Current Date: 2026-04-29
 
 ----------------------------------------
 Phase 1: Local Server Environment Setup
@@ -13,20 +13,20 @@ Diagnosed root cause: Windows system occupied default port 80 / SSL port 443
 Manually edited Apache core configuration file httpd.conf
 Changed default HTTP listening port from 80 to 8888
 Manually edited Apache SSL configuration file httpd-ssl.conf
-Changed default HTTPS listening port from 443 to 8443
+Changed default HTTPS listening port from 443 to 4434
 Updated VirtualHost and ServerName related parameters
 Restarted XAMPP with administrator privileges to fix permission restrictions
 Successfully stabilized Apache and MySQL background services
 Completed full local development environment deployment
 
 Technical Competencies Demonstrated
-- Local web server environment deployment
-- Apache service error troubleshooting
-- Manual server configuration file editing
-- System port conflict detection and resolution
-- SSL virtual host parameter adjustment
-- Windows system permission configuration
-- Basic web server operation and maintenance
+✅ Local web server environment deployment
+✅ Apache service error troubleshooting
+✅ Manual server configuration file editing
+✅ System port conflict detection and resolution
+✅ SSL virtual host parameter adjustment
+✅ Windows system permission configuration
+✅ Basic web server operation and maintenance
 
 ----------------------------------------
 Phase 2: MySQL Database Configuration & Table Creation
@@ -42,28 +42,28 @@ Executed all database scripts without running errors
 Checked table structure and confirmed normal database operation
 
 Technical Competencies Demonstrated
-- MySQL service monitoring and recovery
-- Database connection failure troubleshooting
-- Custom SQL statement writing
-- Relational database structural design
-- E-commerce business data modelling
+✅ MySQL service monitoring and recovery
+✅ Database connection failure troubleshooting
+✅ Custom SQL statement writing
+✅ Relational database structural design
+✅ E-commerce business data modelling
 
 ----------------------------------------
 Phase 3: Git Version Control Initialization
 ----------------------------------------
 Tasks Completed
 Installed and configured Git locally
-Initialized local repository for the project folder
+Initialized local repository for the
 Set global developer name and mailbox information
 Added all project files to version control
 Completed initial unified submission of project resources
 Checked operation records through log commands
 
 Technical Competencies Demonstrated
-- Git environment installation and setup
-- Local repository initialization
-- Project file version management
-- Standard code submission specification
+✅ Git environment installation and setup
+✅ Local repository initialization
+✅ Project file version management
+✅ Standard code submission specification
 
 ----------------------------------------
 Phase 4: Manual WordPress CMS Installation
@@ -77,10 +77,10 @@ Finished basic site initialization settings
 Successfully logged into WordPress management dashboard
 
 Technical Competencies Demonstrated
-- Local website file arrangement
-- Directory structure planning
-- WordPress database connection configuration
-- Manual CMS deployment and setup
+✅ Local website file arrangement
+✅ Directory structure planning
+✅ WordPress database connection configuration
+✅ Manual CMS deployment and setup
 
 ----------------------------------------
 Phase 5: Custom WordPress Child Theme Development
@@ -94,12 +94,12 @@ Tasks Completed
 6. Submitted theme development files to local Git repository
 
 Technical Competencies Demonstrated
-- WordPress child theme independent development
-- CSS style writing and brand customization
-- Theme function hook configuration
-- Front-end style resource loading
-- Theme deployment and online activation
-- Iterative version control management
+✅ WordPress child theme independent development
+✅ CSS style writing and brand customization
+✅ Theme function hook configuration
+✅ Front-end style resource loading
+✅ Theme deployment and online activation
+✅ Iterative version control management
 
 ----------------------------------------
 Phase 6: Custom Static Homepage Development
@@ -113,11 +113,11 @@ Tasks Completed
 6. Saved modified files and completed version submission
 
 Technical Competencies Demonstrated
-- WordPress custom template development
-- HTML and CSS layout design
-- Static page configuration and setting
-- Theme file standard naming
-- Front-end layout customization
+✅ WordPress custom template development
+✅ HTML and CSS layout design
+✅ Static page configuration and setting
+✅ Theme file standard naming
+✅ Front-end layout customization
 
 ----------------------------------------
 Phase 7: Navigation Menu & Service Page Production
@@ -131,11 +131,11 @@ Tasks Completed
 6. Cleaned default redundant pages to optimize project structure
 
 Technical Competencies Demonstrated
-- WordPress menu function development
-- Grid layout design and writing
-- Independent page template customization
-- Back-end content management
-- Child theme in-depth modification
+✅ WordPress menu function development
+✅ Grid layout design and writing
+✅ Independent page template customization
+✅ Back-end content management
+✅ Child theme in-depth modification
 
 ----------------------------------------
 Phase 8: Contact Page & HTML Form Development
@@ -149,11 +149,11 @@ Tasks Completed
 6. Recorded modification content and submitted to version library
 
 Technical Competencies Demonstrated
-- Custom PHP template programming
-- Native interactive form construction
-- Basic data input judgment
-- Front-end user interaction design
-- Website navigation management
+✅ Custom PHP template programming
+✅ Native interactive form construction
+✅ Basic data input judgment
+✅ Front-end user interaction design
+✅ Website navigation management
 
 ----------------------------------------
 Phase 9: Form Security & Mail Function Integration
@@ -167,11 +167,11 @@ Tasks Completed
 6. Verified secure submission and normal message sending
 
 Technical Competencies Demonstrated
-- Form data security processing
-- Website basic security optimization
-- PHP data filtering logic writing
-- Native mail function calling
-- Interactive experience optimization
+✅ Form data security processing
+✅ Website basic security optimization
+✅ PHP data filtering logic writing
+✅ Native mail function calling
+✅ Interactive experience optimization
 
 ----------------------------------------
 Phase 10: Global Style & Responsive Layout Optimization
@@ -185,11 +185,11 @@ Tasks Completed
 6. Completed overall style finishing and final optimization
 
 Technical Competencies Demonstrated
-- Responsive web layout design
-- CSS advanced attribute application
-- Global UI style unification
-- Multi-terminal compatibility adaptation
-- Commercial website visual optimization
+✅ Responsive web layout design
+✅ CSS advanced attribute application
+✅ Global UI style unification
+✅ Multi-terminal compatibility adaptation
+✅ Commercial website visual optimization
 
 ----------------------------------------
 Phase 11: Local SSL / HTTPS Service Deployment
@@ -208,19 +208,19 @@ Tasks Completed
 11. Completed full-site stable access under HTTPS protocol
 
 Technical Competencies Demonstrated
-- Apache SSL module configuration
-- Local certificate manual generation
-- HTTPS protocol deployment
-- WordPress core file modification
-- Redirection error troubleshooting
-- Server and CMS collaborative debugging
+✅ Apache SSL module configuration
+✅ Local certificate manual generation
+✅ HTTPS protocol deployment
+✅ WordPress core file modification
+✅ Redirection error troubleshooting
+✅ Server and CMS collaborative debugging
 
 ----------------------------------------
 Phase 12: Enterprise Database Structural Design
 Date: 2026-04-29
 ----------------------------------------
 Tasks Completed
-1. Wrote complete SQL scripts to create the goprint_db database with utf8mb4 encoding
+1. Wrote complete SQL scripts to create the `goprint_db` database with utf8mb4 encoding
 2. Designed and implemented 7 core business tables for the printing platform
 3. Configured primary keys, foreign keys, and cascade rules to enforce data integrity
 4. Added English comments to all SQL code and included Traditional Chinese field descriptions for Hong Kong users
@@ -230,19 +230,19 @@ Tasks Completed
 8. Wrote detailed database design documentation and exported it to Markdown and PDF formats
 
 Technical Competencies Demonstrated
-- Manual handwritten SQL scripting
-- Relational database schema design
-- Foreign key and constraint configuration
-- Multi-language content adaptation (English + Traditional Chinese)
-- Database testing and data validation
-- Back-end foundational architecture development
-- ER diagram design and relational data modelling
-- Technical documentation writing and format conversion
+✅ Manual handwritten SQL scripting
+✅ Relational database schema design
+✅ Foreign key and constraint configuration
+✅ Multi-language content adaptation (English + Traditional Chinese)
+✅ Database testing and data validation
+✅ Back-end foundational architecture development
+✅ ER diagram design and relational data modelling
+✅ Technical documentation writing and format conversion
 
 Key Assets Updated
-- SQL schema files stored in 02_Code/01_Database/
-- Database operation screenshots saved in 03_Screenshots/07_Database/
-- ER diagram source file and exported PNG/PDF documents saved in 03_Screenshots/07_Database/
+- SQL schema files stored in `02_Code/01_Database/`
+- Database operation screenshots saved in `03_Screenshots/07_Database/`
+- ER diagram source file and exported PNG/PDF documents saved in `03_Screenshots/07_Database/`
 
 ----------------------------------------
 Phase 13: MVC Architecture & Dynamic Product Module Development
@@ -253,23 +253,23 @@ Tasks Completed
 2. Developed Model layer for database connection and product data query
 3. Created View layer with dynamic data rendering for Hong Kong printing products
 4. Implemented Controller layer to manage data and display logic
-5. Used PHP built-in server to run the MVC project independently, avoiding WordPress route conflicts
+5. Used PHP built-in server to run the MVC project independently, avoiding WordPress route conflict
 6. Tested successfully and displayed 3 dynamic product data from the database
 7. Captured standard screenshots including server startup, code structure and running page
 8. Committed all MVC code to local Git repository
 
-Technical Competencies Demonstrated
-- MVC architectural design and implementation
-- Object-oriented PHP programming
-- Database and web application integration
-- Dynamic webpage data rendering
-- Compatibility testing with existing WordPress system
-- Independent PHP server configuration and deployment
+Technical Competencies Demonstrated ✅
+✅ MVC architectural design and implementation
+✅ Object-oriented PHP programming
+✅ Database and web application integration
+✅ Dynamic webpage data rendering
+✅ Compatibility testing with existing WordPress system
+✅ Independent PHP server configuration and deployment
 
 Key Assets Updated
 - MVC source code stored in 02_Code/02_MVC/
 - MVC development screenshots saved in 03_Screenshots/08_MVC/
-- All files synchronized with original project structure
+- All files properly organized in the codebase
 
 ----------------------------------------
 Phase 14: Laravel 10 Enterprise-level Product System & WordPress Integration
@@ -286,172 +286,1820 @@ Tasks Completed
 8. Integrated Laravel product system with WordPress official website via navigation links
 9. Tested full functionality including listing page, detail page, and cross-system navigation
 10. Captured standard screenshots for project documentation
-11. Synchronized all Laravel source code to the main project folder
+11. Created Laravel source code to the main
 12. Committed all Phase14 work to local Git repository
 
-Technical Competencies Demonstrated
-- Laravel framework installation and configuration
-- Composer dependency management
-- MVC architecture in professional PHP framework
-- Eloquent ORM and database modeling
-- Route management and URL design
-- Responsive UI with Bootstrap 5
-- Cross-system integration (CMS + Framework)
-- Independent server deployment for Laravel
+Technical Competencies Demonstrated ✅
+✅ Laravel framework installation and configuration
+✅ Composer dependency management
+✅ MVC architecture in professional PHP framework
+✅ Eloquent ORM and database modeling
+✅ Route management and URL design
+✅ Responsive UI with Bootstrap 5
+✅ Cross-system integration (CMS + Framework)
+✅ Independent server deployment for Laravel
 
 Key Assets Updated
 - Laravel project stored in 02_Code/laravel/
 - Laravel development screenshots saved in 03_Screenshots/09_Laravel/
 - Daily development log updated
-- All files synchronized with official project structure
+
 
 ----------------------------------------
-Phase 15: User Authentication & Cart System Development
-Date: 2026-05-01
-----------------------------------------
-Tasks Completed
-1. Integrated Laravel Breeze authentication package for user registration and login
-2. Created user authentication system with email/password verification
-3. Developed shopping cart functionality with session-based storage
-4. Implemented cart item add, update, remove and clear operations
-5. Added cart count badge display in navigation bar
-6. Created user dashboard page showing order history overview
-7. Implemented secure password hashing and session management
-8. Tested complete authentication flow and cart operations
-
-Technical Competencies Demonstrated
-- Laravel authentication system integration
-- Session-based shopping cart implementation
-- User registration and login workflow
-- Password security and encryption
-- Session management and data persistence
-- User dashboard development
-
-Key Assets Updated
-- Authentication views and controllers in Laravel
-- Cart controller and views
-- Dashboard view for authenticated users
-- Updated navigation with cart functionality
-
-----------------------------------------
-Phase 16: Order Management & Payment Integration
+Phase 15: Laravel About & Contact Pages Development
 Date: 2026-05-02
 ----------------------------------------
 Tasks Completed
-1. Developed complete order creation and management system
-2. Created address management for user shipping addresses
-3. Implemented order confirmation page with order summary
-4. Integrated payment gateway for online transactions
-5. Added order status tracking (pending, processing, shipping, completed)
-6. Created admin panel for order management
-7. Implemented email notification for order confirmation
-8. Added order history viewing for registered users
+1. Created InfoController to handle About and Contact page routing
+2. Developed master layout file (app.blade.php) with navigation bar and footer
+3. Created responsive About page (about.blade.php) showcasing company services
+4. Created Contact page (contact.blade.php) with company contact information
+5. Created home.blade.php as the main landing page
+6. Configured Laravel routes for /about and /contact endpoints
+7. Updated root route to display custom home page instead of default welcome page
+8. Verified all pages display correctly with proper styling and navigation
+9. Created new view files
+10. Ensured README documentation reflects latest project structure
+11. Committed all Phase15 work to local Git repository
 
-Technical Competencies Demonstrated
-- Order management system design
-- Address book functionality
-- Payment integration
-- Order status workflow
-- Admin panel development
-- Email notification system
+Technical Competencies Demonstrated ✅
+✅ Laravel controller development
+✅ Blade template inheritance and layout system
+✅ Navigation menu and footer component development
+✅ Multi-page route configuration
+✅ Codebase maintenance
+✅ Professional documentation maintenance
 
 Key Assets Updated
-- Order controller and views
-- Address management module
-- Payment controller
-- Admin order management views
-- Email notification templates
+- InfoController stored in laravel/app/Http/Controllers/
+- New view templates stored in laravel/resources/views/
+- Master layout stored in laravel/resources/views/layouts/
+- Routes updated in laravel/routes/web.php
+- README files updated in both laravel/ and wordpress/
+
 
 ----------------------------------------
-Phase 17: Admin Panel & Product Management
-Date: 2026-05-03
+Phase 16: Laravel Database Migration & Order Model Development
+Date: 2026-05-02
 ----------------------------------------
 Tasks Completed
-1. Created comprehensive admin dashboard with statistics overview
-2. Developed product CRUD management interface
-3. Implemented product category management system
-4. Added product image upload functionality
-5. Created order management with status updates
-6. Developed data reporting and analytics page
-7. Implemented admin role-based access control
-8. Added pagination and search functionality
+1. Created orders table migration file with conditional table creation logic
+2. Added Schema::hasTable() check to handle existing database tables
+3. Implemented Schema::table() to add missing columns if table already exists
+4. Ran php artisan migrate successfully without conflicts
+5. Created Order model with fillable attributes
 
-Technical Competencies Demonstrated
-- Admin panel development
-- CRUD operations implementation
-- File upload handling
-- Role-based authentication
-- Data analytics dashboard
-- Search and pagination
+Technical Competencies Demonstrated ✅
+✅ Laravel database migration development
+✅ Schema manipulation and conditional table creation
+✅ Eloquent ORM model creation
+✅ Database schema comparison and modification
+✅ Migration conflict resolution
+✅ Professional Laravel development practices
 
 Key Assets Updated
-- Admin controller and views
-- Product management interface
-- Category management module
-- Reports and analytics views
-- Middleware for admin authentication
+- Migration file stored in laravel/database/migrations/
+- Order model stored in laravel/app/Models/
+
 
 ----------------------------------------
-Phase 18: Multi-language Support Implementation
-Date: 2026-05-09
+Phase 16 Continued: Laravel Order Form & Submission System Completion
+Date: 2026-05-02
 ----------------------------------------
 Tasks Completed
-1. Configured Laravel localization settings for multi-language support
-2. Created language translation files for three locales:
-   - English (en)
-   - Traditional Chinese (zh-HK)
-   - Simplified Chinese (zh-CN)
-3. Added comprehensive translation keys covering all system messages
-4. Implemented language switcher dropdown in navigation bar
-5. Created language switching route and session-based locale storage
-6. Updated all view files to use translation helper functions
-7. Modified app.blade.php layout to support dynamic language switching
-8. Tested language switching functionality across all pages
+1. Created order form page (order/create.blade.php) with Bootstrap 5 styling
+2. Implemented form fields including name, phone, email, product selection, size, material, quantity, and file upload
+3. Developed OrderController@store method with complete request validation
+4. Implemented dynamic price calculation logic based on product type, size, material, and quantity
+5. Added quantity-based discount tiers (20% off for 1000+ units, 10% off for 500-999 units)
+6. Implemented file upload functionality with timestamp-based filename generation
+7. Used DB facade directly for data insertion to bypass Eloquent model constraints
+8. Created order confirmation page (order/confirm.blade.php) to display submitted order details
+9. Updated navigation bar to add "Place Order" button linking to order form
+10. Resolved database foreign key constraint issue by removing order_item_ibfk_1 constraint
+11. Fixed table structure by recreating orders table with correct column format
+12. Simplified Order model configuration to use default auto-incrementing id
+13. Tested complete order submission flow - from form input to database storage to confirmation display
+14. Verified file upload functionality and order detail rendering
 
-Technical Competencies Demonstrated
-- Laravel localization configuration
-- Multi-language translation file management
-- Session-based language preference storage
-- Dynamic language switching implementation
-- Translation helper function usage
-- View template internationalization
+Technical Competencies Demonstrated ✅
+✅ Laravel form validation and request handling
+✅ Dynamic business logic implementation (price calculation with discounts)
+✅ File upload and storage management
+✅ Database foreign key constraint troubleshooting
+✅ Database table structure modification and migration
+✅ Eloquent ORM configuration and optimization
+✅ End-to-end feature testing and validation
+✅ Codebase maintenance
 
 Key Assets Updated
-- Language translation files in resources/lang/
-- Updated layout view with language switcher
-- Language switching route in web.php
-- All Blade views updated with translation functions
-- Configuration settings in config/app.php
+- OrderController updated in laravel/app/Http/Controllers/
+- Order model simplified in laravel/app/Models/
+- Order form and confirmation views stored in laravel/resources/views/order/
+- Navigation bar updated in laravel/resources/views/layouts/
+
 
 ----------------------------------------
-Phase 19: Database Backup & Recovery System
-Date: 2026-05-09
+Phase 16 Final: Order Form Validation & UI Enhancement
+Date: 2026-05-02
 ----------------------------------------
 Tasks Completed
-1. Analyzed MySQL data persistence issues on Windows XAMPP
-2. Created automated database backup batch script for daily use
-3. Fixed script encoding issues causing crash on execution
-4. Implemented timestamped backup file naming (goprint_db_backup_YYYYMMDD_HHmmss.sql)
-5. Added error handling and success/failure messaging
-6. Created database recovery scripts for products, orders, users and images
-7. Restored lost database data including:
-   - 5 products with images
-   - 2 categories
-   - 3 orders
-   - 2 users (admin and test accounts)
-   - 2 addresses
-8. Configured backup storage directory at database_backups/
+1. Enhanced form validation with Hong Kong phone number format (8-digit regex check)
+2. Added strict email validation with RFC and DNS checks
+3. Implemented product, size, material selection validation using 'in' rule
+4. Added quantity validation to ensure only positive integers (no decimals, no zero)
+5. Added file upload validation for specific formats (PDF, JPG, JPEG, PNG, AI, PSD) and 10MB size limit
+6. Added custom validation messages in Traditional Chinese for better user experience
+7. Updated phone input with fixed +852 country code prefix using Bootstrap input-group
+8. Implemented real-time price preview with JavaScript that updates as user makes selections
+9. Added discount information display in the price preview (20% off/10% off)
+10. Enhanced UI with Bootstrap 5 grid layout for better responsiveness
+11. Added form labels with red asterisk for required fields
+12. Added input placeholders and helpful hints for better guidance
+13. Implemented old() function to preserve user input on validation errors
+14. Added @error directives for inline validation error display
+15. Improved form styling with better spacing and visual hierarchy
+16. Added form-select for select elements with proper styling
+17. Enhanced submit button with btn-lg class for better visibility
+18. Enhanced form validation and UI
 
-Technical Competencies Demonstrated
-- Batch script development for Windows
-- MySQL database backup automation
-- Data recovery and restoration
-- Error handling and user feedback
-- Timestamp file naming conventions
-- Database troubleshooting
+Technical Competencies Demonstrated ✅
+✅ Advanced Laravel form validation (regex, in rule, file validation)
+✅ Custom validation message localization
+✅ Frontend JavaScript for real-time calculations
+✅ Bootstrap 5 responsive grid layout implementation
+✅ User experience (UX) design principles
+✅ Input preservation with old() function
+✅ Inline error display integration
+✅ File upload validation and security
 
 Key Assets Updated
-- GoPrint數據庫備份.bat backup script on Desktop
-- Database recovery PHP scripts
-- Backup files stored in database_backups/
-- Technical troubleshooting record updated
+- OrderController enhanced with complete validation rules
+- Order form UI completely redesigned with real-time price preview
+
+
+----------------------------------------
+Phase 17: User Authentication System (Laravel Breeze)
+Date: 2026-05-05
+----------------------------------------
+Tasks Completed
+1. Installed Laravel Breeze authentication scaffolding via Composer
+2. Ran php artisan breeze:install blade to generate auth views
+3. Executed database migrations to create users and password_reset tables
+4. Integrated authentication system with existing navigation bar
+5. Updated navigation to show login/register buttons for guests
+6. Added user dropdown menu with dashboard, profile, and logout options for authenticated users
+7. Translated all authentication views to Traditional Chinese:
+   - login.blade.php - User Login
+   - register.blade.php - User Registration
+   - forgot-password.blade.php - Forgot Password
+   - reset-password.blade.php - Reset Password
+   - dashboard.blade.php - User Dashboard
+   - profile/edit.blade.php - Edit Profile
+8. Updated layouts/app.blade.php to include Bootstrap dropdown functionality and fixed CSS loading
+9. Integrated CSRF token for security
+10. Generated all authentication views and controllers
+11. Fixed route coverage issue - restored product, about, contact, and order routes
+12. Fixed WordPress configuration issues (wp-config.php and .htaccess)
+13. Fixed navigation bar style loading issue by using CDN resources
+14. Fixed "Back to GoPrint Home" button link to correctly point to Laravel homepage
+15. Resolved CSS framework conflict between Bootstrap and Tailwind by removing @vite() directive
+16. Added custom CSS utility classes inline to avoid framework conflicts (max-w-3xl, px-10, py-8, rounded-xl, text-xl, font-bold, mb-6)
+
+Technical Competencies Demonstrated ✅
+✅ Laravel Breeze authentication installation and configuration
+✅ User registration and login functionality
+✅ Password reset workflow implementation
+✅ Session management and authentication middleware
+✅ Responsive navigation with guest/authenticated states
+✅ Traditional Chinese localization for all auth views
+✅ Security best practices (CSRF protection)
+✅ Troubleshooting and fixing routing issues
+✅ WordPress configuration and .htaccess management
+✅ CSS framework conflict resolution and debugging
+✅ Cross-framework compatibility management
+
+Key Assets Updated
+- Auth views stored in laravel/resources/views/auth/
+- Profile views stored in laravel/resources/views/profile/
+- Layout updated in laravel/resources/views/layouts/app.blade.php
+- Dashboard view updated with quick actions
+- Routes restored in laravel/routes/web.php
+- WordPress configuration files (wp-config.php, .htaccess)
+- Products index view fixed navigation link
+- Custom CSS utility classes added to layout file
+
+
+----------------------------------------
+Phase 18: Admin Dashboard & Order Management System
+Date: 2026-05-06
+----------------------------------------
+Tasks Completed
+1. Created AdminController to handle backend management functionality
+2. Implemented authentication middleware protection for all admin routes
+3. Developed admin dashboard page showing key metrics:
+   - Total orders count
+   - Pending orders count
+   - Completed orders count
+4. Created order management page with complete order listing table
+5. Developed order detail page showing full order information
+6. Implemented order status management with dropdown selector (pending, processing, completed, cancelled)
+7. Added order deletion functionality with confirmation prompt
+8. Added "Admin Panel" link to authenticated user dropdown menu
+9. Created admin view templates in dedicated admin/ folder
+10. Configured all admin routes with proper naming conventions
+11. Tested complete admin workflow including login, dashboard access, order viewing, and status updating
+12. Updated navigation to include admin dashboard shortcut
+
+Technical Competencies Demonstrated ✅
+✅ Laravel controller development with middleware
+✅ Authentication and authorization implementation
+✅ CRUD operations for order management
+✅ Dashboard metrics and data visualization
+✅ Responsive table design with Bootstrap
+✅ User interface design for admin functionality
+✅ Route configuration and naming
+✅ Form handling for status updates
+✅ Soft delete functionality
+✅ Integration with existing authentication system
+
+Key Assets Updated
+- AdminController stored in laravel/app/Http/Controllers/
+- Admin dashboard view stored in laravel/resources/views/admin/dashboard.blade.php
+- Orders listing view stored in laravel/resources/views/admin/orders.blade.php
+- Order detail view stored in laravel/resources/views/admin/order-detail.blade.php
+- Routes updated in laravel/routes/web.php
+- Navigation bar updated with admin link
+
+----------------------------------------
+Phase 18 Continued: Role-based Access Control System
+Date: 2026-05-06
+----------------------------------------
+Tasks Completed
+1. Created database migration to add 'role' column to users table with default value 'user'
+2. Created AdminMiddleware to verify admin role before granting access to admin routes
+3. Registered 'admin' middleware alias in Kernel.php
+4. Updated admin routes to use both 'auth' and 'admin' middleware for protection
+5. Modified navigation bar to conditionally show "Admin Panel" link only for admin users
+6. Created admin user with appropriate role configuration
+7. Verified role-based access control works correctly:
+   - Admin users can see and access admin dashboard
+   - Regular users cannot see admin link and are redirected if trying to access admin routes
+8. Fixed password update functionality in ProfileController
+9. Added proper success message display for password updates
+10. Fixed password confirmation validation error display
+
+Technical Competencies Demonstrated ✅
+✅ Role-based access control (RBAC) implementation
+✅ Custom middleware development
+✅ Database migration for new column addition
+✅ Route protection with multiple middleware
+✅ Conditional view rendering based on user role
+✅ Password update functionality with validation
+✅ Session flash messages for success notifications
+✅ Debugging and troubleshooting form validation
+
+Key Assets Updated
+- Migration file: laravel/database/migrations/2026_05_06_082650_add_role_to_users_table.php
+- AdminMiddleware: laravel/app/Http/Middleware/AdminMiddleware.php
+- Kernel.php updated with admin middleware alias
+- Routes updated with admin middleware protection
+- Navigation bar updated with conditional admin link
+- ProfileController enhanced with password update and success messages
+- Profile view updated with success alert display
+
+================================================================================
+Phase 19: Shopping Cart Development (2026-05-06)
+================================================================================
+
+Overview:
+Implemented comprehensive shopping cart functionality for the e-commerce platform.
+
+Tasks Completed ✅
+1. Created CartController with CRUD operations for cart management
+2. Implemented add to cart functionality from product listing and detail pages
+3. Developed cart index view with product listing and quantity management
+4. Added cart count badge to navigation bar
+5. Implemented quantity update and product removal features
+6. Added cart clear functionality
+7. Fixed field mapping issues for product identification
+8. Ensured price calculation updates correctly when quantities change
+
+Technical Competencies Demonstrated ✅
+✅ Session-based shopping cart implementation
+✅ Form handling and validation for cart operations
+✅ Dynamic navigation bar updates with cart count
+✅ Price calculation and total aggregation
+✅ Error handling and user feedback with flash messages
+✅ Debugging and fixing database field mapping issues
+✅ Responsive view design for cart display
+
+Key Assets Updated
+- CartController: laravel/app/Http/Controllers/CartController.php
+- Cart index view: laravel/resources/views/cart/index.blade.php
+- Product listing view updated with add to cart button
+- Product detail view updated with add to cart button
+- Navigation bar updated with cart link and item count badge
+- Routes updated with cart operation endpoints
+
+================================================================================
+Phase 20: Payment Gateway Integration & Email Notification (2026-05-07)
+================================================================================
+
+Overview:
+Implemented payment gateway integration with Stripe and automated email notification system for order confirmations.
+
+Tasks Completed ✅
+1. Developed email notification system with Mailable class for order confirmation
+2. Created professional email template with order details and customer service information
+3. Integrated email sending into order creation workflow with error handling
+4. Implemented Stripe payment gateway integration for checkout sessions
+5. Created payment success and cancel views with order status updates
+6. Configured Stripe API credentials and webhook support
+7. Added payment button to order confirmation page with AJAX integration
+8. Ensured proper error handling and logging for payment operations
+9. Implemented session-based email logging for development testing
+
+Technical Competencies Demonstrated ✅
+✅ Laravel Mailable class implementation for transactional emails
+✅ Email template design with dynamic data binding
+✅ Stripe Checkout Session API integration
+✅ Payment workflow implementation with success/cancel redirects
+✅ Webhook endpoint configuration for payment status updates
+✅ Session-based mail driver configuration for development
+✅ Error handling and logging for payment operations
+✅ AJAX-based payment initiation from frontend
+
+Key Assets Updated
+- OrderConfirmation Mailable: laravel/app/Mail/OrderConfirmation.php
+- Email template: laravel/resources/views/emails/order_confirmation.blade.php
+- OrderController updated with email sending functionality
+- PaymentController: laravel/app/Http/Controllers/PaymentController.php
+- Payment success view: laravel/resources/views/payment/success.blade.php
+- Payment cancel view: laravel/resources/views/payment/cancel.blade.php
+- Services configuration updated with Stripe settings
+- Routes updated with payment endpoints
+- Order confirmation view updated with payment button
+
+================================================================================
+Phase 21: Core User Experience Features - Order History & Address Management (2026-05-07)
+================================================================================
+
+Overview:
+Enhanced user experience with order history viewing and address management functionality.
+
+Tasks Completed ✅
+1. Created OrderHistoryController for viewing user's order history
+2. Developed order history index page with order listing and status badges
+3. Created order detail page showing complete order information
+4. Added address management system with Address model and controller
+5. Implemented address CRUD operations (create, read, update, delete)
+6. Created address listing, create, and edit views with Bootstrap styling
+7. Added default address selection feature
+8. Implemented Hong Kong phone number format validation (8-digit)
+9. Updated navigation bar with order history and address management links
+10. Fixed button links in user dashboard to point to correct routes
+11. Fixed Address model with proper $fillable attributes for mass assignment
+
+Technical Competencies Demonstrated ✅
+✅ Order history management with user-specific data filtering
+✅ Address CRUD operations with validation
+✅ Database relationship between users and addresses
+✅ Form validation for Hong Kong phone format
+✅ Conditional view rendering with Bootstrap cards
+✅ Route parameter handling and authorization
+✅ Mass assignment protection with $fillable
+✅ User interface design for address management
+
+Key Assets Updated
+- OrderHistoryController: laravel/app/Http/Controllers/OrderHistoryController.php
+- Order history views: laravel/resources/views/orders/
+- Address model: laravel/app/Models/Address.php
+- AddressController: laravel/app/Http/Controllers/AddressController.php
+- Address views: laravel/resources/views/addresses/
+- Address migration: laravel/database/migrations/2026_05_07_093239_create_addresses_table.php
+- Routes updated in laravel/routes/web.php
+- Navigation bar updated in laravel/resources/views/layouts/app.blade.php
+- User dashboard fixed with correct route links
+
+================================================================================
+Phase 22: API Endpoint Development (2026-05-07)
+================================================================================
+
+Overview:
+Developed RESTful API endpoints for mobile app integration and third-party services using Laravel Sanctum for authentication.
+
+Tasks Completed ✅
+1. Installed and configured Laravel Sanctum for API token authentication
+2. Created API authentication endpoints (register, login, logout, me)
+3. Developed Product API controller with full CRUD operations
+4. Developed Order API controller for order management
+5. Configured API routes with Sanctum authentication middleware
+6. Implemented Bearer token authentication for secure API access
+7. Created API controllers in dedicated API namespace
+
+Technical Competencies Demonstrated ✅
+✅ Laravel Sanctum API authentication implementation
+✅ RESTful API design and development
+✅ Token-based authentication (Bearer tokens)
+✅ API route configuration and middleware
+✅ JSON response formatting for API endpoints
+✅ User-specific data filtering in API responses
+✅ Secure API endpoint protection
+
+API Endpoints Available
+Authentication:
+- POST /api/register - User registration
+- POST /api/login - User login
+- POST /api/logout - User logout (requires auth)
+- GET /api/me - Get current user info (requires auth)
+
+Products:
+- GET /api/products - List all products (public access)
+- GET /api/products/{id} - Get single product (public access)
+- POST /api/products - Create product (requires auth)
+- PUT /api/products/{id} - Update product (requires auth)
+- DELETE /api/products/{id} - Delete product (requires auth)
+
+Orders:
+- GET /api/orders - List user's orders (requires auth)
+- GET /api/orders/{id} - Get single order (requires auth)
+- POST /api/orders - Create order (requires auth)
+
+Key Assets Updated
+- AuthController: laravel/app/Http/Controllers/API/AuthController.php
+- ProductController: laravel/app/Http/Controllers/API/ProductController.php
+- OrderController: laravel/app/Http/Controllers/API/OrderController.php
+- API routes: laravel/routes/api.php
+- Sanctum configuration: laravel/config/sanctum.php
+
+Quick Fix: Adjusted API route authentication - made product listing endpoints publicly accessible for easier testing and integration
+
+Status: ✅ Phase 22 completed and verified
+
+================================================================================
+Phase 23: Product Management Enhancement (2026-05-08)
+================================================================================
+
+Overview:
+Enhanced product management functionality with image upload, complete product editing, category management, and data statistics reporting.
+
+Tasks Completed ✅
+1. **Product Image Upload Feature:**
+   - Created database migration to add 'pro_image' column to products table
+   - Updated Product model with pro_image field in $fillable array
+   - Added image upload method to AdminController with validation (JPEG/PNG/GIF, max 2MB)
+   - Implemented file storage with unique timestamp-based filename generation
+   - Updated product listing and detail views to display uploaded images
+   - Configured storage symbolic link for public access
+   - Implemented fallback placeholder image for products without images
+
+2. **Complete Product CRUD Management:**
+   - Added product creation functionality with form validation
+   - Implemented full product editing (name, price, stock, description, category, image)
+   - Added product deletion with confirmation prompt
+   - Created dedicated create-product and edit-product views
+   - Added category dropdown selector for product categorization
+
+3. **Product Category Management:**
+   - Created Category model with proper table mapping
+   - Added category-product relationship (one-to-many)
+   - Implemented category CRUD operations (create, read, update, delete)
+   - Added protection to prevent deletion of categories with products
+   - Created admin category management views
+
+4. **Data Statistics Reports:**
+   - Developed comprehensive reports page with key metrics
+   - Added total products, categories, orders counters
+   - Implemented order status statistics (pending/completed)
+   - Added category product distribution chart
+   - Implemented total revenue calculation from completed orders
+   - Added recent orders listing with key details
+
+5. **Admin Dashboard Enhancement:**
+   - Added quick access buttons for product management, category management, and reports
+   - Updated navigation with new management features
+
+6. **Test Coverage Enhancement:**
+   - Created comprehensive test suite with 39 test cases
+   - ProductTest: 10 tests covering product CRUD and permissions
+   - CategoryTest: 7 tests covering category management
+   - OrderTest: 8 tests covering order management
+   - CartTest: 7 tests covering shopping cart functionality
+   - AdminTest: 7 tests covering admin permissions and dashboard
+   - Updated phpunit.xml to use SQLite in-memory database for testing
+
+Technical Competencies Demonstrated ✅
+✅ Database migration and schema modification
+✅ File upload handling and validation
+✅ Secure file storage with unique filename generation
+✅ Laravel storage facade and symbolic links
+✅ CRUD operations implementation
+✅ Model relationships (one-to-many)
+✅ Role-based access control
+✅ Data aggregation and statistics
+✅ Test-driven development with PHPUnit
+✅ Responsive UI design with Bootstrap
+✅ Form validation and error handling
+✅ Success/error message feedback system
+
+Key Assets Updated
+- Migration files in laravel/database/migrations/
+- Product model: laravel/app/Models/Product.php
+- Category model: laravel/app/Models/Category.php
+- AdminController: laravel/app/Http/Controllers/AdminController.php
+- Admin views: laravel/resources/views/admin/
+  - products.blade.php (product listing)
+  - create-product.blade.php (create product form)
+  - edit-product.blade.php (edit product form)
+  - categories.blade.php (category listing)
+  - create-category.blade.php (create category form)
+  - edit-category.blade.php (edit category form)
+  - reports.blade.php (statistics dashboard)
+  - dashboard.blade.php (updated with new shortcuts)
+- Frontend views: laravel/resources/views/products/
+  - index.blade.php (updated with product images)
+  - show.blade.php (updated with product images)
+- Routes updated in laravel/routes/web.php
+- Test files in laravel/tests/Feature/
+  - ProductTest.php
+  - CategoryTest.php
+  - OrderTest.php
+  - CartTest.php
+  - AdminTest.php
+- phpunit.xml updated with SQLite configuration
+
+Status: ✅ Phase 23 completed and verified
+
+----------------------------------------
+Phase 24: Internationalization & Deployment
+----------------------------------------
+Tasks Completed
+
+1. **Multi-language Support (i18n):**
+   - Created language directories for zh-HK, zh-CN, and en
+   - Generated comprehensive translation files for all languages
+   - Implemented SetLocale middleware for automatic language detection
+   - Added locale switcher route to change language preferences
+   - Integrated language dropdown in navigation bar
+   - Updated all views to use __() translation helper
+
+2. **Docker Deployment:**
+   - Created Dockerfile with PHP 8.1 and Apache configuration
+   - Configured docker-compose.yml with web, MySQL, and phpMyAdmin services
+   - Created .env.example template for environment configuration
+   - Developed deploy.sh script for Linux/Mac deployment
+   - Developed deploy.bat script for Windows deployment
+   - Set up network configuration and volume mounts
+
+3. **Technical Documentation:**
+   - Updated GoPrint_Final_Technical_Report.txt with comprehensive project documentation
+   - Documented technical architecture, features, deployment instructions, and API endpoints
+   - Updated PROJECT_OVERVIEW.md with Phase 24 content
+
+Technical Competencies Demonstrated ✅
+✅ Laravel localization and internationalization
+✅ Middleware development for request handling
+✅ Session-based language persistence
+✅ Docker containerization
+✅ Docker Compose orchestration
+✅ Shell script development
+✅ Batch file development for Windows
+✅ Technical documentation writing
+✅ Project architecture documentation
+✅ API documentation
+✅ Environment configuration management
+
+Key Assets Created
+- Language files: laravel/resources/lang/
+  - zh-HK/messages.php (Traditional Chinese)
+  - zh-CN/messages.php (Simplified Chinese)
+  - en/messages.php (English)
+- SetLocale middleware: laravel/app/Http/Middleware/SetLocale.php
+- Dockerfile: laravel/Dockerfile
+- docker-compose.yml: laravel/docker-compose.yml
+- .env.example: laravel/.env.example
+- deploy.sh: laravel/deploy.sh (Linux/Mac deployment)
+- deploy.bat: laravel/deploy.bat (Windows deployment)
+- Technical Report: 01_Documentation/GoPrint_Final_Technical_Report.txt
+- Project Overview: PROJECT_OVERVIEW.md
+
+Status: ✅ Phase 24 completed and verified
+
+================================================================================
+Phase 25: Database Recovery & UX Enhancement (2026-05-09)
+================================================================================
+
+Encountered data loss issue. After restarting Windows, the MySQL orders table was missing.
+
+First noticed the admin dashboard showing "Column not found: 1054 Unknown column 'status'", followed by route parameter errors on the orders page.
+
+Investigated and found the orders table was missing the status column and other necessary fields. Used fix_order_database.php script to rebuild the table with status, user_id and other required fields. Inserted 3 test orders.
+
+Shopping cart images weren't displaying. Fixed cart/index.blade.php by adding image display logic and a separate Name column.
+
+Dashboard and addresses pages had incomplete translations with hardcoded Chinese text. Updated both views to use __() helper functions and added 16 new translation keys to both English and Traditional Chinese language files.
+
+User and Order models needed relationship updates. Added role to User fillable, added user_id and status to Order fillable.
+
+Created database backup script for future protection.
+
+Technical Notes:
+- laravel/app/Models/User.php
+- laravel/app/Models/Order.php
+- laravel/resources/views/cart/index.blade.php
+- laravel/resources/views/dashboard.blade.php
+- laravel/resources/views/addresses/index.blade.php
+- laravel/resources/lang/en/messages.php
+- laravel/resources/lang/zh-HK/messages.php
+- laravel/fix_order_database.php
+
+Status: ✅ Phase 25 completed and verified
+
+Important Reminders:
+⚠️ Always run GoPrint_Database_Backup.bat before shutdown!
+⚠️ Never execute php artisan migrate:fresh without backup!
+⚠️ Test new features locally first!
+
+================================================================================
+Phase 26: Product Expansion & Order Form Enhancement (2026-05-11)
+================================================================================
+
+Overview:
+My homepage redesign was looking good but I only had 5 products across 2 categories, which made the site feel empty. I spent this phase expanding the product catalogue to cover the full range of printing services and reworking the order form to handle all the new product types with accurate pricing.
+
+Tasks Completed ✅
+
+1. Product Catalogue Expansion:
+   - Added 6 new categories: Flyer Printing, Book Printing, Sticker Printing, Poster Printing, Envelope & Stationery, Banner & Display Stand
+   - Added 30 new products across all 8 categories with realistic HK dollar pricing
+   - Each product has a proper description covering material, finish and quantity details
+   - Ran a custom PHP seeder script to populate the database cleanly using utf8mb4 encoding for proper Chinese character storage
+   - Verified the homepage product center, latest products and popular sections all display the new items correctly
+
+2. Order Form Redesign:
+   - Completely reworked the product dropdown to pull available products dynamically from the database instead of using hardcoded options
+   - Expanded size options from 3 (A5/A4/A3) to 9 options covering A6 through A1 plus DL and custom sizes
+   - Expanded material options from 2 paper types to 10 options including coated paper, matte paper, card stock, PVC, waterproof canvas, kraft paper and more
+   - Added printing side selector for single-sided or double-sided printing
+   - Added binding method selector with 5 options ranging from no binding to saddle stitch, perfect bind, hardcover and spiral binding
+   - Added two new database columns (printing_side, binding) to the orders table to store the extra order data
+   - Updated the order confirmation page to display all new fields conditionally
+
+3. Price Calculation Engine:
+   - Rebuilt the pricing logic to reference actual product base prices from the database
+   - Implemented a 4-factor pricing model: base price x size multiplier x material multiplier x side multiplier
+   - Size multipliers range from 0.6x for A6 up to 3.0x for A1 to reflect material usage
+   - Material multipliers range from 0.9x for standard book paper to 2.0x for waterproof canvas
+   - Double-sided printing adds a 1.8x multiplier across all products
+   - Binding surcharges are added as flat fees after quantity calculation
+   - Quantity discount tiers: 5% off at 200+, 15% off at 500+, 25% off at 1000+
+   - Frontend JavaScript price preview was rewritten to match the backend PHP calculation exactly
+
+4. Product Listing Enhancement:
+   - Updated the product listing page with the new category sidebar navigation
+   - Added category filtering support to the ProductController that works with both numeric IDs and name-based lookups
+   - Products page shows the category sidebar on the left with a proper active state for the selected category
+
+5. Homepage Polish:
+   - Expanded the home route to pass all categories to the view
+   - Product center section on the homepage now uses the full category sidebar
+   - Added badge indicators (Hot, New) on product cards
+   - Added vendor colour gradients to product card images based on product name hash
+
+6. Internationalisation:
+   - Added approximately 50 new translation keys for the carousel, design tools section and product centre
+   - Updated all three language files (English, Traditional Chinese, Simplified Chinese)
+   - Fixed missing homepage translation keys in the Simplified Chinese file that were present in the other two languages
+
+Technical Competencies Demonstrated ✅
+✅ Database seeding and bulk data insertion with Unicode support
+✅ Dynamic form population from database records
+✅ Multi-factor pricing algorithm design and implementation
+✅ Frontend and backend logic synchronisation for real-time price calculation
+✅ Conditional data display in order confirmation views
+✅ Database schema extension with new columns
+✅ Category-based product filtering and navigation
+✅ Laravel validation rule generation from dynamic data sources
+✅ Internationalisation and multi-language support maintenance
+
+Key Assets Updated
+- laravel/routes/web.php
+- laravel/app/Http/Controllers/ProductController.php
+- laravel/app/Http/Controllers/OrderController.php
+- laravel/resources/views/layouts/app.blade.php
+- laravel/resources/views/home.blade.php
+- laravel/resources/views/products/index.blade.php
+- laravel/resources/views/order/create.blade.php
+- laravel/resources/views/order/confirm.blade.php
+- laravel/resources/lang/en/messages.php
+- laravel/resources/lang/zh-HK/messages.php
+- laravel/resources/lang/zh-CN/messages.php
+- laravel/database/seed_phase26.php (new)
+
+Database Changes
+- 6 new categories added (cat_id 3-8)
+- 30 new products added (pro_id 6-35)
+- orders table: added printing_side VARCHAR(50) and binding VARCHAR(50) columns
+
+Status: ✅ Phase 26 completed and verified
+
+================================================================================
+Phase 26 Continued: CSS Regression Fix & Page Redesign (2026-05-11)
+================================================================================
+
+Overview:
+After deploying the Phase 26 changes I noticed several pages had layout and styling issues. The about, contact, cart and admin pages were either unstyled or using CSS utility classes that no longer existed. I traced the root cause to my app.blade.php CSS rewrite which had removed legacy Tailwind compatibility classes that some views depended on. Rather than just patching the utility classes, I took the opportunity to properly redesign the affected pages with Bootstrap 5.
+
+Tasks Completed ✅
+
+1. CSS Utility Class Restoration:
+   - Identified that the Phase 26 CSS rewrite in app.blade.php removed approximately 20 utility classes that existed from the earlier Breeze/Bootstrap integration work
+   - Rather than relying on those legacy helpers, I added a proper utility compatibility section with 20+ classes covering max-width containers, font sizing, spacing, flex layout and dimension utilities
+   - This immediately fixed all admin pages (dashboard, orders, products, categories, reports, order detail) without touching their template files
+
+2. About Page Redesign:
+   - The original about page was just a plain h1 tag followed by a horizontal rule and two text paragraphs — it looked completely bare
+   - Built a full-page layout with a blue gradient header banner, a main content card showing company information, a 4-column service grid with icons, and a sidebar listing key advantages
+   - Used Bootstrap cards, grids and utility classes for consistent spacing and responsive behaviour
+
+3. Contact Page Redesign:
+   - Same issue as the about page — just unstyled raw text with no container or visual hierarchy
+   Created a proper contact page with circular icon cards for phone, fax, email and transport details, a business hours section, and an address panel with Google Maps integration link
+   - Kept the colour scheme consistent with the about page using the same header banner style
+
+4. Cart Page Fix:
+   - Was using legacy utility classes like max-w-5xl, text-6xl, py-12 that were no longer defined
+   - Rewrote the entire template to use native Bootstrap classes (container, table-hover, align-middle, etc.)
+   - Replaced emoji icons with FontAwesome icons for consistency with the rest of the site
+   - Improved the empty cart state with a proper centred layout
+   - Kept all cart functionality intact including quantity update, remove, clear, and checkout
+
+5. Cross-browser Verification:
+   - Tested all 11 public routes returned HTTP 200
+   - Verified admin routes redirect correctly to login when unauthenticated
+   - Confirmed no new errors were introduced in the Laravel log
+
+================================================================================
+Phase 38: Homepage Enhancement & Product Expansion (2026-05-16)
+================================================================================
+
+Overview:
+Completed comprehensive homepage redesign with new sections, enhanced product catalogue, and improved language support.
+
+Tasks Completed ✅
+
+1. **Homepage Enhancement:**
+   - Added 9 design tool category buttons linking to product category pages
+   - Implemented product center display section with sidebar category navigation
+   - Added latest products showcase (4 product cards)
+   - Added popular products quick access (6-grid layout)
+   - Added trust badges display section (4 service commitments)
+   - Added quotation method entry points (online/phone/email)
+
+2. **Layout Updates:**
+   - Implemented responsive 3-column Footer layout
+   - Added pagination style override
+   - Updated footer company information, contact details, and business hours
+
+3. **Product Listing Page:**
+   - Fixed image path references
+   - Added category sidebar with 11 categories and icons
+   - Added category description hints
+
+4. **Contact Page:**
+   - Fixed column layout structure
+   - Added business hours display section
+
+5. **About Page:**
+   - Added brand story and company introduction
+   - Added service category showcase
+   - Added contact CTA button
+
+6. **Language Package:**
+   - Rewrote 534 lines of Traditional Chinese language package (zh-HK/messages.php)
+
+7. **Database Updates:**
+   - Added 11 product categories via seed_phase26.php
+   - Added 52 new products to database
+
+8. **Storage System:**
+   - Generated 52 SVG product images in storage/app/public/
+   - Created symbolic links for public image access
+
+Technical Competencies Demonstrated ✅
+✅ Responsive layout design with Bootstrap 5
+✅ Blade template development and customization
+✅ Database seeding with bulk data insertion
+✅ SVG image generation and asset management
+✅ Laravel storage system configuration
+✅ Multi-language support enhancement
+✅ Category-based navigation implementation
+✅ UI/UX enhancement with trust badges and CTAs
+
+Key Assets Updated
+- laravel/resources/views/home.blade.php
+- laravel/resources/views/layouts/app.blade.php
+- laravel/resources/views/products/index.blade.php
+- laravel/resources/views/contact.blade.php
+- laravel/resources/views/about.blade.php
+- laravel/resources/lang/zh-HK/messages.php
+- laravel/database/seed_phase26.php
+- laravel/storage/app/public/ (SVG images)
+
+Status: ✅ Phase 27 completed and verified
+
+Technical Competencies Demonstrated ✅
+✅ CSS regression analysis and debugging
+✅ Cross-framework compatibility management (Bootstrap + legacy Tailwind classes)
+✅ Page redesign with Bootstrap 5 components
+✅ Responsive layout implementation
+✅ FontAwesome icon integration
+✅ Consistent UI pattern enforcement across pages
+✅ End-to-end page verification and testing
+
+Key Assets Updated
+- laravel/resources/views/layouts/app.blade.php (utility classes added)
+- laravel/resources/views/about.blade.php (complete redesign)
+- laravel/resources/views/contact.blade.php (complete redesign)
+- laravel/resources/views/cart/index.blade.php (Bootstrap rewrite)
+
+Status: ✅ Phase 26 Continued completed and verified
+
+
+================================================================================
+Phase 27: Online Product Designer & Design Button Integration (2026-05-11)
+================================================================================
+
+Overview:
+To enhance the user experience and allow customers to personalise products before ordering, I built a custom online product designer from scratch using Fabric.js. The designer enables users to add text, shapes, images, and apply templates directly on a canvas. I also integrated "Start Design" buttons across the product listing and detail pages so users can launch the designer with a single click.
+
+Tasks Completed u+2192
+
+1. Custom Online Product Designer:
+   - Built a full-featured designer using Fabric.js canvas library (v5.3.0)
+   - Implemented text tool with font family, size, colour, alignment and style controls
+   - Implemented shape tool supporting rectangles, circles, triangles and lines with fill and stroke options
+   - Implemented image upload functionality with opacity adjustment
+   - Implemented background colour and image support
+   - Created 6 preset templates (business card, flyer, poster, invitation) with different dimensions
+   - Implemented layer management for object ordering
+   - Added zoom controls, cutting guide overlay and real-time coordinate display
+   - Added toolbar with undo/redo, copy/cut/paste, delete, flip, rotate and group/ungroup functions
+   - Implemented keyboard shortcuts (Ctrl+Z/Y for undo/redo, Delete for removal, Ctrl+C/V for copy/paste)
+   - Added preview, save and order buttons with design data export capability
+
+2. Designer Controller & Routes:
+   - Created DesignerController to handle designer views and design data export
+   - Added three routes: GET /designer (index), GET /designer/{productId} (product-specific), POST /designer/export (save)
+   - Integrated CSRF token handling for secure form submission
+
+3. Designer View & Assets:
+   - Created designer/index.blade.php with left tool panel, canvas area and right property panel
+   - Created designer.css with dark-themed professional interface layout
+   - Created designer.js with all Fabric.js canvas logic and event handlers
+   - Included Fabric.js CDN and FontAwesome CDN for icons
+
+4. Home Page Design Tools Integration:
+   - Updated all 14 design tool cards to link to the new designer route
+   - Updated the main "Start Design" CTA button to point to the designer
+
+5. Product Listing Page Enhancement:
+   - Added "Start Design" button (blue with palette icon) next to each product's action buttons
+   - Button links directly to the designer with the product ID for context
+
+6. Product Detail Page Enhancement:
+   - Added "Start Design" button alongside "Add to Cart" on the product detail page
+   - Provides direct access to the designer from any product view
+
+7. Contact Page Cleanup:
+   - Removed the Business Hours section (Owner and 24/7 badge) from the contact page
+   - Kept the contact information cards and address section intact
+
+Technical Competencies Demonstrated u+2714
+u+2713 Fabric.js canvas library integration
+u+2713 Custom HTML5 canvas application development
+u+2713 Object-oriented JavaScript for interactive UI
+u+2713 Laravel controller and route development
+u+2713 Multi-page integration with routing
+u+2713 Form submission and AJAX with CSRF protection
+u+2713 CSS layout and styling for complex interfaces
+u+2713 Keyboard shortcut implementation
+u+2713 File upload handling and preview generation
+u+2713 JSON data export for design persistence
+
+Key Assets Created
+- laravel/app/Http/Controllers/DesignerController.php (new)
+- laravel/resources/views/designer/index.blade.php (new)
+- laravel/public/css/designer.css (new)
+- laravel/public/js/designer.js (new)
+
+Key Assets Updated
+- laravel/routes/web.php (designer routes added)
+- laravel/resources/views/home.blade.php (design tools links updated)
+- laravel/resources/views/products/index.blade.php (Start Design button added)
+- laravel/resources/views/products/show.blade.php (Start Design button added)
+- laravel/resources/views/contact.blade.php (Business Hours section removed)
+
+Database Changes
+- None required for this phase
+
+Status: ✅ Phase 27 completed and verified
+
+================================================================================
+Phase 27 Continued: Designer JS Bug Fix & Canvas API Compatibility (2026-05-11)
+================================================================================
+
+Overview:
+After deploying the Fabric.js designer, all toolbar buttons (text, shapes, images, templates, etc.) were non-functional — clicking them did nothing. The root cause was a JavaScript TypeError from canvas.undo() which doesn't exist in Fabric.js 5.x, cascading to break ALL event handler bindings. Fixed all Fabric.js v5 API incompatibilities and implemented a proper undo/redo history system.
+
+Tasks Completed ✅
+
+1. Root Cause Diagnosis:
+   - The original designer.js called canvas.undo() and canvas.redo() which are NOT native Fabric.js methods — they do not exist in any Fabric.js version
+   - This threw an uncaught JavaScript TypeError at page load, preventing ALL subsequent event handler bindings from executing
+   - Also found: stateful: true is an invalid canvas option in Fabric.js 5.x and was silently ignored but contributed to instability
+   - The copy/paste system used fabric.loadFromJSON() incorrectly for single-object cloning instead of fabric.util.enlivenObjects()
+   - Group/ungroup operations did not properly handle object lifecycle (removing individual objects before grouping)
+
+2. Complete designer.js Rewrite (public/js/designer.js):
+   - Removed invalid canvas options (stateful: true)
+   - Implemented custom undo/redo history system using a state stack (historyStack array, historyIndex tracker)
+   - saveState(): stores JSON.stringify(canvas.toJSON(['id'])), maintains max 100 entries, truncates future on new action
+   - undo()/redo(): uses canvas.loadFromJSON()+callback with isRestoring flag to prevent re-triggering state saves
+   - Fixed copy: uses obj.clone() callback pattern instead of JSON.stringify(obj.toJSON())
+   - Fixed paste: uses fabric.util.enlivenObjects([json], callback) instead of fabric.loadFromJSON()
+   - Fixed group: properly discards active selection, removes objects from canvas, then adds group
+   - Fixed ungroup: destroys group, re-adds all _objects individually to canvas
+   - Fixed image upload: constrains both width AND height to max 200px
+   - Fixed zoom: proper min 0.3 / max 3 bounds enforcement
+   - Fixed right panel switching: shows correct panel for text, image, shape objects
+   - Added canvas:object:modified event binding for automatic state save
+   - Added CSRF token validation in orderDesign() function with user-facing alert on failure
+
+3. View Fix (designer/index.blade.php):
+   - Added missing <meta name="csrf-token" content="{{ csrf_token() }}"> to <head>
+   - Without this, the "下单" button would show "CSRF token missing" alert
+
+Technical Competencies Demonstrated ✅
+✅ Fabric.js 5.x API compatibility debugging
+✅ Canvas state management and custom undo/redo implementation
+✅ JavaScript object cloning and serialization patterns
+✅ Fabric.js object lifecycle management (group/ungroup)
+✅ Event handler debugging and JavaScript error cascading analysis
+✅ CSRF token integration for secure AJAX POST requests
+
+Key Assets Updated
+- laravel/public/js/designer.js (complete rewrite — full fix)
+- laravel/resources/views/designer/index.blade.php (CSRF meta tag added)
+
+Bug Summary:
+- Root cause: canvas.undo() called non-existent method → TypeError → all event bindings broken
+- Fix: Custom undo/redo history system, 5 Fabric.js v5 API fixes, CSRF meta tag added
+- All toolbar buttons now functional: text, shapes, images, backgrounds, templates, layers
+- Undo/redo (Ctrl+Z/Y), copy/paste (Ctrl+C/V), group/ungroup all working
+- Order button validates CSRF token before submitting
+
+Status: ✅ Phase 27 Continued completed and verified
+
+================================================================================
+Phase 27 Final: Template Expansion — 10 New Layout Designs (2026-05-11)
+================================================================================
+
+Overview:
+Added 10 new original template designs to the online designer, expanding from 6 to 16 templates covering a wider range of printing products. Each template includes a custom SVG preview, correct real-world dimensions, and appropriate background colours.
+
+Templates Added ✅
+
+1. 现代蓝色名片 (modern-card) — 90x54mm — Blue vertical stripe, clean professional layout with name, title, contact
+2. 奢华金色名片 (luxury-card) — 90x54mm — Dark background with gold accent bar, elegant typography
+3. 公司信纸模板 (letterhead) — 210x297mm A4 — Corporate letterhead with header/footer, date, salutation, body & signature
+4. 大减价海报 (sale-poster) — 297x420mm A3 — Red background, giant "50% OFF" circle, CTA button, sale copy
+5. 婚礼邀请函 (wedding-invitation) — 140x210mm — Pink/rose theme, couple names, ceremony details, RSVP
+6. 餐厅餐牌 (restaurant-menu) — 210x297mm A4 — Dark frame with warm paper background, starters/mains/desserts with pricing
+7. 产品标签模板 (product-label) — 100x100mm square — Circular label with blue rings, product name, weight
+8. 活动宣传单 (event-flyer) — 210x297mm A4 — Purple theme, music festival layout, guest count, stage count, buy ticket button
+9. 荣誉证书模板 (certificate) — 210x297mm A4 — Gold border, elegant certificate with award fields and signature lines
+10. 公司简介封面 (brochure-cover) — 210x297mm A4 — Dark tri-fold brochure cover with fold guides, company profile layout
+
+Technical Changes
+- DesignerController.php: Refactored $templates array into dedicated getTemplates() method to keep the code organised as the template library grows
+- All SVGs use viewBox-based scaling for crisp thumbnails in the template panel
+- Each template has unique id, Chinese name, mm dimensions, inline SVG preview, and hex background color
+- Same format as existing templates — fully compatible with the Fabric.js designer's template loading logic
+
+Key Assets Updated
+- laravel/app/Http/Controllers/DesignerController.php (getTemplates() method + 10 new templates)
+
+Status: ✅ Phase 27 Final completed and verified
+
+================================================================================
+Phase 28: React Architecture Integration for Online Designer (2026-05-12)
+================================================================================
+
+Overview:
+As the online product designer grew in complexity with multiple tools, panels, and interactive features, the vanilla JavaScript/jQuery approach presented increasing maintainability challenges. To ensure long-term code quality and prepare the application for future feature expansion, I refactored the designer from imperative jQuery to declarative React with centralized state management. This architectural shift provides better component isolation, cleaner state handling, and a foundation for scaling the designer with additional features.
+
+Tasks Completed ✅
+
+1. React Component Architecture:
+   - Decoupled the monolithic designer.js into modular React components with clear responsibilities
+   - DesignerCanvas.jsx: Canvas lifecycle and Fabric.js integration
+   - Toolbar.jsx: Tool selection, undo/redo, zoom, and canvas controls
+   - TextPanel.jsx: Text creation and editing with font/color/alignment controls
+   - ShapePanel.jsx: Shape tools (rectangle, circle, triangle, line, star)
+   - ImagePanel.jsx: Image upload with file input and preset image library
+   - Designer.jsx: Main container orchestrating all sub-components
+
+2. State Management with Zustand:
+   - Replaced scattered jQuery state manipulation with centralized Zustand store
+   - Implemented canvas instance management with proper React lifecycle integration
+   - Built history system (undo/redo) with 50-entry state stack
+   - Created actions for object selection, tool switching, and design export
+   - Established clean API pattern for cross-component state access
+
+3. Laravel + React Hybrid Integration:
+   - Integrated React 18 into existing Laravel/Vite build system
+   - Added @vitejs/plugin-react for JSX transpilation
+   - Configured path aliases (@, @designer) for maintainable imports
+   - Added @babel/preset-react for JSX compilation
+   - Maintained Laravel Blade for page rendering while React handles interactive designer
+
+Technical Rationale:
+- Maintainability: Component-based architecture isolates concerns and reduces code coupling
+- State Consistency: Centralized state prevents synchronization issues common in jQuery DOM manipulation
+- Testability: React components are easier to unit test than imperative JavaScript
+- Reusability: Modular components can be reused across different designer contexts
+- Scalability: Zustand's lightweight approach scales efficiently as designer complexity grows
+- Future-Ready: Clean architecture enables straightforward addition of new tools and features
+
+Technical Competencies Demonstrated ✅
+✅ React 18 with functional components and hooks
+✅ Zustand for lightweight state management
+✅ Fabric.js canvas integration within React lifecycle
+✅ Vite build configuration with React plugin
+✅ Component composition and props drilling patterns
+✅ Cross-framework integration (Laravel Blade + React)
+✅ Modern JavaScript (ES6+ modules, async patterns)
+
+Key Assets Created
+- laravel/resources/js/designer/Designer.jsx
+- laravel/resources/js/designer/components/DesignerCanvas.jsx
+- laravel/resources/js/designer/components/Toolbar.jsx
+- laravel/resources/js/designer/components/TextPanel.jsx
+- laravel/resources/js/designer/components/ShapePanel.jsx
+- laravel/resources/js/designer/components/ImagePanel.jsx
+- laravel/resources/js/designer/store/useDesignerStore.js
+
+Key Assets Updated
+- laravel/package.json (React 18, ReactDOM, Zustand dependencies)
+- laravel/vite.config.js (React plugin and path alias configuration)
+
+Database Changes
+- None required for this phase
+
+Status: ✅ Phase 28 completed and verified
+
+================================================================================
+Phase 29: Shopping Cart React Refactoring (2026-05-12)
+================================================================================
+
+Overview:
+Refactored the shopping cart from Laravel Blade templates with jQuery to React components with Zustand state management. This improves user experience by enabling real-time quantity updates without page reloads.
+
+Tasks Completed ✅
+
+1. React Component Architecture:
+   - Created Cart.jsx as the main cart container component
+   - Created CartItem.jsx for individual product display with quantity controls
+   - Created CartEmpty.jsx for empty cart state
+   - Created CartSummary.jsx for total calculation and checkout buttons
+
+2. Zustand State Management:
+   - Implemented useCartStore.js with centralized cart state
+   - Added async actions for quantity update, item removal, and cart clearing
+   - Included automatic total calculation and item count tracking
+   - Implemented loading and error state management
+
+3. Blade Template Integration:
+   - Updated cart/index.blade.php to pass initial cart data via data attribute
+   - Added React mounting script at page bottom
+   - Maintained server-side rendering for initial page load
+
+4. Enhanced User Experience:
+   - Quantity buttons for quick increment/decrement
+   - Real-time price updates without page refresh
+   - Smooth error handling with dismissible alerts
+   - Confirmation dialogs for delete/clear actions
+
+Technical Rationale:
+- Performance: Real-time updates without full page reload
+- Maintainability: Component-based architecture
+- Consistency: Centralized state management
+- Scalability: Foundation for future cart features
+
+Technical Competencies Demonstrated ✅
+✅ React 18 component development
+✅ Zustand state management
+✅ Async operations with loading states
+✅ Laravel Blade + React hybrid integration
+✅ Real-time UI updates
+
+Key Assets Created
+- laravel/resources/js/cart/Cart.jsx
+- laravel/resources/js/cart/components/CartItem.jsx
+- laravel/resources/js/cart/store/useCartStore.js
+
+Key Assets Updated
+- laravel/resources/views/cart/index.blade.php
+
+Status: ✅ Phase 29 completed and verified
+
+================================================================================
+Phase 30: Next.js SSR Integration (2026-05-12)
+================================================================================
+
+Overview:
+Prepared the project for Next.js Server-Side Rendering integration to improve SEO performance and initial page load times. Created Next.js application structure with API proxy configuration.
+
+Tasks Completed ✅
+
+1. Next.js Project Setup:
+   - Created nextjs/ directory with package.json
+   - Configured next.config.js with API proxy to Laravel backend
+   - Added TypeScript support and Tailwind CSS configuration
+   - Set up image domains for localhost development
+
+2. Server-Side Rendering Configuration:
+   - Created app/layout.tsx with root layout and metadata
+   - Implemented async page components for server-side data fetching
+   - Added Open Graph and Twitter card metadata
+   - Configured locale settings for Hong Kong (zh_HK)
+
+3. Page Components:
+   - Created app/page.tsx with SSR product fetching
+   - Built ProductCard component with responsive images
+   - Added navigation header and footer components
+   - Implemented grid layout for product listing
+
+4. API Integration:
+   - Configured proxy to forward /api requests to Laravel backend
+   - Implemented fetchProducts() async function with cache control
+   - Added error handling for failed API requests
+
+Technical Benefits:
+- Server-side rendering improves SEO ranking
+- Faster initial page load for better user experience
+- TypeScript for type safety
+- Automatic image optimization with Next.js Image component
+
+Technical Competencies Demonstrated ✅
+✅ Next.js 14 App Router
+✅ Server-Side Rendering (SSR)
+✅ TypeScript configuration
+✅ API proxy configuration
+✅ Responsive design with Tailwind CSS
+
+Key Assets Created
+- nextjs/package.json
+- nextjs/next.config.js
+- nextjs/app/layout.tsx
+- nextjs/app/page.tsx
+- nextjs/app/components/ProductCard.tsx
+
+Status: ✅ Phase 30 completed and verified
+
+================================================================================
+Phase 31: SEO Optimization (2026-05-12)
+================================================================================
+
+Overview:
+Implemented comprehensive SEO optimization including sitemap generation, robots.txt configuration, and structured data markup for better search engine visibility.
+
+Tasks Completed ✅
+
+1. Sitemap Generation:
+   - Created app/sitemap.ts with static site routes
+   - Added priority and changeFrequency for each page
+   - Included homepage, products, about, contact, and designer pages
+
+2. Robots.txt Configuration:
+   - Created app/robots.ts to control search engine crawling
+   - Allowed public pages while blocking admin and API routes
+   - Linked sitemap location for search engines
+
+3. Metadata Enhancement:
+   - Added comprehensive metadata in root layout
+   - Included title, description, keywords, and author information
+   - Added Open Graph tags for social sharing
+   - Added Twitter card configuration
+
+4. Structured Data:
+   - Implemented JSON-LD schema for organization and product data
+   - Added breadcrumb navigation markup
+   - Included contact information schema
+
+Technical Benefits:
+- Improved search engine indexing
+- Better visibility in search results
+- Rich snippets in search listings
+- Better social media sharing previews
+
+Technical Competencies Demonstrated ✅
+✅ SEO best practices
+✅ Sitemap generation
+✅ Robots.txt configuration
+✅ Open Graph protocol
+✅ JSON-LD structured data
+
+Key Assets Created
+- nextjs/app/sitemap.ts
+- nextjs/app/robots.ts
+- Enhanced metadata in nextjs/app/layout.tsx
+
+Status: ✅ Phase 31 completed and verified
+
+================================================================================
+Phase 32: Product Image Fixing & CSS Optimization (2026-05-12)
+================================================================================
+
+Overview:
+Fixed product image display issues and optimized CSS styling for better visual consistency across the website.
+
+Tasks Completed ✅
+
+1. Product Image Mapping Fix:
+   - Created fix_all_product_images.php to map correct images to all 35 products
+   - Fixed specific product images: 商務名片套裝 → business-card_2.png, 畫冊印刷 → brochure_2.png
+   - Updated database with correct image references for all products
+
+2. Banner Styling Enhancement:
+   - Removed full-screen color overlay layers from carousel slides
+   - Added semi-transparent backdrop-blur container for banner text
+   - Enhanced text readability with text-shadow effects
+   - Applied glass-morphism effect (backdrop-filter: blur) for modern look
+
+3. Square Product Containers:
+   - Changed product card containers to square aspect ratio using padding-top: 100%
+   - Applied object-fit: cover to ensure images fill containers without distortion
+   - Updated homepage, product list, and product detail pages with uniform square containers
+
+4. CSS Optimization:
+   - Added .product-card-image class for consistent product image styling
+   - Added .product-detail-image-container and .product-detail-image classes
+   - Added .popular-card-image class for category icons
+   - Ensured all product images display in uniform square containers
+
+Technical Competencies Demonstrated ✅
+✅ Image asset management
+✅ CSS aspect ratio techniques
+✅ Backdrop-blur and glass-morphism effects
+✅ Responsive image handling
+✅ Object-fit CSS property
+✅ Cross-page CSS consistency
+
+Key Assets Updated
+- resources/views/home.blade.php (banner images, product display)
+- resources/views/layouts/app.blade.php (CSS styling)
+- resources/views/products/index.blade.php (product listing)
+- resources/views/products/show.blade.php (product detail)
+- fix_all_product_images.php (image mapping script)
+- fix_specific_products.php (specific product fix script)
+
+Status: ✅ Phase 32 completed and verified
+
+================================================================================
+Phase 33: Coupon System & Inventory Management (2026-05-13)
+================================================================================
+
+Overview:
+Implemented comprehensive coupon system and enhanced inventory management functionality to improve promotional capabilities and stock control.
+
+Tasks Completed ✅
+
+1. Coupon System Development:
+   - Created Coupon model with fillable attributes (code, type, value, min_order_amount, usage_limit, used_count, valid_from, valid_until, is_active, description)
+   - Implemented coupon validation logic (isValid() method) checking active status, usage limit, minimum order amount, and date validity
+   - Added discount calculation (calculateDiscount() method) supporting both percentage and fixed amount discounts
+   - Created coupon usage count increment method (incrementUsage())
+   - Developed database migration for coupons table with proper indexes for code uniqueness
+
+2. Order-Coupon Integration:
+   - Added coupon_id and discount_amount columns to orders table via database migration
+   - Updated Order model with coupon relationship (belongsTo Coupon)
+   - Added getTotalPriceAttribute() accessor for calculating net price after discount
+   - Updated Order model's fillable array to include coupon_id and discount_amount
+
+3. CouponController Development:
+   - Implemented CRUD operations for coupon management
+   - Added coupon listing, creation, editing, and deletion functionality
+   - Implemented coupon status toggle (active/inactive)
+   - Created coupon apply endpoint (POST /coupon/apply) for AJAX integration
+   - Added proper validation for coupon code, type, value, and other attributes
+   - Ensured coupon codes are stored in uppercase for consistency
+
+4. Inventory Management Enhancement:
+   - Updated Product model with inventory-related methods
+   - Added hasStock() method to check stock availability
+   - Added reduceStock() method to decrement stock on order creation
+   - Added increaseStock() method for stock replenishment
+   - Added isOutOfStock and stockStatus computed attributes
+   - Stock status: 'in_stock' (>10), 'low_stock' (1-10), 'out_of_stock' (<=0)
+
+5. Admin View Creation:
+   - Created coupons.blade.php for coupon listing with table showing all coupon details
+   - Created create-coupon.blade.php with comprehensive form for coupon creation
+   - Created edit-coupon.blade.php for editing existing coupons
+   - Added coupon type selector (percentage/fixed)
+   - Added date pickers for valid_from and valid_until dates
+   - Added JavaScript to dynamically update value suffix based on coupon type
+
+6. Route Configuration:
+   - Added coupon apply route (POST /coupon/apply) accessible by all users
+   - Added admin coupon management routes with auth and admin middleware protection
+   - Routes include: index, create, store, edit, update, toggle, destroy
+
+7. Admin Dashboard Update:
+   - Added "Coupons" quick access button to admin dashboard
+   - Added 🎫 icon for easy identification
+   - Integrated into existing dashboard quick actions grid
+
+8. TypeScript Version of Cart (Dual Implementation):
+   - Created TypeScript version of cart system alongside JavaScript version
+   - Added types.ts with interfaces for Product, CartItem, CartState, CartActions
+   - Implemented useCartStore.ts TypeScript Zustand store
+   - Created Cart.tsx TypeScript component with proper typing
+   - Demonstrates flexible technology choice capabilities
+
+Technical Competencies Demonstrated ✅
+✅ E-commerce coupon system design and implementation
+✅ Laravel model relationships and accessors
+✅ Database migration and foreign key constraints
+✅ Complex validation logic for promotional discounts
+✅ Inventory management and stock control
+✅ TypeScript integration with Zustand store
+✅ JavaScript/TypeScript dual implementation pattern
+✅ Admin panel CRUD interface development
+✅ Date range validation and usage limit tracking
+✅ Minimum order amount validation logic
+
+Key Assets Created
+- app/Models/Coupon.php (new)
+- app/Http/Controllers/CouponController.php (new)
+- database/migrations/2026_05_13_000000_create_coupons_table.php (new)
+- database/migrations/2026_05_13_000001_add_coupon_to_orders_table.php (new)
+- resources/views/admin/coupons.blade.php (new)
+- resources/views/admin/create-coupon.blade.php (new)
+- resources/views/admin/edit-coupon.blade.php (new)
+- resources/js/cart-ts/types.ts (new)
+- resources/js/cart-ts/Cart.tsx (new)
+- resources/js/cart-ts/store/useCartStore.ts (new)
+
+Key Assets Updated
+- app/Models/Product.php (inventory methods added)
+- app/Models/Order.php (coupon relationship, discount columns)
+- resources/views/admin/dashboard.blade.php (coupon button added)
+- routes/web.php (coupon routes added)
+- README.md (updated with coupon system documentation)
+- PROJECT_OVERVIEW.md (updated with Phase 33)
+- GoPrint_Final_Technical_Report.txt (updated with Phase 33)
+- Technical_Troubleshooting_Record.txt (updated with Phase 33)
+
+Database Changes
+- Created coupons table: id, code (unique), type, value, min_order_amount, usage_limit, used_count, valid_from, valid_until, is_active, description, timestamps
+- Updated orders table: added coupon_id (FK to coupons.id), added discount_amount decimal column
+- Both migrations use conditional checks to prevent errors if tables/columns already exist
+
+Status: ✅ Phase 33 completed and verified
+
+================================================================================
+Phase 34: Order Tracking, Inventory Management & Coupon Integration (2026-05-13)
+================================================================================
+
+Overview:
+Built comprehensive order tracking system, complete inventory management interface, and fully integrated coupon application system to provide a complete e-commerce experience for both customers and administrators.
+
+Tasks Completed ✅
+
+1. Order Model Enhancement:
+   - Added 6 order status constants: pending, processing, printing, shipped, completed, cancelled
+   - Implemented status label mapping with Traditional Chinese translations
+   - Added status badge classes for Bootstrap styling
+   - Created updateStatus() method with tracking number and shipped_at support
+   - Added canCancel() method to determine if order can be cancelled
+   - Implemented getTrackingHistoryAttribute() for timeline display
+   - Added tracking_number, shipped_at, delivered_at to $fillable
+   - Added $casts for datetime columns
+
+2. Order Tracking Views:
+   - Created orders/index.blade.php: User's order listing with status badges
+   - Created orders/show.blade.php: Order detail page with timeline tracking
+   - Timeline shows: Order Created → Processing → Printing → Shipped → Delivered
+   - Each status shows timestamp and visual indicator
+   - Added tracking number display if available
+   - Implemented cancel button for eligible orders
+
+3. Admin Order Management:
+   - Updated admin/orders.blade.php with enhanced order listing
+   - Added admin-specific order status update functionality
+   - Updated OrderController with adminIndex() and updateStatus() methods
+   - Added cancel() method for user-initiated cancellations
+
+4. Inventory Management System:
+   - Added inventory() method to AdminController showing all products
+   - Added updateStock() method for quick stock updates
+   - Created admin/inventory.blade.php with stock management interface
+   - Shows statistics: Total Products, Low Stock, Out of Stock
+   - Each product has inline stock edit form with update button
+   - Displays stock status badges: in_stock (green), low_stock (yellow), out_of_stock (red)
+
+5. Coupon Integration in Shopping Cart:
+   - Updated cart/index.blade.php with coupon input field
+   - Added coupon apply form with validation
+   - Added coupon remove functionality
+   - Shows applied coupon with discount amount
+   - Displays original price with strikethrough and discounted price
+   - Added success/error messages for coupon operations
+   - Updated CouponController with session-based coupon handling
+   - Added remove() method to clear applied coupon from session
+
+6. Navigation & Dashboard Updates:
+   - Added "My Orders" link to main navigation (desktop and mobile)
+   - Added "Inventory" quick access button to admin dashboard
+   - Updated admin dashboard with new features
+   - All navigation links use proper route names
+
+7. Route Configuration:
+   - Added my-orders routes for user order tracking (index, show, cancel)
+   - Added admin inventory routes (inventory, update-stock)
+   - Added coupon remove route (POST /coupon/remove)
+   - Proper middleware protection (auth for user routes, auth+admin for admin routes)
+
+8. Database Migration:
+   - Created 2026_05_13_000002_add_tracking_to_orders_table.php migration
+   - Adds tracking_number, shipped_at, delivered_at columns to orders table
+   - Includes conditional checks to prevent errors if columns already exist
+
+Technical Competencies Demonstrated ✅
+✅ Order status management with timeline tracking
+✅ Comprehensive inventory management interface
+✅ Coupon application and session management
+✅ User-facing order tracking with visual timeline
+✅ Admin tools for order and inventory management
+✅ Bootstrap 5 responsive UI components
+✅ Laravel model accessors and mutators
+✅ Session-based state management
+✅ Form validation and error handling
+✅ Database migration with conditional logic
+✅ Timeline/stepper UI design
+
+Key Assets Created
+- app/Http/Controllers/OrderController.php (new)
+- resources/views/orders/index.blade.php (new)
+- resources/views/orders/show.blade.php (new)
+- resources/views/admin/inventory.blade.php (new)
+- database/migrations/2026_05_13_000002_add_tracking_to_orders_table.php (new)
+
+Key Assets Updated
+- app/Models/Order.php (enhanced with tracking and status methods)
+- app/Http/Controllers/CouponController.php (updated with session handling)
+- app/Http/Controllers/AdminController.php (added inventory methods)
+- resources/views/cart/index.blade.php (added coupon integration)
+- resources/views/admin/dashboard.blade.php (added inventory button)
+- resources/views/admin/orders.blade.php (updated listing)
+- resources/views/layouts/navigation.blade.php (added order tracking link)
+- routes/web.php (added new routes)
+
+Database Changes
+- orders table: added tracking_number (VARCHAR), shipped_at (TIMESTAMP), delivered_at (TIMESTAMP)
+- Migration uses Schema::hasColumn() checks for idempotency
+
+Status: ✅ Phase 34 completed and verified
+
+
+===========================================
+Phase 35: Homepage CSS & Function Enhancement
+Date: 2026-05-14
+===========================================
+
+1. Hero Carousel Image Update:
+   - Replaced carousel images with banner1.jpg, banner2.jpg, banner3.jpg
+   - Optimized image loading for better performance
+
+2. Color Theme Refresh:
+   - Changed primary color from blue to orange/yellow theme
+   - Updated button colors, icons, and accents
+   - Maintained clean black/white/orange color scheme
+
+3. Language Configuration:
+   - Set default language to Traditional Chinese (zh-HK)
+   - Removed Simplified Chinese language option
+   - Updated language dropdown in navigation
+
+4. WhatsApp Floating Button:
+   - Added WhatsApp chat floating button on right side
+   - Implemented direct WhatsApp chat link (+852 60987508)
+   - Added hover animation and smooth transition effects
+
+Technical Competencies Demonstrated ✅
+✅ CSS color scheme customization
+✅ Responsive design adjustments
+✅ Laravel localization configuration
+✅ Third-party integration (WhatsApp API)
+✅ CSS animations and transitions
+✅ Frontend UI enhancement
+✅ Language switcher implementation
+
+Key Assets Updated
+- resources/views/home.blade.php (carousel images)
+- resources/css/app.css (color theme)
+- resources/views/layouts/navigation.blade.php (language dropdown)
+- resources/lang/ (language configuration)
+
+Status: ✅ Phase 35 completed and verified
+
+================================================================================
+Phase 36: Navigation Redesign, Search Function, and Mobile Responsiveness
+Date: 2026-05-14
+================================================================================
+
+Overview:
+Implemented comprehensive navigation redesign, search functionality, and mobile responsiveness improvements. Removed blue theme, added search, and made product display better on mobile devices.
+
+Tasks Completed ✅
+
+1. Navigation Bar Redesign:
+   - Removed blue background, changed to dark theme (var(--dark))
+   - Added extra spacing between navigation items (margin: 0 0.75rem)
+   - Implemented clean black/white/orange color scheme
+   - Removed Simplified Chinese option, kept only English and Traditional Chinese
+   - Updated navbar to show brand logo with print icon
+
+2. Search Functionality:
+   - Added search form in navigation bar
+   - Integrated search input with search button
+   - Modified ProductController to handle search queries
+   - Search matches product names and descriptions (LIKE %query%)
+   - Works alongside existing category filtering
+   - Added search_products translation key for both languages
+
+3. Mobile Responsiveness Enhancement:
+   - Updated product cards to use col-6 for mobile devices (2 products per row)
+   - Applied responsive grid classes (col-md-4 col-sm-6 col-6)
+   - Optimized product center display on mobile
+   - Updated both homepage and product listing page
+   - Ensures products don't look stretched on smaller screens
+
+4. Bug Fixes & Cleanup:
+   - Removed carousel caption text as requested
+   - Kept carousel indicators and navigation arrows
+   - Verified all routes work correctly
+   - No diagnostic errors reported
+
+Technical Competencies Demonstrated ✅
+✅ Bootstrap responsive grid system implementation
+✅ Laravel controller query building with search
+✅ CSS theme customization and responsive styling
+✅ Navigation UI/UX redesign
+✅ Multi-language translation management
+✅ Mobile-first responsive design
+
+Key Assets Updated
+- resources/views/layouts/app.blade.php (navigation redesign, search form, WhatsApp button)
+- resources/views/home.blade.php (mobile responsive product grid, carousel text removed)
+- resources/views/products/index.blade.php (mobile responsive product grid)
+- app/Http/Controllers/ProductController.php (search functionality added)
+- resources/lang/zh-HK/messages.php (search_products added)
+- resources/lang/en/messages.php (search_products added)
+
+
+Status: ✅ Phase 36 completed and verified
+
+================================================================================
+Phase 37: Online Designer Enhancement & Bug Fixes (2026-05-14)
+================================================================================
+
+Overview:
+Enhanced the online product designer with significant improvements to template handling, UI functionality, and user experience. Fixed SVG rendering issues, added layer management, implemented auto-save functionality, and improved overall stability.
+
+Tasks Completed ✅
+
+1. Template Preview Image Fix:
+   - Fixed SVG data URI rendering by converting to base64 encoding
+   - Resolved # color value misinterpretation as URL fragment identifiers
+   - Fixed Chinese character display issues in template names
+   - Added raw SVG data preservation for each template for direct canvas loading
+
+2. Template Classification:
+   - Organized templates into 9 categories: Business Cards, Flyers, Posters, Invitations, Menus, Labels, Certificates, Letterheads, Manuals
+   - Implemented grouped display by category with section headers
+   - Enhanced visual organization in the template selection panel
+
+3. UI/UX Improvements:
+   - Fixed icon conflicts: template icon changed to fa-object-group, layers to fa-list
+   - Added zoom preset dropdown with 50%/75%/100%/150%/200% options
+   - Added object properties panel with opacity slider and lock/unlock button
+   - Added alignment tools to bottom toolbar: left/center/right/top/middle/bottom alignment
+   - Added distribution tools: horizontal and vertical distribution
+
+4. Canvas Engine Enhancement:
+   - Rewrote loadTemplate() to use fabric.loadSVGFromString for proper SVG design loading
+   - Fixed canvas size calculation: changed from hardcoded 6.67 to standard 3.78 (96 DPI)
+   - Implemented proper SVG decoding with TextDecoder for UTF-8 character support
+
+5. Layer Management:
+   - Added updateLayersList() function for real-time layer panel updates
+   - Implemented click-to-select objects from layer list
+   - Added visual indication of selected layer
+
+6. Object Controls:
+   - Added alignObject() function for precise object alignment
+   - Added distributeObjects() function for even object spacing
+   - Added toggleLock() function to prevent accidental object modification
+
+7. Auto-Save Feature:
+   - Implemented autoSaveDesign() to save to localStorage every 30 seconds
+   - Added autoLoadDesign() with prompt on page refresh to restore unsaved changes
+   - Provides safety net for user design work
+
+8. Styling Improvements:
+   - Added template category section styling
+   - Enhanced layer list visual styling
+   - Added zoom preset dropdown styling
+   - Added lock button styling
+   - Improved custom scrollbar appearance
+
+Technical Competencies Demonstrated ✅
+✅ SVG rendering and encoding techniques
+✅ Fabric.js canvas manipulation
+✅ UI component organization and layout
+✅ Real-time state management
+✅ LocalStorage integration for persistence
+✅ UTF-8 character handling
+✅ Bootstrap 5 utility classes
+✅ JavaScript ES6+ features
+
+Key Assets Updated
+- app/Http/Controllers/DesignerController.php (template data structure, base64 encoding)
+- resources/views/designer/index.blade.php (UI enhancements, categories, zoom presets)
+- public/js/designer.js (SVG loading, layers, alignment, auto-save)
+- public/css/designer.css (new styling for categories, layers, controls)
+
+
+Status: ✅ Phase 37 completed and verified
+
+----------------------------------------
+Phase 37 Continued: Design Tool Enhancement & Bug Fixes
+Date: 2026-05-15
+----------------------------------------
+Tasks Completed
+1. **Background Color Sync Fix:**
+   - Fixed background color not updating when selecting colors from panel
+   - Implemented real-time color picker sync with canvas background
+   - Added 15 preset color buttons for quick selection
+
+2. **Text Tool Enhancement:**
+   - Added dedicated text creation button in left toolbar
+   - Implemented font selection dropdown with 6 fonts (SimHei, SimSun, Microsoft YaHei, KaiTi, Arial, Times New Roman)
+   - Added font size adjustment slider
+   - Implemented text color picker and alignment controls
+
+3. **Shape Library Expansion:**
+   - Expanded shape options from 4 to 12 shapes:
+     - Rectangle, Circle, Triangle, Line, Ellipse, Diamond, Star, Heart, Hexagon, Rounded Rectangle, Dashed Line, Dotted Line
+   - Added shape creation buttons in right panel with visual icons
+
+4. **Gradient Background Feature:**
+   - Added gradient background options with 12 preset gradients
+   - Implemented gradient type tabs (Solid/Gradient) for easy switching
+   - Added gradient preview buttons with visual representation
+
+5. **QR Code Generator:**
+   - Integrated QRCode.js library for real-time QR code generation
+   - Supported three input modes: URL, Text, Business Card
+   - Implemented tab-based interface for different input types
+   - Added QR code size adjustment (100-300px)
+   - Enabled direct insertion onto canvas
+
+6. **Double-sided Design Support:**
+   - Added front/back side switching buttons in header
+   - Implemented independent canvas states for each side
+   - Created sideData object for state persistence
+   - Added visual indicators for active side
+
+7. **Layout Optimization:**
+   - Removed red cutting guide border around canvas
+   - Fixed canvas scaling issues causing element distortion
+   - Ensured proper aspect ratio preservation for all templates (210×297mm A4)
+   - Implemented responsive canvas wrapper that doesn't interfere with sidebar panels
+   - Fixed template element positioning and sizing issues
+   - Added proper overflow handling for large templates
+
+8. **Template System Enhancement:**
+   - Expanded template library from initial designs to 27 templates
+   - Covered 9 categories: Business Cards, Flyers, Posters, Invitations, Coupons, Menus, Social Media, Greeting Cards, Labels
+   - Fixed SVG template editing - elements now selectable and editable individually
+   - Restored template background layers after initial removal
+
+9. **Bug Fixes:**
+   - Fixed front/back switching not working properly
+   - Fixed gradient colors showing as black instead of selected gradient
+   - Fixed QR code tabs not switching correctly
+   - Fixed template elements being grouped as single object (now editable individually)
+   - Fixed template elements displaying outside canvas bounds
+   - Fixed canvas zoom causing layout issues with sidebar panels
+
+Technical Competencies Demonstrated ✅
+✅ Fabric.js SVG element manipulation and rendering
+✅ Real-time color picker integration
+✅ Tab-based UI component development
+✅ Canvas state management for multi-page designs
+✅ QR code generation and canvas insertion
+✅ Responsive layout design with fixed panels
+✅ Gradient CSS parsing and application
+✅ Layer stack management
+✅ Browser-based vector graphics editing
+✅ Bug debugging and troubleshooting
+
+Key Assets Updated
+- app/Http/Controllers/DesignerController.php (27 templates, 9 categories)
+- resources/views/designer/index.blade.php (QR code tabs, gradient UI, front/back buttons)
+- public/js/designer.js (loadTemplate fixes, gradient application, side switching, QR code generation)
+- public/css/designer.css (removed cutting guide, layout optimizations)
+
+Status: ✅ Phase 37 Continued completed and verified
+
+----------------------------------------
+
+================================================================================
+Phase 38: Homepage Enhancement & Product Expansion (2026-05-16)
+================================================================================
+
+Overview:
+Completed comprehensive homepage redesign with new sections, enhanced product catalogue, and improved language support.
+
+Tasks Completed ✅
+
+1. **Homepage Enhancement:**
+   - Added 9 design tool category buttons linking to product category pages
+   - Implemented product center display section with sidebar category navigation
+   - Added latest products showcase (4 product cards)
+   - Added popular products quick access (6-grid layout)
+   - Added trust badges display section (4 service commitments)
+   - Added quotation method entry points (online/phone/email)
+
+2. **Layout Updates:**
+   - Implemented responsive 3-column Footer layout
+   - Added pagination style override
+   - Updated footer company information, contact details, and business hours
+
+3. **Product Listing Page:**
+   - Fixed image path references
+   - Added category sidebar with 11 categories and icons
+   - Added category description hints
+
+4. **Contact Page:**
+   - Fixed column layout structure
+   - Added business hours display section
+
+5. **About Page:**
+   - Added brand story and company introduction
+   - Added service category showcase
+   - Added contact CTA button
+
+6. **Language Package:**
+   - Rewrote 534 lines of Traditional Chinese language package (zh-HK/messages.php)
+
+7. **Database Updates:**
+   - Added 11 product categories via seed_phase26.php
+   - Added 52 new products to database
+
+8. **Storage System:**
+   - Generated 52 SVG product images in storage/app/public/
+   - Created symbolic links for public image access
+
+Technical Competencies Demonstrated ✅
+✅ Responsive layout design with Bootstrap 5
+✅ Blade template development and customization
+✅ Database seeding with bulk data insertion
+✅ SVG image generation and asset management
+✅ Laravel storage system configuration
+✅ Multi-language support enhancement
+✅ Category-based navigation implementation
+✅ UI/UX enhancement with trust badges and CTAs
+
+Key Assets Updated
+- laravel/resources/views/home.blade.php
+- laravel/resources/views/layouts/app.blade.php
+- laravel/resources/views/products/index.blade.php
+- laravel/resources/views/contact.blade.php
+- laravel/resources/views/about.blade.php
+- laravel/resources/lang/zh-HK/messages.php
+- laravel/database/seed_phase26.php
+- laravel/storage/app/public/ (SVG images)
+
+Status: ✅ Phase 38 completed and verified
+
+----------------------------------------
+
+

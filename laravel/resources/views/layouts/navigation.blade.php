@@ -35,9 +35,6 @@
                         <x-dropdown-link :href="route('locale.set', 'zh-HK')">
                             {{ __('繁體中文') }}
                         </x-dropdown-link>
-                        <x-dropdown-link :href="route('locale.set', 'zh-CN')">
-                            {{ __('简体中文') }}
-                        </x-dropdown-link>
                         <x-dropdown-link :href="route('locale.set', 'en')">
                             {{ __('English') }}
                         </x-dropdown-link>

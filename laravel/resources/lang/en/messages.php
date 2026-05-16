@@ -22,6 +22,7 @@ return [
     'orders' => 'Orders',
     'my_orders' => 'My Orders',
     'search' => 'Search',
+    'search_products' => 'Search products...',
     'submit' => 'Submit',
     'save' => 'Save',
     'update' => 'Update',

@@ -12,28 +12,13 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active slide-1">
-                <img src="{{ asset('storage/products/hero-banner-business-cards.jpg') }}" alt="Business Cards" class="d-block w-100">
-                <div class="carousel-caption">
-                    <h1>{{ __('messages.carousel_slide_1_title') }}</h1>
-                    <p>{{ __('messages.carousel_slide_1_subtitle') }}</p>
-                    <a href="{{ route('products.index') }}" class="btn btn-warning text-white">{{ __('messages.carousel_slide_1_btn') }}</a>
-                </div>
+                <img src="{{ asset('storage/products/banner1.jpg') }}" alt="Banner 1" class="d-block w-100">
             </div>
             <div class="carousel-item slide-2">
-                <img src="{{ asset('storage/products/hero-banner-flyers.jpg') }}" alt="Flyers" class="d-block w-100">
-                <div class="carousel-caption">
-                    <h1>{{ __('messages.carousel_slide_2_title') }}</h1>
-                    <p>{{ __('messages.carousel_slide_2_subtitle') }}</p>
-                    <a href="#design-tools" class="btn btn-warning text-white">{{ __('messages.carousel_slide_2_btn') }}</a>
-                </div>
+                <img src="{{ asset('storage/products/banner2.jpg') }}" alt="Banner 2" class="d-block w-100">
             </div>
             <div class="carousel-item slide-3">
-                <img src="{{ asset('storage/products/hero-banner-quality.jpg') }}" alt="Quality" class="d-block w-100">
-                <div class="carousel-caption">
-                    <h1>{{ __('messages.carousel_slide_3_title') }}</h1>
-                    <p>{{ __('messages.carousel_slide_3_subtitle') }}</p>
-                    <a href="{{ route('order.create') }}" class="btn btn-warning text-white">{{ __('messages.carousel_slide_3_btn') }}</a>
-                </div>
+                <img src="{{ asset('storage/products/banner3.jpg') }}" alt="Banner 3" class="d-block w-100">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
@@ -45,45 +30,7 @@
     </div>
 </section>
 
-<!-- ====== 2. Quick Links ====== -->
-<section class="quick-links">
-    <div class="container">
-        <div class="row g-4 text-center">
-            <div class="col-6 col-md-4 col-lg">
-                <a href="{{ route('products.index') }}?category=business-cards" class="quick-link">
-                    <i class="fas fa-id-card"></i>
-                    <span>{{ __('messages.business_cards') }}</span>
-                </a>
-            </div>
-            <div class="col-6 col-md-4 col-lg">
-                <a href="{{ route('products.index') }}?category=flyers" class="quick-link">
-                    <i class="fas fa-file-alt"></i>
-                    <span>{{ __('messages.flyers') }}</span>
-                </a>
-            </div>
-            <div class="col-6 col-md-4 col-lg">
-                <a href="{{ route('products.index') }}?category=booklets" class="quick-link">
-                    <i class="fas fa-book"></i>
-                    <span>{{ __('messages.booklets') }}</span>
-                </a>
-            </div>
-            <div class="col-6 col-md-4 col-lg">
-                <a href="{{ route('products.index') }}?category=envelopes" class="quick-link">
-                    <i class="fas fa-envelope"></i>
-                    <span>{{ __('messages.envelopes') }}</span>
-                </a>
-            </div>
-            <div class="col-6 col-md-4 col-lg">
-                <a href="{{ route('products.index') }}?category=packaging" class="quick-link">
-                    <i class="fas fa-box"></i>
-                    <span>{{ __('messages.packaging') }}</span>
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ====== 3. Online Design Tools ====== -->
+<!-- ====== 2. Online Design Tools ====== -->
 <section class="design-tools-section" id="design-tools">
     <div class="container">
         <div class="design-tools-header">
@@ -91,65 +38,45 @@
             <p>{{ __('messages.online_design_subtitle') }}</p>
         </div>
         <div class="design-tools-grid">
-            <a href="{{ route('designer.index') }}" class="design-tool-card">
+            <a href="{{ route('products.index') }}?category=1" class="design-tool-card">
                 <div class="tool-icon"><i class="fas fa-id-card"></i></div>
-                <span>{{ __('messages.design_business_card') }}</span>
+                <span>名片</span>
             </a>
-            <a href="{{ route('designer.index') }}" class="design-tool-card">
+            <a href="{{ route('products.index') }}?category=2" class="design-tool-card">
                 <div class="tool-icon"><i class="fas fa-file-alt"></i></div>
-                <span>{{ __('messages.design_flyer') }}</span>
+                <span>宣傳單</span>
             </a>
-            <a href="{{ route('designer.index') }}" class="design-tool-card">
+            <a href="{{ route('products.index') }}?category=4" class="design-tool-card">
                 <div class="tool-icon"><i class="fas fa-image"></i></div>
-                <span>{{ __('messages.design_poster') }}</span>
+                <span>海報</span>
             </a>
-            <a href="{{ route('designer.index') }}" class="design-tool-card">
-                <div class="tool-icon"><i class="fas fa-book-open"></i></div>
-                <span>{{ __('messages.design_brochure') }}</span>
+            <a href="{{ route('products.index') }}?category=7" class="design-tool-card">
+                <div class="tool-icon"><i class="fas fa-envelope-open-text"></i></div>
+                <span>邀請函</span>
             </a>
-            <a href="{{ route('designer.index') }}" class="design-tool-card">
-                <div class="tool-icon"><i class="fas fa-file"></i></div>
-                <span>{{ __('messages.design_leaflet') }}</span>
+            <a href="{{ route('products.index') }}?category=2" class="design-tool-card">
+                <div class="tool-icon"><i class="fas fa-ticket-alt"></i></div>
+                <span>優惠券</span>
             </a>
-            <a href="{{ route('designer.index') }}" class="design-tool-card">
-                <div class="tool-icon"><i class="fas fa-tag"></i></div>
-                <span>{{ __('messages.design_sticker') }}</span>
+            <a href="{{ route('products.index') }}?category=7" class="design-tool-card">
+                <div class="tool-icon"><i class="fas fa-utensils"></i></div>
+                <span>餐牌</span>
             </a>
-            <a href="{{ route('designer.index') }}" class="design-tool-card">
-                <div class="tool-icon"><i class="fas fa-flag"></i></div>
-                <span>{{ __('messages.design_banner') }}</span>
+            <a href="{{ route('products.index') }}?category=11" class="design-tool-card">
+                <div class="tool-icon"><i class="fas fa-mobile-alt"></i></div>
+                <span>社交媒體</span>
             </a>
-            <a href="{{ route('designer.index') }}" class="design-tool-card">
+            <a href="{{ route('products.index') }}?category=7" class="design-tool-card">
                 <div class="tool-icon"><i class="fas fa-envelope"></i></div>
-                <span>{{ __('messages.design_envelope') }}</span>
+                <span>賀卡</span>
             </a>
-            <a href="{{ route('designer.index') }}" class="design-tool-card">
-                <div class="tool-icon"><i class="fas fa-book"></i></div>
-                <span>{{ __('messages.design_booklet') }}</span>
-            </a>
-            <a href="{{ route('designer.index') }}" class="design-tool-card">
-                <div class="tool-icon"><i class="fas fa-book"></i></div>
-                <span>{{ __('messages.design_catalog') }}</span>
-            </a>
-            <a href="{{ route('designer.index') }}" class="design-tool-card">
-                <div class="tool-icon"><i class="fas fa-certificate"></i></div>
-                <span>{{ __('messages.design_certificate') }}</span>
-            </a>
-            <a href="{{ route('designer.index') }}" class="design-tool-card">
-                <div class="tool-icon"><i class="fas fa-inbox"></i></div>
-                <span>{{ __('messages.design_invitation') }}</span>
-            </a>
-            <a href="{{ route('designer.index') }}" class="design-tool-card">
+            <a href="{{ route('products.index') }}?category=5" class="design-tool-card">
                 <div class="tool-icon"><i class="fas fa-tag"></i></div>
-                <span>{{ __('messages.design_label') }}</span>
-            </a>
-            <a href="{{ route('designer.index') }}" class="design-tool-card">
-                <div class="tool-icon"><i class="fas fa-table"></i></div>
-                <span>{{ __('messages.design_form') }}</span>
+                <span>標籤</span>
             </a>
         </div>
         <div class="design-tools-cta">
-            <a href="{{ route('designer.index') }}" class="btn btn-primary">{{ __('messages.start_design') }}</a>
+            <a href="{{ route('products.index') }}" class="btn btn-primary">瀏覽所有產品</a>
         </div>
     </div>
 </section>
@@ -176,11 +103,11 @@
             <div class="col-lg-9">
                 <div class="row g-4">
                     @foreach($products as $product)
-                    <div class="col-md-4 col-sm-6">
+                    <div class="col-md-4 col-sm-6 col-6">
                         <div class="product-center-card">
                             <div class="card-img-wrap">
                                 @if($product->pro_image)
-                                    <img src="{{ asset('storage/products/' . $product->pro_image) }}" alt="{{ $product->pro_name }}" class="product-card-image">
+                                    <img src="{{ asset('storage/' . $product->pro_image) }}" alt="{{ $product->pro_name }}" class="product-card-image">
                                 @else
                                     <div style="background: linear-gradient(135deg, {{ '#' . substr(md5($product->pro_name), 0, 6) }}, {{ '#' . substr(md5($product->pro_id), 0, 6) }}); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
                                         <i class="fas fa-print"></i>
@@ -225,11 +152,11 @@
         </div>
         <div class="row g-4">
             @foreach($products->take(4) as $product)
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-6 col-6">
                 <div class="product-card">
                     <div class="product-image">
                         @if($product->pro_image)
-                            <img src="{{ asset('storage/products/' . $product->pro_image) }}" alt="{{ $product->pro_name }}" class="product-card-image">
+                            <img src="{{ asset('storage/' . $product->pro_image) }}" alt="{{ $product->pro_name }}" class="product-card-image">
                         @else
                             <i class="fas fa-print"></i>
                         @endif
@@ -263,13 +190,14 @@
             <p class="text-muted mt-3">{{ __('messages.categories_description') }}</p>
         </div>
         <ul class="category-list">
-            <li><a href="{{ route('products.index') }}?category=office"><i class="fas fa-building me-2"></i>{{ __('messages.office_supplies') }}</a></li>
-            <li><a href="{{ route('products.index') }}?category=wedding"><i class="fas fa-heart me-2"></i>{{ __('messages.wedding') }}</a></li>
-            <li><a href="{{ route('products.index') }}?category=food"><i class="fas fa-utensils me-2"></i>{{ __('messages.restaurant') }}</a></li>
-            <li><a href="{{ route('products.index') }}?category=school"><i class="fas fa-graduation-cap me-2"></i>{{ __('messages.school') }}</a></li>
-            <li><a href="{{ route('products.index') }}?category=kids"><i class="fas fa-child me-2"></i>{{ __('messages.kids') }}</a></li>
-            <li><a href="{{ route('products.index') }}?category=exhibition"><i class="fas fa-store me-2"></i>{{ __('messages.exhibition') }}</a></li>
-            <li><a href="{{ route('products.index') }}?category=gifts"><i class="fas fa-gift me-2"></i>{{ __('messages.corporate_gifts') }}</a></li>
+            <li><a href="{{ route('products.index') }}?category=1"><i class="fas fa-address-card me-2"></i>{{ __('messages.cat_business_cards') }}</a></li>
+            <li><a href="{{ route('products.index') }}?category=2"><i class="fas fa-file-alt me-2"></i>{{ __('messages.cat_flyers') }}</a></li>
+            <li><a href="{{ route('products.index') }}?category=3"><i class="fas fa-book me-2"></i>{{ __('messages.cat_booklets') }}</a></li>
+            <li><a href="{{ route('products.index') }}?category=4"><i class="fas fa-image me-2"></i>{{ __('messages.cat_posters') }}</a></li>
+            <li><a href="{{ route('products.index') }}?category=5"><i class="fas fa-sticky-note me-2"></i>{{ __('messages.cat_stickers') }}</a></li>
+            <li><a href="{{ route('products.index') }}?category=6"><i class="fas fa-envelope me-2"></i>{{ __('messages.cat_envelopes') }}</a></li>
+            <li><a href="{{ route('products.index') }}?category=8"><i class="fas fa-red-envelope me-2"></i>{{ __('messages.cat_red_packet') }}</a></li>
+            <li><a href="{{ route('products.index') }}?category=9"><i class="fas fa-gift me-2"></i>{{ __('messages.cat_gifts') }}</a></li>
         </ul>
     </div>
 </section>
@@ -287,35 +215,35 @@
                 </div>
                 <span class="popular-name">{{ __('messages.business_cards') }}</span>
             </a>
-            <a href="{{ route('products.index') }}?category=3" class="popular-item">
+            <a href="{{ route('products.index') }}?category=2" class="popular-item">
                 <div class="popular-image">
                     <img src="{{ asset('storage/products/flyer_1.png') }}" alt="Flyers" class="popular-card-image">
                 </div>
                 <span class="popular-name">{{ __('messages.brochures') }}</span>
             </a>
-            <a href="{{ route('products.index') }}?category=4" class="popular-item">
+            <a href="{{ route('products.index') }}?category=3" class="popular-item">
                 <div class="popular-image">
                     <img src="{{ asset('storage/products/brochure_1.png') }}" alt="Booklets" class="popular-card-image">
                 </div>
                 <span class="popular-name">{{ __('messages.booklets') }}</span>
             </a>
-            <a href="{{ route('products.index') }}?category=6" class="popular-item">
+            <a href="{{ route('products.index') }}?category=4" class="popular-item">
                 <div class="popular-image">
                     <img src="{{ asset('storage/products/poster_1.png') }}" alt="Posters" class="popular-card-image">
                 </div>
                 <span class="popular-name">{{ __('messages.posters') }}</span>
             </a>
-            <a href="{{ route('products.index') }}?category=7" class="popular-item">
+            <a href="{{ route('products.index') }}?category=6" class="popular-item">
                 <div class="popular-image">
                     <img src="{{ asset('storage/products/service-design.jpg') }}" alt="Envelopes" class="popular-card-image">
                 </div>
                 <span class="popular-name">{{ __('messages.envelopes_letterhead') }}</span>
             </a>
-            <a href="{{ route('products.index') }}?category=2" class="popular-item">
+            <a href="{{ route('products.index') }}?category=8" class="popular-item">
                 <div class="popular-image">
-                    <img src="{{ asset('storage/products/banner_1.png') }}" alt="Folders" class="popular-card-image">
+                    <img src="{{ asset('storage/products/banner_1.png') }}" alt="Red Packets" class="popular-card-image">
                 </div>
-                <span class="popular-name">{{ __('messages.folders') }}</span>
+                <span class="popular-name">{{ __('messages.cat_red_packet') }}</span>
             </a>
         </div>
     </div>
@@ -380,7 +308,7 @@
                 <i class="fas fa-envelope"></i>
                 <h4>{{ __('messages.email_quote') }}</h4>
                 <p>{{ __('messages.email_quote_description') }}</p>
-                <a href="mailto:quote@goprint.com">{{ __('messages.email_us') }}</a>
+                <a href="mailto:sales@giftandpremium.com.hk">{{ __('messages.email_us') }}</a>
             </div>
         </div>
     </div>
