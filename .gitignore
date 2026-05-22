@@ -3,6 +3,13 @@
 .DS_Store
 Thumbs.db
 
+# Sensitive files
+laravel/test_stripe.php
+*.secret
+*.key
+.env
+.env.*
+
 # Laravel
 laravel/vendor/
 laravel/.env
