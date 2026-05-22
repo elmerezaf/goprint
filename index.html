@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoPrint - 香港印刷服务</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; line-height: 1.6; color: #333; }
+        .header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 2rem 0; text-align: center; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .header p { font-size: 1.1rem; opacity: 0.9; }
+        .nav { background: #0f3460; padding: 1rem; text-align: center; }
+        .nav a { color: white; text-decoration: none; margin: 0 1.5rem; font-weight: 500; transition: color 0.3s; }
+        .nav a:hover { color: #e94560; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; }
+        .hero { background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1513407030348-c983a97b98d8?w=1920&q=80'); background-size: cover; background-position: center; color: white; padding: 6rem 2rem; text-align: center; margin-bottom: 2rem; }
+        .hero h2 { font-size: 3rem; margin-bottom: 1rem; }
+        .hero p { font-size: 1.3rem; margin-bottom: 2rem; opacity: 0.9; }
+        .btn { display: inline-block; background: #e94560; color: white; padding: 1rem 2.5rem; text-decoration: none; border-radius: 50px; font-weight: 600; transition: all 0.3s; }
+        .btn:hover { background: #d6304a; transform: translateY(-2px); }
+        .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 4rem; }
+        .service-card { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s; }
+        .service-card:hover { transform: translateY(-5px); }
+        .service-card i { font-size: 3rem; color: #e94560; margin-bottom: 1rem; }
+        .service-card h3 { font-size: 1.5rem; margin-bottom: 1rem; color: #1a1a2e; }
+        .products { background: #f8f9fa; padding: 4rem 2rem; margin: 2rem -2rem; }
+        .products h2 { text-align: center; font-size: 2.2rem; margin-bottom: 3rem; color: #1a1a2e; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .product-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); transition: transform 0.3s; }
+        .product-card:hover { transform: translateY(-5px); }
+        .product-card img { width: 100%; height: 200px; object-fit: cover; }
+        .product-card .info { padding: 1.5rem; }
+        .product-card h4 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .product-card .price { color: #e94560; font-size: 1.4rem; font-weight: 600; }
+        .about { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+        .about img { width: 100%; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .about h2 { font-size: 2.2rem; margin-bottom: 1.5rem; color: #1a1a2e; }
+        .about p { margin-bottom: 1rem; font-size: 1.1rem; color: #666; }
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin: 4rem 0; }
+        .feature-item { text-align: center; padding: 2rem; }
+        .feature-item i { font-size: 3rem; color: #e94560; margin-bottom: 1rem; }
+        .feature-item h4 { font-size: 1.1rem; color: #1a1a2e; }
+        .contact { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 4rem 2rem; margin: 2rem -2rem; text-align: center; }
+        .contact h2 { font-size: 2.2rem; margin-bottom: 2rem; }
+        .contact-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem; }
+        .contact-item { padding: 1.5rem; }
+        .contact-item i { font-size: 2rem; margin-bottom: 0.5rem; color: #e94560; }
+        .footer { background: #0f0f1a; color: white; padding: 2rem; text-align: center; }
+        @media (max-width: 768px) { .about { grid-template-columns: 1fr; } .hero h2 { font-size: 2rem; } .header h1 { font-size: 2rem; } }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="header">
+        <h1>GoPrint</h1>
+        <p>香港专业印刷服务 - 品质保证 · 快速交付</p>
+    </div>
+    <div class="nav">
+        <a href="#home">首页</a>
+        <a href="#services">服务项目</a>
+        <a href="#products">产品展示</a>
+        <a href="#about">关于我们</a>
+        <a href="#contact">联系方式</a>
+    </div>
+    <div class="container">
+        <div class="hero" id="home">
+            <h2>专业印刷 · 品质之选</h2>
+            <p>提供一站式印刷解决方案，满足您的各类印刷需求</p>
+            <a href="#products" class="btn">浏览产品</a>
+        </div>
+        <div class="services" id="services">
+            <div class="service-card"><i class="fas fa-id-card"></i><h3>名片印刷</h3><p>高品质名片设计与印刷，多种材质选择</p></div>
+            <div class="service-card"><i class="fas fa-file-alt"></i><h3>宣传单张</h3><p>精美传单设计，有效提升品牌曝光</p></div>
+            <div class="service-card"><i class="fas fa-image"></i><h3>海报印刷</h3><p>大尺寸海报，色彩鲜艳，画质清晰</p></div>
+            <div class="service-card"><i class="fas fa-book"></i><h3>画册制作</h3><p>专业画册设计，展现企业形象</p></div>
+            <div class="service-card"><i class="fas fa-envelope"></i><h3>信封信纸</h3><p>企业信封信纸，提升专业形象</p></div>
+            <div class="service-card"><i class="fas fa-gift"></i><h3>礼品定制</h3><p>个性化礼品印刷，彰显独特品味</p></div>
+        </div>
+        <div class="products" id="products">
+            <h2>热门产品</h2>
+            <div class="product-grid">
+                <div class="product-card"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&q=80" alt="商务名片"><div class="info"><h4>商务名片</h4><p>多种材质可选</p><div class="price">$50起</div></div></div>
+                <div class="product-card"><img src="https://images.unsplash.com/photo-1517732306149-e5f84890717a?w=400&q=80" alt="宣传单张"><div class="info"><h4>宣传单张</h4><p>A4/A3尺寸</p><div class="price">$100起</div></div></div>
+                <div class="product-card"><img src="https://images.unsplash.com/photo-1570077371408-180181080930?w=400&q=80" alt="海报印刷"><div class="info"><h4>海报印刷</h4><p>高清画质</p><div class="price">$80起</div></div></div>
+                <div class="product-card"><img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&q=80" alt="画册制作"><div class="info"><h4>精美画册</h4><p>专业设计</p><div class="price">$500起</div></div></div>
+            </div>
+        </div>
+        <div class="about" id="about">
+            <div>
+                <h2>关于 GoPrint</h2>
+                <p>GoPrint 是香港领先的印刷服务提供商，致力于为客户提供高品质、高效率的印刷解决方案。</p>
+                <p>我们拥有先进的印刷设备和专业的设计团队，能够满足各类印刷需求，从商务名片到大型海报，从宣传画册到个性化礼品。</p>
+                <p>多年来，我们始终坚持"品质第一、客户至上"的理念，赢得了众多客户的信赖与好评。</p>
+            </div>
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="GoPrint">
+        </div>
+        <div class="features">
+            <div class="feature-item"><i class="fas fa-award"></i><h4>品质保证</h4></div>
+            <div class="feature-item"><i class="fas fa-truck"></i><h4>快速交付</h4></div>
+            <div class="feature-item"><i class="fas fa-hand-holding-usd"></i><h4>价格优惠</h4></div>
+            <div class="feature-item"><i class="fas fa-headset"></i><h4>贴心服务</h4></div>
+        </div>
+        <div class="contact" id="contact">
+            <h2>联系我们</h2>
+            <p>如有任何疑问或需求，请随时与我们联系</p>
+            <div class="contact-info">
+                <div class="contact-item"><i class="fas fa-phone"></i><p>+852 2565 7997</p></div>
+                <div class="contact-item"><i class="fas fa-envelope"></i><p>sales@giftandpremium.com.hk</p></div>
+                <div class="contact-item"><i class="fas fa-map-marker-alt"></i><p>香港九龙旺角</p></div>
+            </div>
+        </div>
+    </div>
+    <div class="footer"><p>&copy; 2024 GoPrint. All rights reserved.</p></div>
+</body>
+</html>
