@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useCartStore } from '../store/useCartStore';
 
 export const CartItem = ({ item }) => {
@@ -12,7 +12,7 @@ export const CartItem = ({ item }) => {
   };
 
   const handleRemove = async () => {
-    if (window.confirm('确定要删除这个商品吗？')) {
+    if (window.confirm('確定要刪除這個商品嗎？')) {
       await removeItem(item.product.pro_id);
     }
   };
@@ -37,7 +37,7 @@ export const CartItem = ({ item }) => {
         )}
       </td>
       <td className="fw-bold">{item.product.pro_name}</td>
-      <td>${item.price.toFixed(2)}</td>
+      <td>HK${item.price.toLocaleString()}</td>
       <td style={{ width: '180px' }}>
         <div className="d-flex align-items-center gap-2">
           <button
@@ -66,7 +66,7 @@ export const CartItem = ({ item }) => {
           </button>
         </div>
       </td>
-      <td className="fw-bold text-primary">${item.total.toFixed(2)}</td>
+      <td className="fw-bold text-primary">HK${item.total.toLocaleString()}</td>
       <td>
         <button
           className="btn btn-sm btn-outline-danger"
@@ -85,11 +85,11 @@ export const CartEmpty = () => {
     <div className="card shadow-sm">
       <div className="card-body text-center py-5">
         <i className="fas fa-shopping-cart text-muted" style={{ fontSize: '64px', opacity: 0.3 }}></i>
-        <h3 className="fw-bold mt-3">购物车是空的</h3>
-        <p className="text-muted mb-4">快去挑选心仪的产品吧！</p>
+        <h3 className="fw-bold mt-3">購物車是空的</h3>
+        <p className="text-muted mb-4">快去挑選心儀的產品吧！</p>
         <a href="/products" className="btn btn-primary btn-lg">
           <i className="fas fa-shopping-bag me-2"></i>
-          去购物
+          去購物
         </a>
       </div>
     </div>
@@ -100,7 +100,7 @@ export const CartSummary = ({ total, itemCount }) => {
   const { clearCart, isLoading } = useCartStore();
 
   const handleClear = async () => {
-    if (window.confirm('确定要清空购物车吗？')) {
+    if (window.confirm('確定要清空購物車嗎？')) {
       await clearCart();
     }
   };
@@ -110,7 +110,7 @@ export const CartSummary = ({ total, itemCount }) => {
       <div>
         <h4 className="fw-bold">
           共 {itemCount} 件商品
-          <span className="text-primary ms-3">合计: ${total.toFixed(2)}</span>
+          <span className="text-primary ms-3">合計: HK${total.toLocaleString()}</span>
         </h4>
       </div>
       <div className="d-flex gap-2 mt-2 mt-sm-0">
@@ -120,15 +120,15 @@ export const CartSummary = ({ total, itemCount }) => {
           disabled={isLoading}
         >
           <i className="fas fa-trash-alt me-2"></i>
-          清空购物车
+          清空購物車
         </button>
         <a href="/products" className="btn btn-outline-primary">
           <i className="fas fa-arrow-left me-2"></i>
-          继续购物
+          繼續購物
         </a>
-        <a href="/order/create" className="btn btn-warning text-white">
+        <a href="/checkout" className="btn btn-warning text-white">
           <i className="fas fa-credit-card me-2"></i>
-          去结账
+          結帳
         </a>
       </div>
     </div>

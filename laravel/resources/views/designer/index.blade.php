@@ -33,9 +33,22 @@
                 <button class="btn btn-outline-secondary" id="btnPreview">
                     <i class="fas fa-eye"></i> 预览
                 </button>
-                <button class="btn btn-outline-secondary" id="btnSave">
-                    <i class="fas fa-save"></i> 保存
-                </button>
+                <div class="save-dropdown" style="position:relative;display:inline-block;">
+                    <button class="btn btn-outline-secondary" id="btnSave">
+                        <i class="fas fa-save"></i> 保存 <i class="fas fa-caret-down" style="font-size:10px;margin-left:4px;"></i>
+                    </button>
+                    <div class="save-dropdown-menu" id="saveDropdownMenu" style="display:none;position:absolute;right:0;top:100%;background:#fff;border:1px solid #ddd;border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,0.15);z-index:999;min-width:160px;margin-top:4px;overflow:hidden;">
+                        <button class="dropdown-item" onclick="window.saveDesign('svg')" style="padding:10px 16px;border:none;background:none;width:100%;text-align:left;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:8px;">
+                            <i class="fas fa-file-code" style="color:#e67e22;"></i> 导出 SVG <span style="font-size:11px;color:#999;margin-left:auto;">印刷用</span>
+                        </button>
+                        <button class="dropdown-item" onclick="window.saveDesign('png')" style="padding:10px 16px;border:none;background:none;width:100%;text-align:left;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:8px;">
+                            <i class="fas fa-file-image" style="color:#3498db;"></i> 导出 PNG
+                        </button>
+                        <button class="dropdown-item" onclick="window.saveDesign('json')" style="padding:10px 16px;border:none;background:none;width:100%;text-align:left;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:8px;">
+                            <i class="fas fa-file-code" style="color:#2ecc71;"></i> 导出 JSON <span style="font-size:11px;color:#999;margin-left:auto;">备份用</span>
+                        </button>
+                    </div>
+                </div>
                 <button class="btn btn-primary" id="btnOrder">
                     <i class="fas fa-shopping-cart"></i> 下单
                 </button>
@@ -76,6 +89,10 @@
                     <button class="tool-btn" data-tool="upload" title="上传">
                         <i class="fas fa-upload"></i>
                         <span>上传</span>
+                    </button>
+                    <button class="tool-btn" data-tool="sizePresets" title="尺寸">
+                        <i class="fas fa-vector-square"></i>
+                        <span>尺寸</span>
                     </button>
                 </div>
             </aside>
@@ -290,7 +307,11 @@
                 </div>
 
                 <div class="panel-section" id="templatePanel" style="display: none;">
-                    <h3 class="panel-title">选择模板</h3>
+                    <h3 class="panel-title"><i class="fas fa-object-group"></i> 选择模板</h3>
+                    <div class="template-search">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="templateSearch" placeholder="搜索模板..." class="form-control">
+                    </div>
                     @foreach(collect($templates)->groupBy('category_name') as $category => $categoryTemplates)
                         <div class="template-category">
                             <h4 class="template-category-title">{{ $category }}</h4>
@@ -302,12 +323,17 @@
                                          data-bg="{{ $template['background'] }}"
                                          data-svg="{{ base64_encode($template['svg']) }}">
                                         <div class="template-preview">{!! $template['svg'] !!}</div>
-                                        <span>{{ $template['name'] }}</span>
+                                        <span class="template-name">{{ $template['name'] }}</span>
+                                        <span class="template-size">{{ $template['width'] }}x{{ $template['height'] }}mm</span>
                                     </div>
                                 @endforeach
                             </div>
                         </div>
                     @endforeach
+                    <div class="template-empty" id="templateEmpty" style="display:none;">
+                        <i class="fas fa-search"></i>
+                        没有找到匹配的模板
+                    </div>
                 </div>
 
                 <div class="panel-section" id="layersPanel" style="display: none;">
@@ -326,6 +352,74 @@
                         <button class="btn btn-outline-secondary w-100" id="btnLock">
                             <i class="fas fa-lock-open"></i> <span id="lockText">锁定</span>
                         </button>
+                    </div>
+                </div>
+
+                <div class="panel-section" id="uploadPanel" style="display: none;">
+                    <h3 class="panel-title"><i class="fas fa-upload"></i> 上传图片</h3>
+                    <div class="upload-zone" id="uploadZone">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>拖拽图片到此处或点击上传</span>
+                        <span style="font-size:10px;color:#bbb;display:block;margin-top:5px;">支持 JPG / PNG / SVG / WEBP</span>
+                    </div>
+                    <input type="file" id="uploadInput" accept="image/*" multiple style="display:none;">
+                    <div class="upload-preview-list" id="uploadPreviewList"></div>
+                </div>
+
+                <div class="panel-section" id="sizePresetsPanel" style="display: none;">
+                    <h3 class="panel-title"><i class="fas fa-vector-square"></i> 尺寸预设</h3>
+                    <div class="size-presets">
+                        <label>常用产品尺寸</label>
+                        <div class="size-preset-grid">
+                            <button class="size-preset-btn active" data-width="90" data-height="54" data-name="名片" data-bg="#ffffff">
+                                <span class="size-name">名片</span>
+                                <span class="size-dim">90 x 54mm</span>
+                            </button>
+                            <button class="size-preset-btn" data-width="210" data-height="297" data-name="A4宣传单" data-bg="#ffffff">
+                                <span class="size-name">A4宣传单</span>
+                                <span class="size-dim">210 x 297mm</span>
+                            </button>
+                            <button class="size-preset-btn" data-width="148" data-height="210" data-name="A5宣传单" data-bg="#ffffff">
+                                <span class="size-name">A5宣传单</span>
+                                <span class="size-dim">148 x 210mm</span>
+                            </button>
+                            <button class="size-preset-btn" data-width="297" data-height="420" data-name="A3海报" data-bg="#ffffff">
+                                <span class="size-name">A3海报</span>
+                                <span class="size-dim">297 x 420mm</span>
+                            </button>
+                            <button class="size-preset-btn" data-width="140" data-height="210" data-name="邀请函" data-bg="#ffffff">
+                                <span class="size-name">邀请函</span>
+                                <span class="size-dim">140 x 210mm</span>
+                            </button>
+                            <button class="size-preset-btn" data-width="200" data-height="100" data-name="优惠券" data-bg="#ffffff">
+                                <span class="size-name">优惠券</span>
+                                <span class="size-dim">200 x 100mm</span>
+                            </button>
+                            <button class="size-preset-btn" data-width="220" data-height="110" data-name="信封" data-bg="#ffffff">
+                                <span class="size-name">信封</span>
+                                <span class="size-dim">220 x 110mm</span>
+                            </button>
+                            <button class="size-preset-btn" data-width="148" data-height="105" data-name="明信片" data-bg="#ffffff">
+                                <span class="size-name">明信片</span>
+                                <span class="size-dim">148 x 105mm</span>
+                            </button>
+                            <button class="size-preset-btn" data-width="80" data-height="200" data-name="易拉宝" data-bg="#ffffff">
+                                <span class="size-name">易拉宝</span>
+                                <span class="size-dim">80 x 200cm</span>
+                            </button>
+                            <button class="size-preset-btn" data-width="210" data-height="148" data-name="台历" data-bg="#ffffff">
+                                <span class="size-name">台历</span>
+                                <span class="size-dim">210 x 148mm</span>
+                            </button>
+                            <button class="size-preset-btn" data-width="100" data-height="100" data-name="方形贴纸" data-bg="#ffffff">
+                                <span class="size-name">方形贴纸</span>
+                                <span class="size-dim">100 x 100mm</span>
+                            </button>
+                            <button class="size-preset-btn" data-width="820" data-height="312" data-name="FB封面" data-bg="#1877f2">
+                                <span class="size-name">FB封面</span>
+                                <span class="size-dim">820 x 312px</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </aside>
@@ -416,8 +510,25 @@
         </div>
     </div>
 
-    <div id="qrcode" style="display: none;"></div>
+    <div id="qrcode" class="qr-hidden"></div>
     <input type="hidden" id="productId" value="{{ $productId ?? '' }}">
+
+    <script>
+    var GRADIENT_DATA = [
+        { css: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', colors: ['#667eea', '#764ba2'] },
+        { css: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', colors: ['#f093fb', '#f5576c'] },
+        { css: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', colors: ['#4facfe', '#00f2fe'] },
+        { css: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)', colors: ['#43e97b', '#38f9d7'] },
+        { css: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)', colors: ['#fa709a', '#fee140'] },
+        { css: 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)', colors: ['#30cfd0', '#330867'] },
+        { css: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)', colors: ['#a8edea', '#fed6e3'] },
+        { css: 'linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)', colors: ['#d299c2', '#fef9d7'] },
+        { css: 'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)', colors: ['#89f7fe', '#66a6ff'] },
+        { css: 'linear-gradient(135deg, #fddb92 0%, #d1fdff 100%)', colors: ['#fddb92', '#d1fdff'] },
+        { css: 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)', colors: ['#f6d365', '#fda085'] },
+        { css: 'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)', colors: ['#a1c4fd', '#c2e9fb'] }
+    ];
+    </script>
     <script src="{{ asset('js/designer.js') }}?v={{ filemtime(public_path('js/designer.js')) }}"></script>
 </body>
 </html>

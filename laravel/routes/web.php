@@ -6,6 +6,7 @@ use App\Http\Controllers\InfoController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\OrderHistoryController;
 use App\Http\Controllers\AddressController;
@@ -23,7 +24,7 @@ Route::get('/test-translation', function () {
     return response()->json([
         'current_locale' => app()->getLocale(),
         'test_translation' => __('messages.welcome'),
-        'available_locales' => ['zh-HK', 'zh-CN', 'en']
+        'available_locales' => ['zh-HK', 'en']
     ]);
 });
 
@@ -62,13 +63,20 @@ Route::post('/order', [OrderController::class, 'store'])->name('order.store');
 Route::get('/designer', [DesignerController::class, 'index'])->name('designer.index');
 Route::get('/designer/{productId}', [DesignerController::class, 'index'])->name('designer.product');
 Route::post('/designer/export', [DesignerController::class, 'export'])->name('designer.export');
+Route::get('/designer/order/{token}', [DesignerController::class, 'orderProduct'])->name('designer.orderProduct');
 
 // 購物車路由
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
 Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
-Route::get('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+Route::match(['get', 'post'], '/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+
+// 結賬路由
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+Route::get('/checkout/stripe/{order_id}', [CheckoutController::class, 'stripePay'])->name('checkout.stripe');
+Route::get('/checkout/thankyou/{order_id}', [CheckoutController::class, 'thankyou'])->name('checkout.thankyou');
 
 // 支付路由（无需登录即可付款）
 Route::post('/payment/create', [PaymentController::class, 'createCheckoutSession'])->name('payment.create');

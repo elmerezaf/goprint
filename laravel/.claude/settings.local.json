@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell *)",
+      "Bash(cmd.exe /c \"C:\\\\xampp\\\\htdocs\\\\goprint\\\\backup.bat\")",
+      "Bash(cmd.exe /c \"C:\\\\xampp\\\\htdocs\\\\goprint\\\\backup.bat > C:\\\\xampp\\\\htdocs\\\\goprint\\\\test_output.txt 2>&1\")",
+      "Bash(r)",
+      "Bash(n)",
+      "Bash(cmd.exe *)",
+      "Bash(curl -s http://127.0.0.1:8000/cart)",
+      "Bash(npx tsc *)",
+      "Bash(npm install *)",
+      "Bash(php artisan *)",
+      "Bash(npm run *)",
+      "Bash(php *)"
+    ]
+  }
+}

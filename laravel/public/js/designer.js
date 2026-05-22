@@ -1,7 +1,9 @@
+(function() {
+'use strict';
+
 var canvas;
 var currentTool = 'text';
 var zoom = 1;
-var isGuideVisible = true;
 var copiedObjectJson = null;
 var currentSide = 'front';
 var sideData = {
@@ -11,6 +13,8 @@ var sideData = {
 var historyStack = [];
 var historyIndex = -1;
 var isRestoring = false;
+var uploadedImages = [];
+var isDirty = false;
 
 document.addEventListener('DOMContentLoaded', function() {
     canvas = new fabric.Canvas('designCanvas', {
@@ -22,14 +26,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     canvas.on('object:modified', function() {
         if (!isRestoring) saveState();
+        updateLayersList();
+        isDirty = true;
+        document.getElementById('designStatus').textContent = '未保存';
     });
 
     canvas.on('object:added', function(e) {
         if (!isRestoring && !e.e) saveState();
+        updateLayersList();
+        isDirty = true;
+        document.getElementById('designStatus').textContent = '未保存';
     });
 
     canvas.on('object:removed', function() {
         if (!isRestoring) saveState();
+        updateLayersList();
+        isDirty = true;
+        document.getElementById('designStatus').textContent = '未保存';
     });
 
     canvas.on('object:selected', function(e) {
@@ -50,16 +63,17 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCoords(e.target);
     });
 
-    canvas.on('object:modified', function() {
-        updateLayersList();
-    });
-
-    canvas.on('object:added', function() {
-        updateLayersList();
-    });
-
-    canvas.on('object:removed', function() {
-        updateLayersList();
+    window.addEventListener('beforeunload', function(e) {
+        if (isDirty) {
+            saveCurrentSideData();
+            var data = {
+                front: sideData.front,
+                back: sideData.back,
+                currentSide: currentSide
+            };
+            try { localStorage.setItem('goprint_design_emergency', JSON.stringify(data)); } catch(ex) {}
+            e.preventDefault();
+        }
     });
 
     initToolbar();
@@ -71,9 +85,32 @@ document.addEventListener('DOMContentLoaded', function() {
     initBgTypeTabs();
     initGradientPresets();
     initQRCodeGenerator();
+    initStyleButtons();
+    initTemplateSearch();
+    initSizePresets();
+    initUploadPanel();
 
-    // Initialize front side
-    addDefaultContent();
+    var emergencyData = null;
+    try {
+        var savedJson = localStorage.getItem('goprint_design_emergency');
+        if (savedJson) {
+            emergencyData = JSON.parse(savedJson);
+            localStorage.removeItem('goprint_design_emergency');
+        }
+    } catch(ex) {}
+
+    if (emergencyData && emergencyData.front && emergencyData.front.objects && emergencyData.front.objects.length > 0) {
+        if (confirm('检测到上次未保存的设计，是否恢复？')) {
+            loadDesignData(emergencyData);
+            currentSide = emergencyData.currentSide || 'front';
+            document.getElementById('designStatus').textContent = '未保存';
+            isDirty = true;
+        }
+    }
+
+    if (!emergencyData || !isDirty) {
+        addDefaultContent();
+    }
     saveState();
     saveCurrentSideData();
     
@@ -125,6 +162,33 @@ function saveCurrentSideData() {
     sideData[currentSide] = canvas.toJSON();
 }
 
+function loadDesignData(data) {
+    isRestoring = true;
+    canvas.clear();
+    sideData.front = data.front || {};
+    sideData.back = data.back || {};
+
+    var sideToLoad = data.currentSide || 'front';
+    var loadData = sideData[sideToLoad];
+    currentSide = sideToLoad;
+
+    if (loadData && loadData.objects && loadData.objects.length > 0) {
+        canvas.loadFromJSON(loadData, function() {
+            canvas.renderAll();
+            isRestoring = false;
+        });
+    } else if (sideData.front && sideData.front.objects && sideData.front.objects.length > 0) {
+        canvas.loadFromJSON(sideData.front, function() {
+            canvas.renderAll();
+            isRestoring = false;
+        });
+    } else {
+        isRestoring = false;
+    }
+    historyStack = [];
+    historyIndex = -1;
+}
+
 function initBgTypeTabs() {
     document.querySelectorAll('.bg-type-tab').forEach(tab => {
         tab.addEventListener('click', function() {
@@ -163,24 +227,9 @@ function applyGradientBackground(gradientCss) {
     // First, clear any existing background
     canvas.setBackgroundColor(null, function() {});
     canvas.setBackgroundImage(null, function() {});
-    
-    // Create a list of gradient color pairs
-    const gradients = {
-        'linear-gradient(135deg, #667eea 0%, #764ba2 100%)': ['#667eea', '#764ba2'],
-        'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)': ['#f093fb', '#f5576c'],
-        'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)': ['#4facfe', '#00f2fe'],
-        'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)': ['#43e97b', '#38f9d7'],
-        'linear-gradient(135deg, #fa709a 0%, #fee140 100%)': ['#fa709a', '#fee140'],
-        'linear-gradient(135deg, #30cfd0 0%, #330867 100%)': ['#30cfd0', '#330867'],
-        'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)': ['#a8edea', '#fed6e3'],
-        'linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)': ['#d299c2', '#fef9d7'],
-        'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)': ['#89f7fe', '#66a6ff'],
-        'linear-gradient(135deg, #fddb92 0%, #d1fdff 100%)': ['#fddb92', '#d1fdff'],
-        'linear-gradient(135deg, #f6d365 0%, #fda085 100%)': ['#f6d365', '#fda085'],
-        'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)': ['#a1c4fd', '#c2e9fb']
-    };
-    
-    let colors = gradients[gradientCss];
+
+    const gradientEntry = (typeof GRADIENT_DATA !== 'undefined' ? GRADIENT_DATA : []).find(function(g) { return g.css === gradientCss; });
+    let colors = gradientEntry ? gradientEntry.colors : null;
     if (!colors) {
         // Fallback colors if not in list
         colors = ['#667eea', '#764ba2'];
@@ -320,9 +369,10 @@ function addDefaultContent() {
     });
     canvas.add(text);
     
-    const companyText = new fabric.Text('GoPrint 网上印刷有限公司', {
+    const companyText = new fabric.Textbox('GoPrint 网上印刷有限公司', {
         left: 280,
         top: 80,
+        width: 220,
         fontSize: 18,
         fontFamily: 'Microsoft YaHei',
         fill: '#333333',
@@ -619,12 +669,21 @@ function initEventListeners() {
                 'X: ' + Math.round(e.pointer.x) + ', Y: ' + Math.round(e.pointer.y);
         }
     });
-    canvas.on('object:modified', function() {
-        document.getElementById('designStatus').textContent = '未保存';
-        updateLayersList();
-    });
     document.getElementById('btnPreview').addEventListener('click', previewDesign);
-    document.getElementById('btnSave').addEventListener('click', saveDesign);
+    document.getElementById('btnSave').addEventListener('click', function(e) {
+        var menu = document.getElementById('saveDropdownMenu');
+        if (menu.style.display === 'none') {
+            menu.style.display = 'block';
+        } else {
+            menu.style.display = 'none';
+        }
+        e.stopPropagation();
+    });
+
+    document.addEventListener('click', function() {
+        var menu = document.getElementById('saveDropdownMenu');
+        if (menu) menu.style.display = 'none';
+    });
     document.getElementById('btnOrder').addEventListener('click', orderDesign);
 }
 
@@ -748,21 +807,54 @@ function uploadImage(file) {
 }
 
 function setBackgroundImage(file) {
-    const reader = new FileReader();
+    var reader = new FileReader();
     reader.onload = function(e) {
         fabric.Image.fromURL(e.target.result, function(img) {
-            canvas.setBackgroundImage(img, function() {
-                canvas.renderAll();
-            }, {
+            img.set({
+                left: 0,
+                top: 0,
                 scaleX: canvas.width / img.width,
-                scaleY: canvas.height / img.height
+                scaleY: canvas.height / img.height,
+                selectable: true,
+                evented: true,
+                excludeFromExport: false
             });
+            canvas.add(img);
+            canvas.sendToBack(img);
+            canvas.setActiveObject(img);
+            canvas.renderAll();
+            isDirty = true;
         });
     };
     reader.readAsDataURL(file);
 }
 
+function convertToTextbox(textObj, scaleX, scaleY) {
+    return new fabric.Textbox(textObj.text || '', {
+        left: (textObj.left || 0) * scaleX,
+        top: (textObj.top || 0) * scaleY,
+        width: Math.max((textObj.width || 100) * scaleX, 60),
+        fontSize: (textObj.fontSize || 18) * scaleX,
+        fontFamily: textObj.fontFamily || 'Microsoft YaHei',
+        fill: textObj.fill || '#333333',
+        fontWeight: textObj.fontWeight || 'normal',
+        fontStyle: textObj.fontStyle || 'normal',
+        textAlign: textObj.textAlign || 'left',
+        underline: textObj.underline || false,
+        linethrough: textObj.linethrough || false,
+        lineHeight: textObj.lineHeight || 1.16,
+        charSpacing: textObj.charSpacing || 0,
+        selectable: true,
+        evented: true,
+        hasControls: true,
+        hasBorders: true
+    });
+}
+
 function loadTemplate(svgContent, width, height, bgColor) {
+    if (isDirty) {
+        if (!confirm('切换模板将清除当前设计，是否继续？')) return;
+    }
     canvas.clear();
     canvas.setBackgroundColor(bgColor || '#ffffff', function() { canvas.renderAll(); });
     const mmToPx = 3.78;
@@ -785,6 +877,7 @@ function loadTemplate(svgContent, width, height, bgColor) {
     
     document.getElementById('canvasSize').textContent = width + 'mm x ' + height + 'mm';
     document.getElementById('designStatus').textContent = '未保存';
+    isDirty = false;
     historyStack = [];
     historyIndex = -1;
     
@@ -805,30 +898,54 @@ function loadTemplate(svgContent, width, height, bgColor) {
             objects.forEach(function(obj) {
                 if (obj.type === 'group') {
                     obj._objects.forEach(function(subObj) {
-                        const x = (subObj.left || 0) * scaleX;
-                        const y = (subObj.top || 0) * scaleY;
-                        subObj.set({
-                            left: x,
-                            top: y,
-                            scaleX: (subObj.scaleX || 1),
-                            scaleY: (subObj.scaleY || 1),
-                            selectable: true,
-                            evented: true,
-                            hasControls: true,
-                            hasBorders: true
-                        });
-                        if (subObj.type === 'text' || subObj.type === 'textbox') {
-                            subObj.fontFamily = subObj.fontFamily || 'Microsoft YaHei';
-                            subObj.fontSize = (subObj.fontSize || 12) * scaleX;
+                        if (subObj.type === 'text') {
+                            canvas.add(convertToTextbox(subObj, scaleX, scaleY));
+                        } else if (subObj.type === 'textbox') {
+                            subObj.set({
+                                left: (subObj.left || 0) * scaleX,
+                                top: (subObj.top || 0) * scaleY,
+                                fontSize: (subObj.fontSize || 12) * scaleX,
+                                width: (subObj.width || 100) * scaleX,
+                                fontFamily: subObj.fontFamily || 'Microsoft YaHei',
+                                selectable: true,
+                                evented: true,
+                                hasControls: true,
+                                hasBorders: true
+                            });
+                            canvas.add(subObj);
+                        } else {
+                            subObj.set({
+                                left: (subObj.left || 0) * scaleX,
+                                top: (subObj.top || 0) * scaleY,
+                                scaleX: (subObj.scaleX || 1),
+                                scaleY: (subObj.scaleY || 1),
+                                selectable: true,
+                                evented: true,
+                                hasControls: true,
+                                hasBorders: true
+                            });
+                            canvas.add(subObj);
                         }
-                        canvas.add(subObj);
                     });
-                } else {
-                    const x = (obj.left || 0) * scaleX;
-                    const y = (obj.top || 0) * scaleY;
+                } else if (obj.type === 'text') {
+                    canvas.add(convertToTextbox(obj, scaleX, scaleY));
+                } else if (obj.type === 'textbox') {
                     obj.set({
-                        left: x,
-                        top: y,
+                        left: (obj.left || 0) * scaleX,
+                        top: (obj.top || 0) * scaleY,
+                        fontSize: (obj.fontSize || 12) * scaleX,
+                        width: (obj.width || 100) * scaleX,
+                        fontFamily: obj.fontFamily || 'Microsoft YaHei',
+                        selectable: true,
+                        evented: true,
+                        hasControls: true,
+                        hasBorders: true
+                    });
+                    canvas.add(obj);
+                } else {
+                    obj.set({
+                        left: (obj.left || 0) * scaleX,
+                        top: (obj.top || 0) * scaleY,
                         scaleX: (obj.scaleX || 1),
                         scaleY: (obj.scaleY || 1),
                         selectable: true,
@@ -836,10 +953,6 @@ function loadTemplate(svgContent, width, height, bgColor) {
                         hasControls: true,
                         hasBorders: true
                     });
-                    if (obj.type === 'text' || obj.type === 'textbox') {
-                        obj.fontFamily = obj.fontFamily || 'Microsoft YaHei';
-                        obj.fontSize = (obj.fontSize || 12) * scaleX;
-                    }
                     canvas.add(obj);
                 }
             });
@@ -867,15 +980,42 @@ function updateLayersList() {
         const item = document.createElement('div');
         item.className = 'layer-item';
         if (obj === canvas.getActiveObject()) item.classList.add('active');
+
+        const eye = document.createElement('i');
+        eye.className = obj.visible === false ? 'fas fa-eye-slash' : 'fas fa-eye';
+        eye.style.cssText = 'margin-right:6px;cursor:pointer;font-size:12px;width:16px;text-align:center;';
+        eye.title = obj.visible === false ? '显示' : '隐藏';
+        eye.addEventListener('click', function(e) {
+            e.stopPropagation();
+            obj.visible = !obj.visible;
+            eye.className = obj.visible === false ? 'fas fa-eye-slash' : 'fas fa-eye';
+            eye.title = obj.visible === false ? '显示' : '隐藏';
+            canvas.renderAll();
+            isDirty = true;
+        });
+        item.appendChild(eye);
+
         const icon = document.createElement('i');
         const typeName = obj.type || 'unknown';
-        if (typeName === 'textbox' || typeName === 'i-text' || typeName === 'text') icon.className = 'fas fa-font';
-        else if (typeName === 'image') icon.className = 'fas fa-image';
-        else if (typeName === 'group') icon.className = 'fas fa-object-group';
-        else icon.className = 'fas fa-shape';
+        let displayName = typeName;
+        if (typeName === 'textbox' || typeName === 'i-text' || typeName === 'text') {
+            icon.className = 'fas fa-font';
+            displayName = '文字';
+        } else if (typeName === 'image') {
+            icon.className = 'fas fa-image';
+            displayName = '图片';
+        } else if (typeName === 'group') {
+            icon.className = 'fas fa-object-group';
+            displayName = '组合';
+        } else {
+            icon.className = 'fas fa-shape';
+            displayName = '形状';
+        }
         item.appendChild(icon);
+
         const name = document.createElement('span');
-        name.textContent = typeName + ' ' + (i + 1);
+        name.textContent = displayName;
+        name.style.marginLeft = '4px';
         item.appendChild(name);
         const lockIcon = document.createElement('i');
         lockIcon.className = obj.evented === false ? 'fas fa-lock' : 'fas fa-lock-open';
@@ -980,17 +1120,31 @@ function autoSaveDesign() {
         currentSide: currentSide
     };
     try {
-        localStorage.setItem('goprint_design_autosave', JSON.stringify(data));
+        const json = JSON.stringify(data);
+        const sizeKB = (json.length / 1024).toFixed(1);
+        if (json.length > 4 * 1024 * 1024) {
+            console.warn('设计数据过大 (' + sizeKB + 'KB)，可能无法完整保存');
+        }
+        localStorage.setItem('goprint_design_autosave', json);
         const statusEl = document.getElementById('designStatus');
-        statusEl.textContent = '自动保存...';
+        statusEl.textContent = '已自动保存';
         statusEl.style.color = '#2ecc71';
         setTimeout(function() {
-            if (statusEl.textContent === '自动保存...') {
+            if (statusEl.textContent === '已自动保存') {
                 statusEl.textContent = '未保存';
                 statusEl.style.color = '#e74c3c';
             }
         }, 2000);
-    } catch(e) {}
+    } catch(e) {
+        const statusEl = document.getElementById('designStatus');
+        if (e.name === 'QuotaExceededError' || (e.code && e.code === 22)) {
+            statusEl.textContent = '存储空间不足';
+        } else {
+            statusEl.textContent = '保存失败';
+            console.error('Auto-save failed:', e);
+        }
+        statusEl.style.color = '#e74c3c';
+    }
 }
 
 function updateSelectedText() {
@@ -1026,6 +1180,7 @@ function updateRightPanel(object) {
         document.getElementById('fontSizeValue').textContent = object.fontSize || 24;
         document.getElementById('fontFamily').value = object.fontFamily || 'Microsoft YaHei';
         document.getElementById('textColor').value = object.fill || '#333333';
+        updateSelectedTextStyle(object);
     } else if (object.type === 'image') {
         showPanel('imagePanel');
         document.getElementById('imageOpacity').value = Math.round((object.opacity || 1) * 100);
@@ -1060,61 +1215,465 @@ function previewDesign() {
     const dataURL = canvas.toDataURL({ format: 'png', quality: 1 });
     const w = window.open('', '_blank');
     if (!w) { alert('请允许弹出窗口以预览设计'); return; }
-    w.document.write('<html><head><title>设计预览 - GoPrint</title>');
-    w.document.write('<style>body{margin:0;display:flex;justify-content:center;align-items:center;background:#f5f5f5;min-height:100vh;font-family:sans-serif;}</style></head>');
-    w.document.write('<body><img src="' + dataURL + '" style="max-width:95%;max-height:95%;box-shadow:0 4px 20px rgba(0,0,0,0.2);border-radius:4px;"></body></html>');
-    w.document.close();
+    const html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>设计预览 - GoPrint</title><style>body{margin:0;display:flex;justify-content:center;align-items:center;background:#f5f5f5;min-height:100vh;font-family:sans-serif;}</style></head><body><img src="' + dataURL + '" style="max-width:95%;max-height:95%;box-shadow:0 4px 20px rgba(0,0,0,0.2);border-radius:4px;"></body></html>';
+    const blob = new Blob([html], { type: 'text/html' });
+    w.location.href = URL.createObjectURL(blob);
 }
 
-function saveDesign() {
+function saveDesign(format) {
+    format = format || 'svg';
+    var data, blob, url, filename, mime;
+
+    if (format === 'svg') {
+        var svgFront = canvas.toSVG();
+        var hasBack = sideData.back && sideData.back.objects && sideData.back.objects.length > 0;
+        if (hasBack) {
+            isRestoring = true;
+            var savedFront = JSON.stringify(sideData.front);
+            canvas.loadFromJSON(sideData.back, function() {
+                var svgBack = canvas.toSVG();
+                canvas.loadFromJSON(JSON.parse(savedFront), function() {
+                    downloadSVG(svgFront, svgBack);
+                    isRestoring = false;
+                });
+            });
+        } else {
+            downloadSVG(svgFront, null);
+        }
+        return;
+    }
+
     saveCurrentSideData();
-    const data = {
+    data = {
         front: sideData.front,
         back: sideData.back
     };
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+
+    if (format === 'json') {
+        mime = 'application/json';
+        blob = new Blob([JSON.stringify(data, null, 2)], { type: mime });
+        filename = 'goprint_design_' + Date.now() + '.json';
+    } else if (format === 'png') {
+        mime = 'image/png';
+        blob = dataURLToBlob(canvas.toDataURL({ format: 'png', quality: 1 }));
+        filename = 'goprint_design_front_' + Date.now() + '.png';
+    }
+
+    url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
     a.href = url;
-    a.download = 'goprint_design_' + Date.now() + '.json';
+    a.download = filename;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+
     document.getElementById('designStatus').textContent = '已保存';
-    setTimeout(function() { document.getElementById('designStatus').textContent = '未保存'; }, 2000);
+    document.getElementById('designStatus').style.color = '#2ecc71';
+    isDirty = false;
+    setTimeout(function() {
+        document.getElementById('designStatus').textContent = '未保存';
+        document.getElementById('designStatus').style.color = '#e74c3c';
+    }, 2000);
+}
+
+function downloadSVG(svgFront, svgBack) {
+    var timestamp = Date.now();
+    var cw = canvas.width;
+    var ch = canvas.height;
+
+    if (svgBack) {
+        var totalH = ch * 2;
+        var svgCombined = '<svg xmlns="http://www.w3.org/2000/svg" width="' + cw + 'px" height="' + totalH + 'px" viewBox="0 0 ' + cw + ' ' + totalH + '">' +
+            '<rect width="' + cw + '" height="' + totalH + '" fill="white"/>' +
+            '<g id="front">\n' + svgFront + '\n</g>' +
+            '<g id="back" transform="translate(0, ' + ch + ')">\n' + svgBack + '\n</g>' +
+            '</svg>';
+        var blob = new Blob([svgCombined], { type: 'image/svg+xml', encoding: 'UTF-8' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'goprint_design_' + timestamp + '.svg';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        var jsonData = {
+            front: sideData.front,
+            back: sideData.back,
+            exported_at: new Date().toISOString(),
+            format: 'svg',
+            canvas_width: cw,
+            canvas_height: ch
+        };
+        var jsonBlob = new Blob([JSON.stringify(jsonData, null, 2)], { type: 'application/json' });
+        var jsonUrl = URL.createObjectURL(jsonBlob);
+        var jsonA = document.createElement('a');
+        jsonA.href = jsonUrl;
+        jsonA.download = 'goprint_design_' + timestamp + '.json';
+        document.body.appendChild(jsonA);
+        jsonA.click();
+        document.body.removeChild(jsonA);
+        URL.revokeObjectURL(jsonUrl);
+    } else {
+        var blob = new Blob([svgFront], { type: 'image/svg+xml', encoding: 'UTF-8' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'goprint_design_front_' + timestamp + '.svg';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+    document.getElementById('designStatus').textContent = '已保存';
+    document.getElementById('designStatus').style.color = '#2ecc71';
+    isDirty = false;
+    setTimeout(function() {
+        document.getElementById('designStatus').textContent = '未保存';
+        document.getElementById('designStatus').style.color = '#e74c3c';
+    }, 2000);
+}
+
+function dataURLToBlob(dataURL) {
+    var parts = dataURL.split(',');
+    var mime = parts[0].match(/:(.*?);/)[1];
+    var bstr = atob(parts[1]);
+    var n = bstr.length;
+    var u8arr = new Uint8Array(n);
+    while (n--) { u8arr[n] = bstr.charCodeAt(n); }
+    return new Blob([u8arr], { type: mime });
 }
 
 function orderDesign() {
     saveCurrentSideData();
-    const designData = {
+    var designData = {
         front: sideData.front,
-        back: sideData.back
+        back: sideData.back,
+        saved_at: new Date().toISOString()
     };
-    const productId = document.getElementById('productId').value;
-    const csrfToken = document.querySelector('meta[name="csrf-token"]');
-    if (!csrfToken) { alert('CSRF token missing, please refresh the page'); return; }
-    const formData = new FormData();
+
+    var token = 'design_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+
+    try {
+        sessionStorage.setItem(token, JSON.stringify(designData));
+    } catch(e) {
+        try {
+            localStorage.setItem(token, JSON.stringify(designData));
+        } catch(e2) {
+            alert('存储空间不足，请先保存设计文件');
+            return;
+        }
+    }
+
+    var svgFront = canvas.toSVG();
+    var hasBack = sideData.back && sideData.back.objects && sideData.back.objects.length > 0;
+
+    if (hasBack) {
+        isRestoring = true;
+        var savedFront = JSON.stringify(sideData.front);
+        canvas.loadFromJSON(sideData.back, function() {
+            var svgBack = canvas.toSVG();
+            canvas.loadFromJSON(JSON.parse(savedFront), function() {
+                orderWithSVG(svgFront, svgBack, token, designData);
+                isRestoring = false;
+            });
+        });
+    } else {
+        orderWithSVG(svgFront, null, token, designData);
+    }
+}
+
+function orderWithSVG(svgFront, svgBack, token, designData) {
+    var productId = document.getElementById('productId').value;
+    var redirectUrl = '/designer/order/' + encodeURIComponent(token);
+
+    var csrfMeta = document.querySelector('meta[name="csrf-token"]');
+    var csrfToken = csrfMeta ? csrfMeta.content : '';
+    var formData = new FormData();
     formData.append('design_data', JSON.stringify(designData));
     formData.append('product_id', productId);
+    formData.append('design_token', token);
+
     fetch('/designer/export', {
         method: 'POST',
-        headers: { 'X-CSRF-TOKEN': csrfToken.content },
+        headers: { 'X-CSRF-TOKEN': csrfToken, 'Accept': 'application/json' },
         body: formData
     })
     .then(function(r) { return r.json(); })
     .then(function(data) {
-        if (data.success) {
-            alert('设计已保存，正在跳转到下单页面...');
-            window.location.href = '/order/create';
-        } else {
-            alert('保存失败：' + (data.message || '未知错误'));
-        }
+        window.location.href = redirectUrl;
     })
     .catch(function(err) {
-        console.error('Save error:', err);
-        alert('保存失败，请检查网络连接后重试');
+        console.warn('Server save failed, continuing with local storage:', err);
+        window.location.href = redirectUrl;
     });
+}
+
+function initStyleButtons() {
+    document.querySelectorAll('.style-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var obj = canvas.getActiveObject();
+            if (!obj || !['textbox', 'i-text', 'text'].includes(obj.type)) return;
+
+            var style = this.dataset.style;
+            switch(style) {
+                case 'bold':
+                    var currentWeight = obj.fontWeight;
+                    if (currentWeight === 'bold') {
+                        obj.set('fontWeight', 'normal');
+                        this.classList.remove('active');
+                    } else {
+                        obj.set('fontWeight', 'bold');
+                        this.classList.add('active');
+                    }
+                    break;
+                case 'italic':
+                    var currentStyle = obj.fontStyle;
+                    if (currentStyle === 'italic') {
+                        obj.set('fontStyle', 'normal');
+                        this.classList.remove('active');
+                    } else {
+                        obj.set('fontStyle', 'italic');
+                        this.classList.add('active');
+                    }
+                    break;
+                case 'underline':
+                    if (obj.underline) {
+                        obj.set('underline', false);
+                        this.classList.remove('active');
+                    } else {
+                        obj.set('underline', true);
+                        this.classList.add('active');
+                    }
+                    break;
+            }
+            canvas.renderAll();
+            saveState();
+        });
+    });
+}
+
+function initTemplateSearch() {
+    var searchInput = document.getElementById('templateSearch');
+    if (!searchInput) return;
+
+    searchInput.addEventListener('input', function() {
+        var query = this.value.toLowerCase().trim();
+        var categories = document.querySelectorAll('.template-category');
+        var foundAny = false;
+
+        categories.forEach(function(category) {
+            var items = category.querySelectorAll('.template-item');
+            var categoryVisible = false;
+
+            items.forEach(function(item) {
+                var name = (item.querySelector('.template-name') || item.querySelector('span')).textContent.toLowerCase();
+                var categoryName = category.querySelector('.template-category-title').textContent.toLowerCase();
+
+                if (!query || name.indexOf(query) !== -1 || categoryName.indexOf(query) !== -1) {
+                    item.style.display = '';
+                    categoryVisible = true;
+                    foundAny = true;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            category.style.display = categoryVisible ? '' : 'none';
+        });
+
+        var emptyMsg = document.getElementById('templateEmpty');
+        if (emptyMsg) {
+            emptyMsg.style.display = foundAny ? 'none' : 'block';
+        }
+    });
+}
+
+function initSizePresets() {
+    var presetButtons = document.querySelectorAll('.size-preset-btn');
+    presetButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            presetButtons.forEach(function(b) { b.classList.remove('active'); });
+            this.classList.add('active');
+
+            var width = parseFloat(this.dataset.width);
+            var height = parseFloat(this.dataset.height);
+            var name = this.dataset.name;
+            var bg = this.dataset.bg || '#ffffff';
+
+            if (!width || !height) return;
+
+            if (isDirty) {
+                if (!confirm('切换尺寸将清除当前设计，是否继续？')) return;
+            }
+
+            var mmToPx = 3.78;
+            var targetWidth = Math.round(width * mmToPx);
+            var targetHeight = Math.round(height * mmToPx);
+
+            canvas.clear();
+            canvas.setBackgroundColor(bg, function() { canvas.renderAll(); });
+            canvas.setDimensions({ width: targetWidth, height: targetHeight });
+
+            var canvasArea = document.querySelector('.canvas-area');
+            var availableWidth = canvasArea.clientWidth - 30;
+            var availableHeight = canvasArea.clientHeight - 80;
+
+            var displayScale = 1;
+            if (targetWidth > availableWidth || targetHeight > availableHeight) {
+                displayScale = Math.min(availableWidth / targetWidth, availableHeight / targetHeight);
+            }
+
+            zoom = displayScale;
+            updateZoom();
+
+            document.getElementById('canvasSize').textContent = width + 'mm x ' + height + 'mm';
+            document.getElementById('designStatus').textContent = '未保存';
+            isDirty = false;
+            historyStack = [];
+            historyIndex = -1;
+
+            addDefaultContent();
+            canvas.renderAll();
+            saveState();
+            saveCurrentSideData();
+        });
+    });
+}
+
+function initUploadPanel() {
+    var uploadZone = document.getElementById('uploadZone');
+    var uploadInput = document.getElementById('uploadInput');
+    if (!uploadZone || !uploadInput) return;
+
+    uploadZone.addEventListener('click', function() {
+        uploadInput.click();
+    });
+
+    uploadInput.addEventListener('change', function(e) {
+        if (e.target.files && e.target.files.length > 0) {
+            Array.from(e.target.files).forEach(function(file) {
+                handleUploadedFile(file);
+            });
+            uploadInput.value = '';
+        }
+    });
+
+    uploadZone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        this.classList.add('drag-over');
+    });
+
+    uploadZone.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        this.classList.remove('drag-over');
+    });
+
+    uploadZone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        this.classList.remove('drag-over');
+        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+            Array.from(e.dataTransfer.files).forEach(function(file) {
+                handleUploadedFile(file);
+            });
+        }
+    });
+}
+
+function handleUploadedFile(file) {
+    if (!file.type.match(/^image\//)) return;
+
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        var dataUrl = e.target.result;
+
+        uploadedImages.push({
+            name: file.name,
+            dataUrl: dataUrl,
+            id: 'upload_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5)
+        });
+
+        updateUploadPreview();
+        addImageToCanvas(dataUrl);
+    };
+    reader.readAsDataURL(file);
+}
+
+function updateUploadPreview() {
+    var previewList = document.getElementById('uploadPreviewList');
+    if (!previewList) return;
+
+    previewList.innerHTML = '';
+
+    uploadedImages.forEach(function(img, index) {
+        var item = document.createElement('div');
+        item.className = 'upload-preview-item';
+        item.title = img.name;
+
+        var thumb = document.createElement('img');
+        thumb.src = img.dataUrl;
+
+        var removeBtn = document.createElement('button');
+        removeBtn.className = 'remove-btn';
+        removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+        removeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            uploadedImages.splice(index, 1);
+            updateUploadPreview();
+        });
+
+        item.appendChild(thumb);
+        item.appendChild(removeBtn);
+
+        item.addEventListener('click', function() {
+            addImageToCanvas(img.dataUrl);
+        });
+
+        previewList.appendChild(item);
+    });
+}
+
+function addImageToCanvas(dataUrl) {
+    fabric.Image.fromURL(dataUrl, function(img) {
+        if (img.width > 300) img.scaleToWidth(300);
+        if (img.height > 300) img.scaleToHeight(300);
+
+        var cx = canvas.width / 2;
+        var cy = canvas.height / 2;
+
+        img.set({
+            left: cx - img.getScaledWidth() / 2,
+            top: cy - img.getScaledHeight() / 2
+        });
+
+        canvas.add(img);
+        canvas.setActiveObject(img);
+        canvas.renderAll();
+    });
+}
+
+function updateSelectedTextStyle(obj) {
+    if (!obj || !['textbox', 'i-text', 'text'].includes(obj.type)) return;
+
+    document.querySelectorAll('.style-btn').forEach(function(btn) {
+        btn.classList.remove('active');
+    });
+
+    if (obj.fontWeight === 'bold') {
+        var boldBtn = document.querySelector('.style-btn[data-style="bold"]');
+        if (boldBtn) boldBtn.classList.add('active');
+    }
+    if (obj.fontStyle === 'italic') {
+        var italicBtn = document.querySelector('.style-btn[data-style="italic"]');
+        if (italicBtn) italicBtn.classList.add('active');
+    }
+    if (obj.underline) {
+        var underlineBtn = document.querySelector('.style-btn[data-style="underline"]');
+        if (underlineBtn) underlineBtn.classList.add('active');
+    }
 }
 
 document.addEventListener('keydown', function(e) {
@@ -1154,3 +1713,9 @@ document.addEventListener('keydown', function(e) {
         }
     }
 });
+
+window.saveDesign = saveDesign;
+window.orderDesign = orderDesign;
+window.previewDesign = previewDesign;
+
+})();

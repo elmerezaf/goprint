@@ -42,7 +42,7 @@
                                         @case(11) <i class="fas fa-bolt"></i> @break
                                         @default <i class="fas fa-print"></i>
                                     @endswitch
-                                    {{ $cat->cat_name }}
+                                    {{ $cat->localized_name }}
                                 </a>
                             </li>
                         @endforeach
@@ -55,7 +55,7 @@
                     @php $currentCat = \App\Models\Category::find($selectedCategory); @endphp
                     @if($currentCat)
                         <div class="alert alert-light border mb-4">
-                            <strong>{{ $currentCat->cat_name }}</strong> — {{ $currentCat->cat_desc }}
+                            <strong>{{ $currentCat->localized_name }}</strong> — {{ $currentCat->localized_desc }}
                         </div>
                     @endif
                 @endif
@@ -66,22 +66,23 @@
                             <div class="product-center-card">
                                 <div class="card-img-wrap">
                                     @if($product->pro_image)
-                                        <img src="{{ asset('storage/' . $product->pro_image) }}" alt="{{ $product->pro_name }}" class="product-card-image">
+                                        <img src="{{ asset('storage/' . $product->pro_image) }}" alt="{{ $product->localized_name }}" class="product-card-image">
                                     @else
                                         <i class="fas fa-print"></i>
                                     @endif
                                 </div>
                                 <div class="card-body">
-                                    <h5>{{ $product->pro_name }}</h5>
-                                    <p class="card-desc">{{ \Illuminate\Support\Str::limit($product->pro_desc, 60) }}</p>
+                                    <h5>{{ $product->localized_name }}</h5>
+                                    <p class="card-desc">{{ \Illuminate\Support\Str::limit($product->localized_desc, 60) }}</p>
                                     @if($product->category)
-                                        <p class="text-muted small mb-2"><i class="fas fa-folder me-1"></i>{{ $product->category->cat_name }}</p>
+                                        <p class="text-muted small mb-2"><i class="fas fa-folder me-1"></i>{{ $product->category->localized_name }}</p>
                                     @endif
-                                    <div class="card-price">{{ __('messages.price_from') }} HK${{ number_format($product->pro_price, 0) }}</div>
+                                    <div class="card-price">HK${{ number_format($product->pro_price, 0) }}</div>
                                     <div class="card-actions">
                                         <a href="{{ route('products.show', $product->pro_id) }}" class="btn btn-outline-primary btn-sm">{{ __('messages.view_details') }}</a>
-                                        <form action="{{ route('cart.add', $product->pro_id) }}" method="POST" style="flex:1;">
+                                        <form action="{{ route('cart.add') }}" method="POST" style="flex:1;">
                                             @csrf
+                                            <input type="hidden" name="product_id" value="{{ $product->pro_id }}">
                                             <input type="hidden" name="quantity" value="1">
                                             <button type="submit" class="btn btn-primary btn-sm w-100">{{ __('messages.add_to_cart') }}</button>
                                         </form>
@@ -94,7 +95,7 @@
                             <div class="text-center py-5">
                                 <i class="fas fa-box-open fa-4x text-muted mb-3"></i>
                                 <h4 class="text-muted">{{ __('messages.no_records') }}</h4>
-                                <p class="text-muted">此分類暫無產品，請瀏覽其他分類</p>
+                                <p class="text-muted">{{ __('messages.no_products_category') }}</p>
                             </div>
                         </div>
                     @endforelse

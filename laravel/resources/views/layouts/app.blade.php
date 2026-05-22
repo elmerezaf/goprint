@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="GoPrint 香港專業印刷服務 — 名片、傳單、海報、貼紙、書刊、利是封、企業禮品等一站式印刷方案。">
+    <meta name="description" content="{{ __('messages.meta_description') }}">
     <title>@yield('title') | GoPrint</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -511,7 +511,7 @@
                         <i class="fab fa-whatsapp"></i> 6098 7508
                     </a>
                     <span class="service-hours d-none d-md-inline ms-3">
-                        <i class="far fa-clock me-1"></i>星期一至五 09:00-18:00 | 星期六 09:00-13:00
+                        <i class="far fa-clock me-1"></i>{{ __('messages.footer_weekday') }} 09:00-18:00 | {{ __('messages.footer_saturday') }} 09:00-13:00
                     </span>
                 </div>
                 <div class="top-bar-right d-flex align-items-center">
@@ -565,7 +565,7 @@
                 <div class="navbar-nav d-md-none mobile-menu-actions">
                     <div class="nav-item"><a class="nav-link" href="{{ route('login') }}"><i class="fas fa-sign-in-alt me-2"></i>{{ __('messages.login') }}</a></div>
                     <div class="nav-item"><a class="nav-link" href="{{ route('register') }}"><i class="fas fa-user-plus me-2"></i>{{ __('messages.register') }}</a></div>
-                    <div class="nav-item"><a class="nav-link" href="{{ route('products.index') }}"><i class="fas fa-search me-2"></i>搜索</a></div>
+                    <div class="nav-item"><a class="nav-link" href="{{ route('products.index') }}"><i class="fas fa-search me-2"></i>{{ __('messages.search') }}</a></div>
                 </div>
 
                 <div class="d-flex align-items-center gap-3 mt-3 mt-md-0">
@@ -579,7 +579,6 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{ route('setlocale', 'zh-HK') }}">{{ __('messages.chinese_traditional') }}</a></li>
-                            <li><a class="dropdown-item" href="{{ route('setlocale', 'zh-CN') }}">{{ __('messages.chinese_simplified') }}</a></li>
                             <li><a class="dropdown-item" href="{{ route('setlocale', 'en') }}">{{ __('messages.english') }}</a></li>
                         </ul>
                     </div>
@@ -629,8 +628,8 @@
                         <p class="mb-1"><i class="fab fa-whatsapp me-2"></i>WhatsApp: (852) 6098 7508</p>
                         <p class="mb-1"><i class="fas fa-envelope me-2"></i>{{ __('messages.email') }}: sales@giftandpremium.com.hk</p>
                         <p class="mb-1"><i class="fas fa-map-marker-alt me-2"></i>{{ __('messages.office_address') }}:</p>
-                        <p class="ms-4 mb-1">香港北角屈臣道4-6號<br>海景大廈B座605室</p>
-                        <p class="mb-1"><i class="fas fa-subway me-2"></i>炮台山站A出口（步行5分鐘）</p>
+                        <p class="ms-4 mb-1">{!! __('messages.footer_address_line1') !!}<br>{!! __('messages.footer_address_line2') !!}</p>
+                        <p class="mb-1"><i class="fas fa-subway me-2"></i>{!! __('messages.footer_mtr_info') !!}</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
@@ -647,9 +646,9 @@
                 <div class="col-lg-4 col-md-12">
                     <h5 class="mb-3">{{ __('messages.office_hours_label') }}</h5>
                     <div class="footer-hours">
-                        <p class="mb-1">星期一至五：09:00 - 18:00</p>
-                        <p class="mb-1">星期六：09:00 - 13:00</p>
-                        <p class="mb-2">星期日及公眾假期：休息</p>
+                        <p class="mb-1">{{ __('messages.footer_weekday') }}：09:00 - 18:00</p>
+                        <p class="mb-1">{{ __('messages.footer_saturday') }}：09:00 - 13:00</p>
+                        <p class="mb-2">{{ __('messages.footer_sunday_holiday') }}：{{ __('messages.footer_closed') }}</p>
                         <p class="mt-3" style="font-size:0.85rem; color:rgba(255,255,255,0.5);">{{ __('messages.visit_by_appointment') }}</p>
                     </div>
                 </div>
@@ -662,9 +661,10 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    @yield('scripts')
 
     <!-- WhatsApp Floating Button -->
-    <a href="https://api.whatsapp.com/send?phone=85260987508&text=您好！我想查詢印刷服務。"
+    <a href="https://api.whatsapp.com/send?phone=85260987508&text={{ urlencode(__('messages.whatsapp_default_message')) }}"
        class="whatsapp-float"
        target="_blank" rel="noopener noreferrer">
         <i class="fab fa-whatsapp"></i>

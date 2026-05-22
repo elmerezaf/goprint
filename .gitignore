@@ -2,3 +2,39 @@
 *.lock
 .DS_Store
 Thumbs.db
+
+# Laravel
+laravel/vendor/
+laravel/.env
+laravel/storage/framework/
+laravel/storage/logs/
+laravel/public/storage/
+laravel/bootstrap/cache/*.php
+laravel/node_modules/
+laravel/.idea/
+laravel/.vscode/
+laravel/build/
+laravel/dist/
+laravel/npm-debug.log
+
+# WordPress
+wordpress/wp-config.php
+wordpress/wp-content/uploads/
+wordpress/wp-content/upgrade/
+wordpress/wp-content/cache/
+
+# NextJS
+laravel/nextjs/.next/
+laravel/nextjs/out/
+laravel/nextjs/node_modules/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+*.tmp
+*.bak

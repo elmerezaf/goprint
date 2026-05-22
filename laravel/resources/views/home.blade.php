@@ -40,43 +40,43 @@
         <div class="design-tools-grid">
             <a href="{{ route('products.index') }}?category=1" class="design-tool-card">
                 <div class="tool-icon"><i class="fas fa-id-card"></i></div>
-                <span>名片</span>
+                <span>{{ __('messages.business_cards') }}</span>
             </a>
             <a href="{{ route('products.index') }}?category=2" class="design-tool-card">
                 <div class="tool-icon"><i class="fas fa-file-alt"></i></div>
-                <span>宣傳單</span>
+                <span>{{ __('messages.flyers') }}</span>
             </a>
             <a href="{{ route('products.index') }}?category=4" class="design-tool-card">
                 <div class="tool-icon"><i class="fas fa-image"></i></div>
-                <span>海報</span>
+                <span>{{ __('messages.posters') }}</span>
             </a>
             <a href="{{ route('products.index') }}?category=7" class="design-tool-card">
                 <div class="tool-icon"><i class="fas fa-envelope-open-text"></i></div>
-                <span>邀請函</span>
+                <span>{{ __('messages.invitations') }}</span>
             </a>
             <a href="{{ route('products.index') }}?category=2" class="design-tool-card">
                 <div class="tool-icon"><i class="fas fa-ticket-alt"></i></div>
-                <span>優惠券</span>
+                <span>{{ __('messages.coupons') }}</span>
             </a>
             <a href="{{ route('products.index') }}?category=7" class="design-tool-card">
                 <div class="tool-icon"><i class="fas fa-utensils"></i></div>
-                <span>餐牌</span>
+                <span>{{ __('messages.menus') }}</span>
             </a>
             <a href="{{ route('products.index') }}?category=11" class="design-tool-card">
                 <div class="tool-icon"><i class="fas fa-mobile-alt"></i></div>
-                <span>社交媒體</span>
+                <span>{{ __('messages.social_media') }}</span>
             </a>
             <a href="{{ route('products.index') }}?category=7" class="design-tool-card">
                 <div class="tool-icon"><i class="fas fa-envelope"></i></div>
-                <span>賀卡</span>
+                <span>{{ __('messages.greeting_cards') }}</span>
             </a>
             <a href="{{ route('products.index') }}?category=5" class="design-tool-card">
                 <div class="tool-icon"><i class="fas fa-tag"></i></div>
-                <span>標籤</span>
+                <span>{{ __('messages.labels') }}</span>
             </a>
         </div>
         <div class="design-tools-cta">
-            <a href="{{ route('products.index') }}" class="btn btn-primary">瀏覽所有產品</a>
+            <a href="{{ route('products.index') }}" class="btn btn-primary">{{ __('messages.view_all_products') }}</a>
         </div>
     </div>
 </section>
@@ -95,7 +95,7 @@
                     <ul>
                         <li><a href="{{ route('products.index') }}" class="{{ !request('category') ? 'active' : '' }}"><i class="fas fa-th-large"></i>{{ __('messages.all_categories') }}</a></li>
                         @foreach($categories as $cat)
-                        <li><a href="{{ route('products.index') }}?category={{ $cat->cat_id }}" class="{{ request('category') == $cat->cat_id ? 'active' : '' }}"><i class="fas fa-angle-right"></i>{{ $cat->cat_name }}</a></li>
+                        <li><a href="{{ route('products.index') }}?category={{ $cat->cat_id }}" class="{{ request('category') == $cat->cat_id ? 'active' : '' }}"><i class="fas fa-angle-right"></i>{{ $cat->localized_name }}</a></li>
                         @endforeach
                     </ul>
                 </div>
@@ -107,7 +107,7 @@
                         <div class="product-center-card">
                             <div class="card-img-wrap">
                                 @if($product->pro_image)
-                                    <img src="{{ asset('storage/' . $product->pro_image) }}" alt="{{ $product->pro_name }}" class="product-card-image">
+                                    <img src="{{ asset('storage/' . $product->pro_image) }}" alt="{{ $product->localized_name }}" class="product-card-image">
                                 @else
                                     <div style="background: linear-gradient(135deg, {{ '#' . substr(md5($product->pro_name), 0, 6) }}, {{ '#' . substr(md5($product->pro_id), 0, 6) }}); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
                                         <i class="fas fa-print"></i>
@@ -120,8 +120,8 @@
                                 @endif
                             </div>
                             <div class="card-body">
-                                <h5>{{ $product->pro_name }}</h5>
-                                <p class="card-desc">{{ Str::limit($product->pro_desc, 50) }}</p>
+                                <h5>{{ $product->localized_name }}</h5>
+                                <p class="card-desc">{{ Str::limit($product->localized_desc, 50) }}</p>
                                 <div class="card-price">${{ number_format($product->pro_price, 2) }}</div>
                                 <div class="card-actions">
                                     <a href="{{ route('products.show', $product->pro_id) }}" class="btn btn-outline-primary">{{ __('messages.view_details') }}</a>
@@ -156,14 +156,14 @@
                 <div class="product-card">
                     <div class="product-image">
                         @if($product->pro_image)
-                            <img src="{{ asset('storage/' . $product->pro_image) }}" alt="{{ $product->pro_name }}" class="product-card-image">
+                            <img src="{{ asset('storage/' . $product->pro_image) }}" alt="{{ $product->localized_name }}" class="product-card-image">
                         @else
                             <i class="fas fa-print"></i>
                         @endif
                     </div>
                     <div class="product-content">
-                        <h3 class="product-title">{{ $product->pro_name }}</h3>
-                        <p class="product-desc">{{ Str::limit($product->pro_desc, 60) }}</p>
+                        <h3 class="product-title">{{ $product->localized_name }}</h3>
+                        <p class="product-desc">{{ Str::limit($product->localized_desc, 60) }}</p>
                         <div class="product-meta">
                             <span class="product-delivery">
                                 <i class="fas fa-truck"></i> {{ __('messages.fast_delivery') }}
